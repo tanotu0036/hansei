@@ -266,12 +266,12 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 <script>
 var GAS = 'https://script.google.com/macros/s/AKfycbxcoORrvnJMx2yL_Nsp8GP0NaYwNqo9HMmWaJ1qB-4xo7fMvdyAVoYcW35DwcRfi1b9qQ/exec';
 var GARDENS = {
-  'たの津': ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
   '西新':   ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
   '原':     ['0歳児クラス','1歳児クラス','2歳児クラス'],
+  'たの津': ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
   'ちくし野':['0歳児クラス','1歳児クラス','2歳児クラス'],
 };
-var YEARS = ['2023年度','2024年度','2025年度','2026年度'];
+var now=new Date(); var nowY=now.getFullYear(); var nowM=now.getMonth()+1; var baseY=nowM>=4?nowY:nowY-1; var YEARS=[]; for(var yi=baseY;yi<=baseY+9;yi++){ YEARS.push(yi+'年度'); }
 
 var currentGarden='', currentYear='', currentClasses=[];
 var events=[], currentEvent='', currentFilter='all', currentTab='input', allEntries=[];
