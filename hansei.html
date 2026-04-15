@@ -58,12 +58,13 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .cls-progress-card{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
 .cls-progress-title{font-size:12px;font-weight:600;color:#8e8e93;margin-bottom:10px;}
 .cls-progress-list{display:flex;flex-wrap:wrap;gap:8px;}
-.cls-progress-item{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:20px;font-size:13px;font-weight:500;}
+.cls-progress-item{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:20px;font-size:13px;font-weight:500;position:relative;}
 .cls-progress-item.done{background:#d1fae5;color:#065f46;}
 .cls-progress-item.notdone{background:#f2f2f7;color:#8e8e93;}
 .cls-progress-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
 .cls-progress-item.done .cls-progress-dot{background:#34c759;}
 .cls-progress-item.notdone .cls-progress-dot{background:#c7c7cc;}
+.edit-entry-btn{font-size:11px;padding:3px 8px;border:1px solid #34c759;border-radius:8px;background:transparent;color:#065f46;cursor:pointer;margin-left:4px;white-space:nowrap;}
 .entry{background:#fff;border-radius:12px;padding:13px 16px;margin-bottom:10px;}
 .entry-cls{display:inline-block;font-size:12px;padding:2px 8px;border-radius:8px;background:#e8f0fe;color:#1a56db;margin-bottom:6px;}
 .entry-txt{font-size:15px;line-height:1.6;white-space:pre-wrap;}
@@ -96,6 +97,8 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .context-info{font-size:13px;color:#8e8e93;}
 .context-info span{color:#1c1c1e;font-weight:600;}
 .logout-btn{font-size:13px;cursor:pointer;background:none;border:none;padding:4px 8px;}
+/* 編集モード */
+.edit-mode-banner{background:#fff3cd;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#856404;text-align:center;}
 </style>
 </head>
 <body>
@@ -182,6 +185,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
       <div class="cls-progress-title">提出状況</div>
       <div class="cls-progress-list" id="input-cls-progress"></div>
     </div>
+    <div id="edit-mode-banner" class="edit-mode-banner" style="display:none;">編集モード：内容を修正して「更新する」を押してください</div>
     <div class="form-group">
       <div class="form-row">
         <div class="form-label">記入者クラス（複数選択可）</div>
@@ -193,6 +197,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
       </div>
     </div>
     <button class="btn-p" id="submit-btn">送信する</button>
+    <button class="btn-danger" id="delete-entry-btn" style="display:none;">この反省を削除する</button>
     <button class="btn-s" id="cancel-btn">キャンセル</button>
     <p class="err" id="input-err"></p>
   </div>
@@ -242,8 +247,8 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 <div id="s-success" class="screen">
   <div class="success-wrap">
     <div class="success-icon">✅</div>
-    <div class="success-title">送信しました</div>
-    <div class="success-sub">スプレッドシートに保存されました</div>
+    <div class="success-title" id="success-title">送信しました</div>
+    <div class="success-sub" id="success-sub">スプレッドシートに保存されました</div>
     <button class="btn-p" id="back-success">行事一覧に戻る</button>
   </div>
 </div>
@@ -278,6 +283,7 @@ var GARDENS={
 var currentGarden='',currentYear='',currentClasses=[];
 var events=[],currentEvent=null,currentFilter='all',currentTab='input',allEntries=[];
 var editingIndex=-1,selectedClasses=[],newEvSelectedClasses=[],editSelectedClasses=[];
+var editingEntry=null; // 編集中の反省エントリ {rowNum, event, cls, text}
 
 function $(i){return document.getElementById(i);}
 function showScreen(i){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});$(i).classList.add('active');window.scrollTo(0,0);}
@@ -322,7 +328,7 @@ function showYearSelect(){
       btn.classList.add('active');
       currentYear=y;
       sessionStorage.setItem('hf_garden',currentGarden);
-      sessionStorage.setItem('hf_year',y); sessionStorage.setItem('hf_tab','input');
+      sessionStorage.setItem('hf_year',y);
       enterApp();
     });
     btns.appendChild(btn);
@@ -367,7 +373,7 @@ function buildClsChips(){
     el.appendChild(chip);
   });
 }
-function resetClsChips(){selectedClasses=[];document.querySelectorAll('#cls-chips .cls-chip').forEach(function(c){c.classList.remove('selected');});}
+function resetClsChips(){selectedClasses=[];document.querySelectorAll('#cls-chips .cls-chip').forEach(function(c){c.classList.remove('selected');c.style.display='';}); }
 function updateClsChipsDone(ev){
   var done=getDoneClasses(ev.name);
   document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
@@ -375,6 +381,13 @@ function updateClsChipsDone(ev){
     var target=ev.classes||[];
     if(target.indexOf(cls)<0){chip.style.display='none';}
     else{chip.style.display='';if(done[cls])chip.classList.add('done');else chip.classList.remove('done');}
+  });
+}
+function setClsChipsSelected(clsList){
+  document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
+    var cls=chip.getAttribute('data-cls');
+    if(clsList.indexOf(cls)>=0){chip.classList.add('selected');if(selectedClasses.indexOf(cls)<0) selectedClasses.push(cls);}
+    else{chip.classList.remove('selected');}
   });
 }
 
@@ -416,7 +429,7 @@ function buildEditClsChips(targetClasses){
 
 $('back-to-login').addEventListener('click',function(){currentGarden='';currentYear='';showScreen('s-login');});
 $('logout-btn').addEventListener('click',function(){
-  sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');
+  sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');sessionStorage.removeItem('hf_tab');
   currentGarden='';currentYear='';currentClasses=[];events=[];allEntries=[];
   $('login-garden').value='';$('login-pw').value='';
   showScreen('s-login');
@@ -427,7 +440,10 @@ $('change-year-btn').addEventListener('click',showYearSelect);
 function loadAllEntries(){
   api({action:'read'}).then(function(data){
     var rows=data.rows||[];
-    allEntries=rows.slice(1).map(function(r){return{event:r[1],cls:r[2],text:r[3]};}).filter(function(r){return r.event;});
+    // rowNum付きで保存
+    allEntries=rows.filter(function(r){return r.rowNum>1&&r.data&&r.data[1];}).map(function(r){
+      return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3]};
+    });
     api({action:'getEvents'}).then(function(d){
       events=(d.events||[]).map(function(e){
         if(typeof e==='string') return{name:e,classes:currentClasses.slice()};
@@ -446,6 +462,19 @@ function getDoneClasses(evName){
   });
   return done;
 }
+
+// 特定クラスの最新エントリを取得
+function getEntryForClass(evName,cls){
+  var found=null;
+  allEntries.forEach(function(e){
+    if(e.event===evName){
+      var clsList=e.cls?e.cls.split('・').map(function(c){return c.trim();}):[];
+      if(clsList.indexOf(cls)>=0) found=e;
+    }
+  });
+  return found;
+}
+
 function getEventClasses(ev){return(ev&&ev.classes&&ev.classes.length)?ev.classes:currentClasses;}
 
 function getProgressBadge(ev){
@@ -458,7 +487,7 @@ function getProgressBadge(ev){
   return '<span class="progress-badge badge-partial">'+cnt+'/'+total+'クラス</span>';
 }
 
-function renderClsProgress(containerId,ev){
+function renderClsProgress(containerId,ev,showEditBtn){
   var done=getDoneClasses(ev.name);
   var target=getEventClasses(ev);
   var el=$(containerId);el.innerHTML='';
@@ -466,7 +495,20 @@ function renderClsProgress(containerId,ev){
     var isDone=!!done[cls];
     var item=document.createElement('div');
     item.className='cls-progress-item '+(isDone?'done':'notdone');
-    item.innerHTML='<span class="cls-progress-dot"></span>'+cls.replace('クラス','');
+    var label=cls.replace('クラス','');
+    var editBtnHtml='';
+    if(showEditBtn&&isDone){
+      editBtnHtml='<button class="edit-entry-btn" data-cls="'+cls+'">編集</button>';
+    }
+    item.innerHTML='<span class="cls-progress-dot"></span>'+label+editBtnHtml;
+    if(showEditBtn&&isDone){
+      item.querySelector('.edit-entry-btn').addEventListener('click',function(e){
+        e.stopPropagation();
+        var targetCls=this.getAttribute('data-cls');
+        var entry=getEntryForClass(ev.name,targetCls);
+        if(entry) openEditEntry(ev,entry);
+      });
+    }
     el.appendChild(item);
   });
 }
@@ -550,13 +592,35 @@ function renderSumList(){
   });
 }
 
+// ===== 入力画面を開く（新規モード） =====
 function openInput(ev){
+  editingEntry=null;
   currentEvent=ev;$('input-title').textContent=ev.name;
   resetClsChips();$('hansei').value='';$('input-err').textContent='';
-  $('submit-btn').disabled=false;$('submit-btn').textContent='送信する';
-  renderClsProgress('input-cls-progress',ev);
+  $('submit-btn').textContent='送信する';$('submit-btn').disabled=false;
+  $('delete-entry-btn').style.display='none';
+  $('edit-mode-banner').style.display='none';
+  renderClsProgress('input-cls-progress',ev,true);
   updateClsChipsDone(ev);
   showScreen('s-input');
+}
+
+// ===== 入力画面を開く（編集モード） =====
+function openEditEntry(ev,entry){
+  editingEntry=entry;
+  currentEvent=ev;$('input-title').textContent=ev.name;
+  selectedClasses=[];resetClsChips();
+  $('hansei').value=entry.text||'';
+  $('input-err').textContent='';
+  $('submit-btn').textContent='更新する';$('submit-btn').disabled=false;
+  $('delete-entry-btn').style.display='block';
+  $('edit-mode-banner').style.display='block';
+  updateClsChipsDone(ev);
+  // 既存クラスを選択状態にする
+  var clsList=entry.cls?entry.cls.split('・').map(function(c){return c.trim();}):[];
+  setClsChipsSelected(clsList);
+  showScreen('s-input');
+  window.scrollTo(0,0);
 }
 
 function openEntries(ev){
@@ -564,7 +628,7 @@ function openEntries(ev){
   $('entries-title').textContent=ev.name;
   $('entries-list').innerHTML='<p class="empty">読み込み中...</p>';
   $('copy-box').textContent='';
-  renderClsProgress('entries-cls-progress',ev);
+  renderClsProgress('entries-cls-progress',ev,false);
   showScreen('s-entries');loadEntries();
 }
 
@@ -572,9 +636,11 @@ function loadEntries(){
   $('entries-list').innerHTML='<p class="empty">読み込み中...</p>';
   api({action:'read'}).then(function(data){
     var rows=data.rows||[];
-    allEntries=rows.slice(1).map(function(r){return{event:r[1],cls:r[2],text:r[3]};}).filter(function(r){return r.event;});
+    allEntries=rows.filter(function(r){return r.rowNum>1&&r.data&&r.data[1];}).map(function(r){
+      return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3]};
+    });
     renderSumList();renderEvList();
-    renderClsProgress('entries-cls-progress',currentEvent);
+    renderClsProgress('entries-cls-progress',currentEvent,false);
     renderEntries();
   }).catch(function(){$('entries-list').innerHTML='<p class="empty">読み込みに失敗しました。再読み込みしてください。</p>';});
 }
@@ -607,15 +673,42 @@ function renderEntries(){
   $('copy-box').textContent=sorted.map(function(e){return'【'+e.cls+'】\n'+e.text;}).join('\n\n');
 }
 
+// ===== 送信・更新 =====
 function submitHansei(){
   var text=$('hansei').value.trim(),err=$('input-err');
   if(!selectedClasses.length){err.textContent='クラスを選択してください';return;}
   if(!text){err.textContent='反省を入力してください';return;}
-  err.textContent='';$('submit-btn').disabled=true;$('submit-btn').textContent='送信中...';
-  api({action:'write',event:currentEvent.name,cls:selectedClasses.join('・'),text:text}).then(function(){
-    showScreen('s-success');
-  }).catch(function(){err.textContent='送信に失敗しました。もう一度お試しください。';$('submit-btn').disabled=false;$('submit-btn').textContent='送信する';});
+  err.textContent='';$('submit-btn').disabled=true;
+
+  if(editingEntry){
+    // 更新モード
+    $('submit-btn').textContent='更新中...';
+    api({action:'update',rowNum:editingEntry.rowNum,cls:selectedClasses.join('・'),text:text}).then(function(){
+      $('success-title').textContent='更新しました';
+      $('success-sub').textContent='反省内容を更新しました';
+      showScreen('s-success');
+    }).catch(function(){err.textContent='更新に失敗しました。もう一度お試しください。';$('submit-btn').disabled=false;$('submit-btn').textContent='更新する';});
+  } else {
+    // 新規送信モード
+    $('submit-btn').textContent='送信中...';
+    api({action:'write',event:currentEvent.name,cls:selectedClasses.join('・'),text:text}).then(function(){
+      $('success-title').textContent='送信しました';
+      $('success-sub').textContent='スプレッドシートに保存されました';
+      showScreen('s-success');
+    }).catch(function(){err.textContent='送信に失敗しました。もう一度お試しください。';$('submit-btn').disabled=false;$('submit-btn').textContent='送信する';});
+  }
 }
+
+// ===== 削除 =====
+$('delete-entry-btn').addEventListener('click',function(){
+  if(!editingEntry) return;
+  if(!confirm('この反省を削除しますか？')) return;
+  api({action:'delete',rowNum:editingEntry.rowNum}).then(function(){
+    $('success-title').textContent='削除しました';
+    $('success-sub').textContent='反省を削除しました';
+    showScreen('s-success');
+  }).catch(function(){$('input-err').textContent='削除に失敗しました。もう一度お試しください。';});
+});
 
 function addEvent(){
   var name=$('new-ev').value.trim(),err=$('add-err');
@@ -631,7 +724,11 @@ $('t-summary').addEventListener('click',function(){switchTab('summary');});
 $('back-input').addEventListener('click',goHome);
 $('back-entries').addEventListener('click',goHome);
 $('back-add').addEventListener('click',goHome);
-$('back-success').addEventListener('click',goHome);
+$('back-success').addEventListener('click',function(){
+  editingEntry=null;
+  loadAllEntries();
+  goHome();
+});
 $('cancel-btn').addEventListener('click',goHome);
 $('cancel-add-btn').addEventListener('click',goHome);
 $('submit-btn').addEventListener('click',submitHansei);
