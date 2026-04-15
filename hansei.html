@@ -12,7 +12,6 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .screen{display:none;}.screen.active{display:block;}
 .navbar{background:#fff;padding:14px 16px 10px;border-bottom:1px solid #e5e5ea;position:sticky;top:0;z-index:10;}
 .navbar-title{font-size:18px;font-weight:700;margin-bottom:8px;}
-.navbar-sub{font-size:13px;color:#8e8e93;margin-bottom:8px;}
 .seg{display:flex;background:#e5e5ea;border-radius:9px;padding:2px;}
 .seg button{flex:1;padding:8px;border:none;background:transparent;border-radius:7px;font-size:14px;font-weight:500;color:#666;cursor:pointer;}
 .seg button.active{background:#fff;color:#1c1c1e;font-weight:600;}
@@ -43,7 +42,7 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .cls-chip{padding:8px 14px;background:#f2f2f7;border:1.5px solid #e5e5ea;border-radius:20px;font-size:14px;color:#555;cursor:pointer;user-select:none;position:relative;}
 .cls-chip.selected{background:#007AFF;color:#fff;border-color:#007AFF;}
 .cls-chip.done{border-color:#34c759;}
-.cls-chip.done::after{content:'✓';position:absolute;top:-4px;right:-4px;background:#34c759;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;line-height:14px;text-align:center;}
+.cls-chip.done::after{content:'✓';position:absolute;top:-4px;right:-4px;background:#34c759;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;line-height:14px;text-align:center;}
 select{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;padding:4px 0;}
 textarea,input[type=text],input[type=password]{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;}
 textarea{min-height:160px;resize:none;line-height:1.6;}
@@ -78,10 +77,14 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .success-sub{font-size:15px;color:#8e8e93;margin-bottom:32px;}
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;}
 .modal-overlay.active{display:flex;}
-.modal{background:#fff;border-radius:16px;padding:24px 20px;width:90%;max-width:400px;}
+.modal{background:#fff;border-radius:16px;padding:24px 20px;width:92%;max-width:420px;max-height:90vh;overflow-y:auto;}
 .modal-title{font-size:17px;font-weight:700;margin-bottom:16px;text-align:center;}
-.modal input{width:100%;font-size:16px;padding:12px;border:1px solid #e5e5ea;border-radius:10px;outline:none;font-family:inherit;}
+.modal-label{font-size:12px;color:#8e8e93;margin-bottom:8px;margin-top:16px;}
+.modal input[type=text]{width:100%;font-size:16px;padding:12px;border:1px solid #e5e5ea;border-radius:10px;outline:none;font-family:inherit;}
 .modal-btns{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+.modal-cls-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.modal-cls-chip{padding:8px 14px;background:#f2f2f7;border:1.5px solid #e5e5ea;border-radius:20px;font-size:14px;color:#555;cursor:pointer;user-select:none;}
+.modal-cls-chip.selected{background:#007AFF;color:#fff;border-color:#007AFF;}
 .login-wrap{padding:40px 16px;}
 .login-logo{font-size:40px;text-align:center;margin-bottom:8px;}
 .login-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:4px;}
@@ -98,7 +101,6 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 <body>
 <div class="app">
 
-<!-- ログイン画面 -->
 <div id="s-login" class="screen active">
   <div class="content">
     <div class="login-wrap">
@@ -127,7 +129,6 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
-<!-- 年度選択画面 -->
 <div id="s-year" class="screen">
   <div class="content">
     <div class="login-wrap">
@@ -142,11 +143,10 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
-<!-- ホーム画面 -->
 <div id="s-home" class="screen">
   <div class="context-bar">
     <div class="context-info"><span id="ctx-garden"></span>・<span id="ctx-year"></span></div>
-    <div style="display:flex;gap:8px;">
+    <div style="display:flex;gap:4px;">
       <button class="logout-btn" id="change-year-btn" style="color:#007AFF;">年度変更</button>
       <button class="logout-btn" id="logout-btn">ログアウト</button>
     </div>
@@ -172,7 +172,6 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
-<!-- 反省入力画面 -->
 <div id="s-input" class="screen">
   <div class="navbar">
     <div class="back" id="back-input">‹ 行事一覧</div>
@@ -199,7 +198,6 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
-<!-- 反省一覧画面 -->
 <div id="s-entries" class="screen">
   <div class="navbar">
     <div class="back" id="back-entries">‹ 行事一覧</div>
@@ -219,7 +217,6 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
-<!-- 行事追加画面 -->
 <div id="s-add" class="screen">
   <div class="navbar">
     <div class="back" id="back-add">‹ 行事一覧</div>
@@ -231,13 +228,17 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
         <div class="form-label">行事名</div>
         <input type="text" id="new-ev" placeholder="例：運動会、お遊戯会...">
       </div>
+      <div class="form-row">
+        <div class="form-label">対象クラス（複数選択可）</div>
+        <div class="cls-chips" id="new-ev-cls-chips"></div>
+      </div>
     </div>
     <button class="btn-p" id="save-ev-btn">追加する</button>
     <button class="btn-s" id="cancel-add-btn">キャンセル</button>
+    <p class="err" id="add-err"></p>
   </div>
 </div>
 
-<!-- 送信完了画面 -->
 <div id="s-success" class="screen">
   <div class="success-wrap">
     <div class="success-icon">✅</div>
@@ -252,8 +253,11 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 <!-- 編集モーダル -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
-    <div class="modal-title">行事名を編集</div>
+    <div class="modal-title">行事を編集</div>
+    <div class="modal-label">行事名</div>
     <input type="text" id="edit-ev-input" placeholder="行事名">
+    <div class="modal-label">対象クラス（複数選択可）</div>
+    <div class="modal-cls-chips" id="edit-cls-chips"></div>
     <div class="modal-btns">
       <button class="btn-p" id="edit-save-btn">保存する</button>
       <button class="btn-danger" id="edit-delete-btn">削除する</button>
@@ -266,25 +270,24 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 <script>
 var GAS = 'https://script.google.com/macros/s/AKfycbxcoORrvnJMx2yL_Nsp8GP0NaYwNqo9HMmWaJ1qB-4xo7fMvdyAVoYcW35DwcRfi1b9qQ/exec';
 var GARDENS = {
-  '西新':   ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
-  '原':     ['0歳児クラス','1歳児クラス','2歳児クラス'],
-  'たの津': ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
+  '西新':    ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
+  '原':      ['0歳児クラス','1歳児クラス','2歳児クラス'],
+  'たの津':  ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
   'ちくし野':['0歳児クラス','1歳児クラス','2歳児クラス'],
 };
-var now=new Date(); var nowY=now.getFullYear(); var nowM=now.getMonth()+1; var baseY=nowM>=4?nowY:nowY-1; var YEARS=[]; for(var yi=baseY;yi<=baseY+9;yi++){ YEARS.push(yi+'年度'); }
 
 var currentGarden='', currentYear='', currentClasses=[];
-var events=[], currentEvent='', currentFilter='all', currentTab='input', allEntries=[];
-var editingIndex=-1, selectedClasses=[];
+var events=[], currentEvent=null, currentFilter='all', currentTab='input', allEntries=[];
+var editingIndex=-1, selectedClasses=[], newEvSelectedClasses=[], editSelectedClasses=[];
 
 function $(i){ return document.getElementById(i); }
 function showScreen(i){ document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); }); $(i).classList.add('active'); window.scrollTo(0,0); }
 function showToast(m){ var t=$('toast'); t.textContent=m||'コピーしました'; t.style.display='block'; setTimeout(function(){ t.style.display='none'; },2000); }
 
 function api(params){
-  params.pw = 'kodomo5848';
-  if(currentGarden) params.garden = currentGarden;
-  if(currentYear) params.year = currentYear;
+  params.pw='kodomo5848';
+  if(currentGarden) params.garden=currentGarden;
+  if(currentYear) params.year=currentYear;
   var url=GAS+'?'+new URLSearchParams(params).toString();
   return fetch(url,{method:'GET',redirect:'follow',mode:'cors'})
     .then(function(r){ return r.text(); })
@@ -292,15 +295,13 @@ function api(params){
 }
 function saveEvents(){ return api({action:'saveEvents',eventsJson:JSON.stringify(events)}); }
 
-// ===== ログイン・年度選択 =====
+// ===== ログイン =====
 $('login-btn').addEventListener('click',function(){
-  var garden=$('login-garden').value;
-  var pw=$('login-pw').value;
+  var garden=$('login-garden').value, pw=$('login-pw').value;
   if(!garden){ $('login-err').textContent='園名を選択してください'; return; }
   if(!pw){ $('login-err').textContent='パスワードを入力してください'; return; }
   if(pw!=='kodomo5848'){ $('login-err').textContent='パスワードが違います'; return; }
-  currentGarden=garden;
-  currentClasses=GARDENS[garden]||[];
+  currentGarden=garden; currentClasses=GARDENS[garden]||[];
   $('login-err').textContent='';
   showYearSelect();
 });
@@ -309,19 +310,18 @@ $('login-pw').addEventListener('keydown',function(e){ if(e.key==='Enter') $('log
 function showYearSelect(){
   $('year-garden-name').textContent=currentGarden+'こども保育園';
   var btns=$('year-btns'); btns.innerHTML='';
-  var now=new Date().getFullYear();
-  var month=new Date().getMonth()+1;
-  var thisYear=(month>=4?now:now-1);
+  var now=new Date(), nowY=now.getFullYear(), nowM=now.getMonth()+1;
+  var baseY=nowM>=4?nowY:nowY-1;
+  var YEARS=[]; for(var yi=baseY;yi<=baseY+9;yi++) YEARS.push(yi+'年度');
   YEARS.forEach(function(y){
     var yr=parseInt(y);
     var btn=document.createElement('button');
-    btn.className='year-btn'+(yr===thisYear?' active':'');
+    btn.className='year-btn'+(yr===baseY?' active':'');
     btn.textContent=y;
     btn.addEventListener('click',function(){
       document.querySelectorAll('.year-btn').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
-      currentYear=y;
-      enterApp();
+      currentYear=y; enterApp();
     });
     btns.appendChild(btn);
   });
@@ -337,12 +337,12 @@ function enterApp(){
   loadAllEntries();
 }
 
+// ===== クラスチップ（入力画面） =====
 function buildClsChips(){
   var el=$('cls-chips'); el.innerHTML='';
   currentClasses.forEach(function(cls){
     var chip=document.createElement('div');
-    chip.className='cls-chip';
-    chip.setAttribute('data-cls',cls);
+    chip.className='cls-chip'; chip.setAttribute('data-cls',cls);
     chip.textContent=cls.replace('クラス','');
     chip.addEventListener('click',function(){
       var idx=selectedClasses.indexOf(cls);
@@ -352,56 +352,101 @@ function buildClsChips(){
     el.appendChild(chip);
   });
 }
-
-function resetClsChips(){
-  selectedClasses=[];
-  document.querySelectorAll('.cls-chip').forEach(function(c){ c.classList.remove('selected'); });
+function resetClsChips(){ selectedClasses=[]; document.querySelectorAll('#cls-chips .cls-chip').forEach(function(c){ c.classList.remove('selected'); }); }
+function updateClsChipsDone(ev){
+  var done=getDoneClasses(ev.name);
+  document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
+    var cls=chip.getAttribute('data-cls');
+    var target=ev.classes||[];
+    if(target.indexOf(cls)<0){ chip.style.display='none'; }
+    else{ chip.style.display=''; if(done[cls]) chip.classList.add('done'); else chip.classList.remove('done'); }
+  });
 }
 
-function updateClsChipsDone(ev){
-  var done=getDoneClasses(ev);
-  document.querySelectorAll('.cls-chip').forEach(function(chip){
-    var cls=chip.getAttribute('data-cls');
-    if(done[cls]) chip.classList.add('done'); else chip.classList.remove('done');
+// ===== クラスチップ（行事追加画面） =====
+function buildNewEvClsChips(){
+  var el=$('new-ev-cls-chips'); el.innerHTML='';
+  newEvSelectedClasses=[];
+  currentClasses.forEach(function(cls){
+    var chip=document.createElement('div');
+    chip.className='cls-chip'; chip.setAttribute('data-cls',cls);
+    chip.textContent=cls.replace('クラス','');
+    // デフォルト全選択
+    chip.classList.add('selected'); newEvSelectedClasses.push(cls);
+    chip.addEventListener('click',function(){
+      var idx=newEvSelectedClasses.indexOf(cls);
+      if(idx>=0){ newEvSelectedClasses.splice(idx,1); chip.classList.remove('selected'); }
+      else{ newEvSelectedClasses.push(cls); chip.classList.add('selected'); }
+    });
+    el.appendChild(chip);
+  });
+}
+
+// ===== クラスチップ（編集モーダル） =====
+function buildEditClsChips(targetClasses){
+  var el=$('edit-cls-chips'); el.innerHTML='';
+  editSelectedClasses=targetClasses?targetClasses.slice():currentClasses.slice();
+  currentClasses.forEach(function(cls){
+    var chip=document.createElement('div');
+    chip.className='modal-cls-chip'; chip.setAttribute('data-cls',cls);
+    chip.textContent=cls.replace('クラス','');
+    if(editSelectedClasses.indexOf(cls)>=0) chip.classList.add('selected');
+    chip.addEventListener('click',function(){
+      var idx=editSelectedClasses.indexOf(cls);
+      if(idx>=0){ editSelectedClasses.splice(idx,1); chip.classList.remove('selected'); }
+      else{ editSelectedClasses.push(cls); chip.classList.add('selected'); }
+    });
+    el.appendChild(chip);
   });
 }
 
 $('back-to-login').addEventListener('click',function(){ currentGarden=''; currentYear=''; showScreen('s-login'); });
 $('logout-btn').addEventListener('click',function(){ currentGarden=''; currentYear=''; currentClasses=[]; events=[]; allEntries=[]; $('login-garden').value=''; $('login-pw').value=''; showScreen('s-login'); });
-$('change-year-btn').addEventListener('click',function(){ showYearSelect(); });
+$('change-year-btn').addEventListener('click',showYearSelect);
 
-// ===== データ読み込み =====
+// ===== データ =====
 function loadAllEntries(){
   api({action:'read'}).then(function(data){
     var rows=data.rows||[];
     allEntries=rows.slice(1).map(function(r){ return {event:r[1],cls:r[2],text:r[3]}; }).filter(function(r){ return r.event; });
-    api({action:'getEvents'}).then(function(d){ events=d.events||[]; renderEvList(); renderSumList(); });
+    api({action:'getEvents'}).then(function(d){
+      events=(d.events||[]).map(function(e){
+        if(typeof e==='string') return {name:e, classes:currentClasses.slice()};
+        return e;
+      });
+      renderEvList(); renderSumList();
+    });
   });
 }
 
-// ===== 提出状況 =====
-function getDoneClasses(ev){
+function getDoneClasses(evName){
   var done={};
-  allEntries.filter(function(e){ return e.event===ev; }).forEach(function(e){
+  allEntries.filter(function(e){ return e.event===evName; }).forEach(function(e){
     if(!e.cls) return;
     e.cls.split('・').forEach(function(c){ done[c.trim()]=true; });
   });
   return done;
 }
 
+function getEventClasses(ev){
+  return (ev&&ev.classes&&ev.classes.length)?ev.classes:currentClasses;
+}
+
 function getProgressBadge(ev){
-  var done=getDoneClasses(ev);
-  var cnt=currentClasses.filter(function(c){ return done[c]; }).length;
-  var total=currentClasses.length;
+  var done=getDoneClasses(ev.name);
+  var target=getEventClasses(ev);
+  var cnt=target.filter(function(c){ return done[c]; }).length;
+  var total=target.length;
   if(cnt===0) return '<span class="progress-badge badge-none">未提出</span>';
   if(cnt===total) return '<span class="progress-badge badge-complete">全員完了✓</span>';
   return '<span class="progress-badge badge-partial">'+cnt+'/'+total+'クラス</span>';
 }
 
-function renderClsProgress(containerId,ev){
-  var done=getDoneClasses(ev);
+function renderClsProgress(containerId, ev){
+  var done=getDoneClasses(ev.name);
+  var target=getEventClasses(ev);
   var el=$(containerId); el.innerHTML='';
-  currentClasses.forEach(function(cls){
+  target.forEach(function(cls){
     var isDone=!!done[cls];
     var item=document.createElement('div');
     item.className='cls-progress-item '+(isDone?'done':'notdone');
@@ -410,7 +455,7 @@ function renderClsProgress(containerId,ev){
   });
 }
 
-// ===== タブ切替 =====
+// ===== タブ =====
 function switchTab(tab){
   currentTab=tab;
   $('t-input').classList.toggle('active',tab==='input');
@@ -419,10 +464,9 @@ function switchTab(tab){
   $('p-summary').style.display=tab==='summary'?'':'none';
   if(tab==='summary') renderSumList(); else renderEvList();
 }
-
 function goHome(){ renderEvList(); renderSumList(); showScreen('s-home'); }
 
-// ===== ドラッグ＆ドロップ =====
+// ===== ドラッグ =====
 var dragSrcIndex=-1;
 function onDragStart(e,idx){ dragSrcIndex=idx; e.dataTransfer.effectAllowed='move'; }
 function onDragOver(e,el){ e.preventDefault(); document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); el.classList.add('drag-over'); }
@@ -434,11 +478,17 @@ function onTouchEnd(e){ if(touchDragIndex<0) return; if(touchClone){ document.bo
 document.addEventListener('touchmove',onTouchMove,{passive:false});
 document.addEventListener('touchend',onTouchEnd);
 
-// ===== 長押し編集 =====
+// ===== 長押し =====
 var longPressTimer=null;
 function startLongPress(idx){ longPressTimer=setTimeout(function(){ openEditModal(idx); },600); }
 function cancelLongPress(){ if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; } }
-function openEditModal(idx){ editingIndex=idx; $('edit-ev-input').value=events[idx]; $('edit-modal').classList.add('active'); setTimeout(function(){ $('edit-ev-input').focus(); },100); }
+function openEditModal(idx){
+  editingIndex=idx;
+  $('edit-ev-input').value=events[idx].name;
+  buildEditClsChips(events[idx].classes);
+  $('edit-modal').classList.add('active');
+  setTimeout(function(){ $('edit-ev-input').focus(); },100);
+}
 function closeEditModal(){ $('edit-modal').classList.remove('active'); editingIndex=-1; }
 
 // ===== 描画 =====
@@ -446,13 +496,14 @@ function renderEvList(){
   var el=$('ev-list'); el.innerHTML='';
   if(!events.length){ el.innerHTML='<p class="empty">行事がまだありません</p>'; return; }
   events.forEach(function(ev,idx){
-    var done=getDoneClasses(ev);
+    var done=getDoneClasses(ev.name);
+    var target=getEventClasses(ev);
     var item=document.createElement('div');
     item.className='list-item'; item.setAttribute('draggable','true'); item.setAttribute('data-idx',idx);
-    var dotsHtml=currentClasses.map(function(cls){
+    var dotsHtml=target.map(function(cls){
       return '<span class="cls-dot-item"><span class="dot-sm '+(done[cls]?'dot-green':'dot-gray')+'"></span>'+cls.replace('歳児クラス','歳')+'</span>';
     }).join('');
-    item.innerHTML='<div class="drag-handle">☰</div><div class="list-item-main"><div class="list-item-name">'+ev+'</div><div class="cls-status-row">'+dotsHtml+'</div></div><button class="go-btn">›</button>';
+    item.innerHTML='<div class="drag-handle">☰</div><div class="list-item-main"><div class="list-item-name">'+ev.name+'</div><div class="cls-status-row">'+dotsHtml+'</div></div><button class="go-btn">›</button>';
     item.addEventListener('dragstart',function(e){ onDragStart(e,idx); });
     item.addEventListener('dragover',function(e){ onDragOver(e,item); });
     item.addEventListener('drop',function(e){ onDrop(e,idx); });
@@ -473,20 +524,21 @@ function renderSumList(){
   var el=$('sum-list'); el.innerHTML='';
   if(!events.length){ el.innerHTML='<p class="empty">行事がまだありません</p>'; return; }
   events.forEach(function(ev){
-    var done=getDoneClasses(ev);
+    var done=getDoneClasses(ev.name);
+    var target=getEventClasses(ev);
     var item=document.createElement('div');
     item.style.cssText='display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e5ea;background:#fff;cursor:pointer;';
     item.addEventListener('click',function(){ openEntries(ev); });
-    var dotsHtml=currentClasses.map(function(cls){
+    var dotsHtml=target.map(function(cls){
       return '<span class="cls-dot-item"><span class="dot-sm '+(done[cls]?'dot-green':'dot-gray')+'"></span>'+cls.replace('歳児クラス','歳')+'</span>';
     }).join('');
-    item.innerHTML='<div style="flex:1;"><div style="font-size:16px;font-weight:500;margin-bottom:5px;">'+ev+'</div><div class="cls-status-row">'+dotsHtml+'</div></div><div style="margin-left:8px;">'+getProgressBadge(ev)+'</div>';
+    item.innerHTML='<div style="flex:1;"><div style="font-size:16px;font-weight:500;margin-bottom:5px;">'+ev.name+'</div><div class="cls-status-row">'+dotsHtml+'</div></div><div style="margin-left:8px;">'+getProgressBadge(ev)+'</div>';
     el.appendChild(item);
   });
 }
 
 function openInput(ev){
-  currentEvent=ev; $('input-title').textContent=ev;
+  currentEvent=ev; $('input-title').textContent=ev.name;
   resetClsChips(); $('hansei').value=''; $('input-err').textContent='';
   $('submit-btn').disabled=false; $('submit-btn').textContent='送信する';
   renderClsProgress('input-cls-progress',ev);
@@ -496,7 +548,7 @@ function openInput(ev){
 
 function openEntries(ev){
   currentEvent=ev; currentFilter='all';
-  $('entries-title').textContent=ev;
+  $('entries-title').textContent=ev.name;
   $('entries-list').innerHTML='<p class="empty">読み込み中...</p>';
   $('copy-box').textContent='';
   renderClsProgress('entries-cls-progress',ev);
@@ -515,7 +567,7 @@ function loadEntries(){
 }
 
 function renderEntries(){
-  var entries=allEntries.filter(function(e){ return e.event===currentEvent; });
+  var entries=allEntries.filter(function(e){ return e.event===currentEvent.name; });
   var cr=$('chips'); cr.innerHTML='';
   var ac=document.createElement('div'); ac.className='chip'+(currentFilter==='all'?' active':''); ac.textContent='すべて';
   ac.addEventListener('click',function(){ currentFilter='all'; renderEntries(); }); cr.appendChild(ac);
@@ -535,9 +587,10 @@ function renderEntries(){
     d.innerHTML='<span class="entry-cls">'+c+'</span><div class="entry-txt">'+t+'</div>';
     list.appendChild(d);
   });
+  var target=getEventClasses(currentEvent);
   var sorted=[];
-  currentClasses.forEach(function(cls){ filtered.filter(function(e){ return e.cls===cls; }).forEach(function(e){ sorted.push(e); }); });
-  filtered.filter(function(e){ return currentClasses.indexOf(e.cls)<0; }).forEach(function(e){ sorted.push(e); });
+  target.forEach(function(cls){ filtered.filter(function(e){ return e.cls===cls; }).forEach(function(e){ sorted.push(e); }); });
+  filtered.filter(function(e){ return target.indexOf(e.cls)<0; }).forEach(function(e){ sorted.push(e); });
   $('copy-box').textContent=sorted.map(function(e){ return '【'+e.cls+'】\n'+e.text; }).join('\n\n');
 }
 
@@ -546,24 +599,18 @@ function submitHansei(){
   if(!selectedClasses.length){ err.textContent='クラスを選択してください'; return; }
   if(!text){ err.textContent='反省を入力してください'; return; }
   err.textContent=''; $('submit-btn').disabled=true; $('submit-btn').textContent='送信中...';
-  api({action:'write',event:currentEvent,cls:selectedClasses.join('・'),text:text}).then(function(){
+  api({action:'write',event:currentEvent.name,cls:selectedClasses.join('・'),text:text}).then(function(){
     showScreen('s-success');
   }).catch(function(){ err.textContent='送信に失敗しました。もう一度お試しください。'; $('submit-btn').disabled=false; $('submit-btn').textContent='送信する'; });
 }
 
 function addEvent(){
-  var name=$('new-ev').value.trim();
-  if(!name){ alert('行事名を入力してください'); return; }
-  if(events.indexOf(name)>=0){ alert('その行事は既に登録されています'); return; }
-  events.unshift(name);
-  saveEvents().then(function(){ $('new-ev').value=''; goHome(); });
-}
-
-function copyAll(){
-  var text=$('copy-box').textContent;
-  if(!text){ showToast('コピーするデータがありません'); return; }
-  if(navigator.clipboard){ navigator.clipboard.writeText(text).then(function(){ showToast(); }); }
-  else{ var r=document.createRange(); r.selectNodeContents($('copy-box')); window.getSelection().removeAllRanges(); window.getSelection().addRange(r); document.execCommand('copy'); showToast(); }
+  var name=$('new-ev').value.trim(), err=$('add-err');
+  if(!name){ err.textContent='行事名を入力してください'; return; }
+  if(events.some(function(e){ return e.name===name; })){ err.textContent='その行事は既に登録されています'; return; }
+  if(!newEvSelectedClasses.length){ err.textContent='対象クラスを選択してください'; return; }
+  events.unshift({name:name, classes:newEvSelectedClasses.slice()});
+  saveEvents().then(function(){ $('new-ev').value=''; err.textContent=''; goHome(); });
 }
 
 $('t-input').addEventListener('click',function(){ switchTab('input'); });
@@ -577,17 +624,25 @@ $('cancel-add-btn').addEventListener('click',goHome);
 $('submit-btn').addEventListener('click',submitHansei);
 $('save-ev-btn').addEventListener('click',addEvent);
 $('reload-btn').addEventListener('click',loadEntries);
-$('copy-btn').addEventListener('click',copyAll);
-$('btn-add-ev').addEventListener('click',function(){ showScreen('s-add'); });
+$('copy-btn').addEventListener('click',function(){
+  var text=$('copy-box').textContent;
+  if(!text){ showToast('コピーするデータがありません'); return; }
+  if(navigator.clipboard){ navigator.clipboard.writeText(text).then(function(){ showToast(); }); }
+  else{ var r=document.createRange(); r.selectNodeContents($('copy-box')); window.getSelection().removeAllRanges(); window.getSelection().addRange(r); document.execCommand('copy'); showToast(); }
+});
+$('btn-add-ev').addEventListener('click',function(){ buildNewEvClsChips(); $('add-err').textContent=''; showScreen('s-add'); });
 $('edit-save-btn').addEventListener('click',function(){
   var name=$('edit-ev-input').value.trim();
   if(!name){ alert('行事名を入力してください'); return; }
-  if(events.indexOf(name)>=0&&events.indexOf(name)!==editingIndex){ alert('その行事名は既に存在します'); return; }
-  events[editingIndex]=name; saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('行事名を更新しました'); });
+  if(events.some(function(e,i){ return e.name===name&&i!==editingIndex; })){ alert('その行事名は既に存在します'); return; }
+  if(!editSelectedClasses.length){ alert('対象クラスを選択してください'); return; }
+  events[editingIndex]={name:name, classes:editSelectedClasses.slice()};
+  saveEvents().then(function(){ closeEditModal(); renderEvList(); renderSumList(); showToast('行事を更新しました'); });
 });
 $('edit-delete-btn').addEventListener('click',function(){
-  if(!confirm('「'+events[editingIndex]+'」を削除しますか？\n※入力済みの反省データは残ります')) return;
-  events.splice(editingIndex,1); saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('削除しました'); });
+  if(!confirm('「'+events[editingIndex].name+'」を削除しますか？\n※入力済みの反省データは残ります')) return;
+  events.splice(editingIndex,1);
+  saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('削除しました'); });
 });
 $('edit-cancel-btn').addEventListener('click',closeEditModal);
 $('edit-modal').addEventListener('click',function(e){ if(e.target===$('edit-modal')) closeEditModal(); });
