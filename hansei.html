@@ -12,6 +12,7 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .screen{display:none;}.screen.active{display:block;}
 .navbar{background:#fff;padding:14px 16px 10px;border-bottom:1px solid #e5e5ea;position:sticky;top:0;z-index:10;}
 .navbar-title{font-size:18px;font-weight:700;margin-bottom:8px;}
+.navbar-sub{font-size:13px;color:#8e8e93;margin-bottom:8px;}
 .seg{display:flex;background:#e5e5ea;border-radius:9px;padding:2px;}
 .seg button{flex:1;padding:8px;border:none;background:transparent;border-radius:7px;font-size:14px;font-weight:500;color:#666;cursor:pointer;}
 .seg button.active{background:#fff;color:#1c1c1e;font-weight:600;}
@@ -28,8 +29,7 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .cls-status-row{display:flex;flex-wrap:wrap;gap:5px;}
 .cls-dot-item{display:flex;align-items:center;gap:3px;font-size:11px;color:#8e8e93;}
 .dot-sm{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
-.dot-green{background:#34c759;}
-.dot-gray{background:#c7c7cc;}
+.dot-green{background:#34c759;}.dot-gray{background:#c7c7cc;}
 .go-btn{padding:10px 16px;background:transparent;border:none;color:#007AFF;font-size:22px;cursor:pointer;flex-shrink:0;}
 .progress-badge{font-size:12px;padding:3px 8px;border-radius:10px;white-space:nowrap;font-weight:600;}
 .badge-complete{background:#d1fae5;color:#065f46;}
@@ -44,7 +44,8 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .cls-chip.selected{background:#007AFF;color:#fff;border-color:#007AFF;}
 .cls-chip.done{border-color:#34c759;}
 .cls-chip.done::after{content:'✓';position:absolute;top:-4px;right:-4px;background:#34c759;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;line-height:14px;text-align:center;}
-textarea,input[type=text]{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;}
+select{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;padding:4px 0;}
+textarea,input[type=text],input[type=password]{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;}
 textarea{min-height:160px;resize:none;line-height:1.6;}
 .btn-p{display:block;width:100%;padding:16px;background:#007AFF;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;margin-bottom:10px;}
 .btn-p:active{background:#0062cc;}
@@ -81,12 +82,75 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .modal-title{font-size:17px;font-weight:700;margin-bottom:16px;text-align:center;}
 .modal input{width:100%;font-size:16px;padding:12px;border:1px solid #e5e5ea;border-radius:10px;outline:none;font-family:inherit;}
 .modal-btns{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+.login-wrap{padding:40px 16px;}
+.login-logo{font-size:40px;text-align:center;margin-bottom:8px;}
+.login-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:4px;}
+.login-sub{font-size:14px;color:#8e8e93;text-align:center;margin-bottom:32px;}
+.year-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.year-btn{flex:1;min-width:100px;padding:12px;background:#f2f2f7;border:1.5px solid #e5e5ea;border-radius:12px;font-size:15px;font-weight:500;color:#1c1c1e;cursor:pointer;text-align:center;}
+.year-btn.active{background:#007AFF;color:#fff;border-color:#007AFF;}
+.context-bar{background:#fff;border-bottom:1px solid #e5e5ea;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;}
+.context-info{font-size:13px;color:#8e8e93;}
+.context-info span{color:#1c1c1e;font-weight:600;}
+.logout-btn{font-size:13px;color:#ff3b30;cursor:pointer;background:none;border:none;padding:4px 8px;}
 </style>
 </head>
 <body>
 <div class="app">
 
-<div id="s-home" class="screen active">
+<!-- ログイン画面 -->
+<div id="s-login" class="screen active">
+  <div class="content">
+    <div class="login-wrap">
+      <div class="login-logo">🏫</div>
+      <div class="login-title">行事反省システム</div>
+      <div class="login-sub">園名とパスワードを入力してください</div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="form-label">園名</div>
+          <select id="login-garden">
+            <option value="">選択してください</option>
+            <option>たの津</option>
+            <option>西新</option>
+            <option>原</option>
+            <option>ちくし野</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-label">パスワード</div>
+          <input type="password" id="login-pw" placeholder="パスワードを入力">
+        </div>
+      </div>
+      <button class="btn-p" id="login-btn">ログイン</button>
+      <p class="err" id="login-err"></p>
+    </div>
+  </div>
+</div>
+
+<!-- 年度選択画面 -->
+<div id="s-year" class="screen">
+  <div class="content">
+    <div class="login-wrap">
+      <div class="login-logo">📅</div>
+      <div class="login-title" id="year-garden-name"></div>
+      <div class="login-sub">年度を選択してください</div>
+      <div class="year-btns" id="year-btns"></div>
+      <div style="margin-top:16px;">
+        <button class="btn-s" id="back-to-login">← 園選択に戻る</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ホーム画面 -->
+<div id="s-home" class="screen">
+  <div class="context-bar">
+    <div class="context-info"><span id="ctx-garden"></span>・<span id="ctx-year"></span></div>
+    <div style="display:flex;gap:8px;">
+      <button class="logout-btn" id="change-year-btn" style="color:#007AFF;">年度変更</button>
+      <button class="logout-btn" id="logout-btn">ログアウト</button>
+    </div>
+  </div>
   <div class="navbar">
     <div class="navbar-title">行事反省システム</div>
     <div class="seg">
@@ -108,6 +172,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
+<!-- 反省入力画面 -->
 <div id="s-input" class="screen">
   <div class="navbar">
     <div class="back" id="back-input">‹ 行事一覧</div>
@@ -121,14 +186,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
     <div class="form-group">
       <div class="form-row">
         <div class="form-label">記入者クラス（複数選択可）</div>
-        <div class="cls-chips" id="cls-chips">
-          <div class="cls-chip" data-cls="0歳児クラス">0歳児</div>
-          <div class="cls-chip" data-cls="1歳児クラス">1歳児</div>
-          <div class="cls-chip" data-cls="2歳児クラス">2歳児</div>
-          <div class="cls-chip" data-cls="3歳児クラス">3歳児</div>
-          <div class="cls-chip" data-cls="4歳児クラス">4歳児</div>
-          <div class="cls-chip" data-cls="5歳児クラス">5歳児</div>
-        </div>
+        <div class="cls-chips" id="cls-chips"></div>
       </div>
       <div class="form-row">
         <div class="form-label">反省・気づき</div>
@@ -141,6 +199,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
+<!-- 反省一覧画面 -->
 <div id="s-entries" class="screen">
   <div class="navbar">
     <div class="back" id="back-entries">‹ 行事一覧</div>
@@ -160,6 +219,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
+<!-- 行事追加画面 -->
 <div id="s-add" class="screen">
   <div class="navbar">
     <div class="back" id="back-add">‹ 行事一覧</div>
@@ -177,6 +237,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
+<!-- 送信完了画面 -->
 <div id="s-success" class="screen">
   <div class="success-wrap">
     <div class="success-icon">✅</div>
@@ -188,6 +249,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 
 </div>
 
+<!-- 編集モーダル -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
     <div class="modal-title">行事名を編集</div>
@@ -203,7 +265,15 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 
 <script>
 var GAS = 'https://script.google.com/macros/s/AKfycbxcoORrvnJMx2yL_Nsp8GP0NaYwNqo9HMmWaJ1qB-4xo7fMvdyAVoYcW35DwcRfi1b9qQ/exec';
-var CLASS_ORDER = ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'];
+var GARDENS = {
+  'たの津': ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
+  '西新':   ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
+  '原':     ['0歳児クラス','1歳児クラス','2歳児クラス'],
+  'ちくし野':['0歳児クラス','1歳児クラス','2歳児クラス'],
+};
+var YEARS = ['2023年度','2024年度','2025年度','2026年度'];
+
+var currentGarden='', currentYear='', currentClasses=[];
 var events=[], currentEvent='', currentFilter='all', currentTab='input', allEntries=[];
 var editingIndex=-1, selectedClasses=[];
 
@@ -212,6 +282,9 @@ function showScreen(i){ document.querySelectorAll('.screen').forEach(function(s)
 function showToast(m){ var t=$('toast'); t.textContent=m||'コピーしました'; t.style.display='block'; setTimeout(function(){ t.style.display='none'; },2000); }
 
 function api(params){
+  params.pw = 'kodomo5848';
+  if(currentGarden) params.garden = currentGarden;
+  if(currentYear) params.year = currentYear;
   var url=GAS+'?'+new URLSearchParams(params).toString();
   return fetch(url,{method:'GET',redirect:'follow',mode:'cors'})
     .then(function(r){ return r.text(); })
@@ -219,7 +292,94 @@ function api(params){
 }
 function saveEvents(){ return api({action:'saveEvents',eventsJson:JSON.stringify(events)}); }
 
-// 提出済みクラスを返す（合同クラス「3歳児・4歳児」も各クラスに分解してカウント）
+// ===== ログイン・年度選択 =====
+$('login-btn').addEventListener('click',function(){
+  var garden=$('login-garden').value;
+  var pw=$('login-pw').value;
+  if(!garden){ $('login-err').textContent='園名を選択してください'; return; }
+  if(!pw){ $('login-err').textContent='パスワードを入力してください'; return; }
+  if(pw!=='kodomo5848'){ $('login-err').textContent='パスワードが違います'; return; }
+  currentGarden=garden;
+  currentClasses=GARDENS[garden]||[];
+  $('login-err').textContent='';
+  showYearSelect();
+});
+$('login-pw').addEventListener('keydown',function(e){ if(e.key==='Enter') $('login-btn').click(); });
+
+function showYearSelect(){
+  $('year-garden-name').textContent=currentGarden+'こども保育園';
+  var btns=$('year-btns'); btns.innerHTML='';
+  var now=new Date().getFullYear();
+  var month=new Date().getMonth()+1;
+  var thisYear=(month>=4?now:now-1);
+  YEARS.forEach(function(y){
+    var yr=parseInt(y);
+    var btn=document.createElement('button');
+    btn.className='year-btn'+(yr===thisYear?' active':'');
+    btn.textContent=y;
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.year-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentYear=y;
+      enterApp();
+    });
+    btns.appendChild(btn);
+  });
+  showScreen('s-year');
+}
+
+function enterApp(){
+  $('ctx-garden').textContent=currentGarden+'園';
+  $('ctx-year').textContent=currentYear;
+  buildClsChips();
+  showScreen('s-home');
+  switchTab('input');
+  loadAllEntries();
+}
+
+function buildClsChips(){
+  var el=$('cls-chips'); el.innerHTML='';
+  currentClasses.forEach(function(cls){
+    var chip=document.createElement('div');
+    chip.className='cls-chip';
+    chip.setAttribute('data-cls',cls);
+    chip.textContent=cls.replace('クラス','');
+    chip.addEventListener('click',function(){
+      var idx=selectedClasses.indexOf(cls);
+      if(idx>=0){ selectedClasses.splice(idx,1); chip.classList.remove('selected'); }
+      else{ selectedClasses.push(cls); chip.classList.add('selected'); }
+    });
+    el.appendChild(chip);
+  });
+}
+
+function resetClsChips(){
+  selectedClasses=[];
+  document.querySelectorAll('.cls-chip').forEach(function(c){ c.classList.remove('selected'); });
+}
+
+function updateClsChipsDone(ev){
+  var done=getDoneClasses(ev);
+  document.querySelectorAll('.cls-chip').forEach(function(chip){
+    var cls=chip.getAttribute('data-cls');
+    if(done[cls]) chip.classList.add('done'); else chip.classList.remove('done');
+  });
+}
+
+$('back-to-login').addEventListener('click',function(){ currentGarden=''; currentYear=''; showScreen('s-login'); });
+$('logout-btn').addEventListener('click',function(){ currentGarden=''; currentYear=''; currentClasses=[]; events=[]; allEntries=[]; $('login-garden').value=''; $('login-pw').value=''; showScreen('s-login'); });
+$('change-year-btn').addEventListener('click',function(){ showYearSelect(); });
+
+// ===== データ読み込み =====
+function loadAllEntries(){
+  api({action:'read'}).then(function(data){
+    var rows=data.rows||[];
+    allEntries=rows.slice(1).map(function(r){ return {event:r[1],cls:r[2],text:r[3]}; }).filter(function(r){ return r.event; });
+    api({action:'getEvents'}).then(function(d){ events=d.events||[]; renderEvList(); renderSumList(); });
+  });
+}
+
+// ===== 提出状況 =====
 function getDoneClasses(ev){
   var done={};
   allEntries.filter(function(e){ return e.event===ev; }).forEach(function(e){
@@ -229,20 +389,19 @@ function getDoneClasses(ev){
   return done;
 }
 
-// 行事一覧の提出状況バッジ
 function getProgressBadge(ev){
   var done=getDoneClasses(ev);
-  var cnt=CLASS_ORDER.filter(function(c){ return done[c]; }).length;
+  var cnt=currentClasses.filter(function(c){ return done[c]; }).length;
+  var total=currentClasses.length;
   if(cnt===0) return '<span class="progress-badge badge-none">未提出</span>';
-  if(cnt===CLASS_ORDER.length) return '<span class="progress-badge badge-complete">全員完了✓</span>';
-  return '<span class="progress-badge badge-partial">'+cnt+'/'+CLASS_ORDER.length+'クラス</span>';
+  if(cnt===total) return '<span class="progress-badge badge-complete">全員完了✓</span>';
+  return '<span class="progress-badge badge-partial">'+cnt+'/'+total+'クラス</span>';
 }
 
-// 提出状況カード描画
-function renderClsProgress(containerId, ev){
+function renderClsProgress(containerId,ev){
   var done=getDoneClasses(ev);
   var el=$(containerId); el.innerHTML='';
-  CLASS_ORDER.forEach(function(cls){
+  currentClasses.forEach(function(cls){
     var isDone=!!done[cls];
     var item=document.createElement('div');
     item.className='cls-progress-item '+(isDone?'done':'notdone');
@@ -251,6 +410,7 @@ function renderClsProgress(containerId, ev){
   });
 }
 
+// ===== タブ切替 =====
 function switchTab(tab){
   currentTab=tab;
   $('t-input').classList.toggle('active',tab==='input');
@@ -262,34 +422,11 @@ function switchTab(tab){
 
 function goHome(){ renderEvList(); renderSumList(); showScreen('s-home'); }
 
-// クラス複数選択
-document.querySelectorAll('.cls-chip').forEach(function(chip){
-  chip.addEventListener('click',function(){
-    var cls=chip.getAttribute('data-cls');
-    var idx=selectedClasses.indexOf(cls);
-    if(idx>=0){ selectedClasses.splice(idx,1); chip.classList.remove('selected'); }
-    else{ selectedClasses.push(cls); chip.classList.add('selected'); }
-  });
-});
-function resetClsChips(){
-  selectedClasses=[];
-  document.querySelectorAll('.cls-chip').forEach(function(c){ c.classList.remove('selected'); });
-}
-function updateClsChipsDone(ev){
-  var done=getDoneClasses(ev);
-  document.querySelectorAll('.cls-chip').forEach(function(chip){
-    var cls=chip.getAttribute('data-cls');
-    if(done[cls]) chip.classList.add('done'); else chip.classList.remove('done');
-  });
-}
-
-// ドラッグ＆ドロップ（PC）
+// ===== ドラッグ＆ドロップ =====
 var dragSrcIndex=-1;
 function onDragStart(e,idx){ dragSrcIndex=idx; e.dataTransfer.effectAllowed='move'; }
 function onDragOver(e,el){ e.preventDefault(); document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); el.classList.add('drag-over'); }
 function onDrop(e,idx){ e.preventDefault(); document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); if(dragSrcIndex===idx) return; var m=events.splice(dragSrcIndex,1)[0]; events.splice(idx,0,m); renderEvList(); saveEvents(); }
-
-// タッチドラッグ
 var touchDragIndex=-1,touchClone=null,touchStartY=0;
 function onTouchStart(e,idx){ touchDragIndex=idx; touchStartY=e.touches[0].clientY; var el=e.currentTarget.closest('.list-item'); touchClone=el.cloneNode(true); touchClone.style.cssText='position:fixed;left:0;right:0;z-index:200;opacity:0.85;background:#e8f0fe;pointer-events:none;'; touchClone.style.top=el.getBoundingClientRect().top+'px'; document.body.appendChild(touchClone); }
 function onTouchMove(e){ if(touchDragIndex<0||!touchClone) return; e.preventDefault(); var y=e.touches[0].clientY; touchClone.style.top=(parseFloat(touchClone.style.top)+(y-touchStartY))+'px'; touchStartY=y; document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); var over=document.elementFromPoint(e.touches[0].clientX,y); if(over){ var item=over.closest('.list-item'); if(item) item.classList.add('drag-over'); } }
@@ -297,13 +434,14 @@ function onTouchEnd(e){ if(touchDragIndex<0) return; if(touchClone){ document.bo
 document.addEventListener('touchmove',onTouchMove,{passive:false});
 document.addEventListener('touchend',onTouchEnd);
 
-// 長押し
+// ===== 長押し編集 =====
 var longPressTimer=null;
 function startLongPress(idx){ longPressTimer=setTimeout(function(){ openEditModal(idx); },600); }
 function cancelLongPress(){ if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; } }
 function openEditModal(idx){ editingIndex=idx; $('edit-ev-input').value=events[idx]; $('edit-modal').classList.add('active'); setTimeout(function(){ $('edit-ev-input').focus(); },100); }
 function closeEditModal(){ $('edit-modal').classList.remove('active'); editingIndex=-1; }
 
+// ===== 描画 =====
 function renderEvList(){
   var el=$('ev-list'); el.innerHTML='';
   if(!events.length){ el.innerHTML='<p class="empty">行事がまだありません</p>'; return; }
@@ -311,17 +449,10 @@ function renderEvList(){
     var done=getDoneClasses(ev);
     var item=document.createElement('div');
     item.className='list-item'; item.setAttribute('draggable','true'); item.setAttribute('data-idx',idx);
-    var dotsHtml=CLASS_ORDER.map(function(cls){
-      var d=done[cls]?'dot-green':'dot-gray';
-      return '<span class="cls-dot-item"><span class="dot-sm '+d+'"></span>'+cls.replace('歳児クラス','歳')+'</span>';
+    var dotsHtml=currentClasses.map(function(cls){
+      return '<span class="cls-dot-item"><span class="dot-sm '+(done[cls]?'dot-green':'dot-gray')+'"></span>'+cls.replace('歳児クラス','歳')+'</span>';
     }).join('');
-    item.innerHTML=
-      '<div class="drag-handle">☰</div>'+
-      '<div class="list-item-main">'+
-        '<div class="list-item-name">'+ev+'</div>'+
-        '<div class="cls-status-row">'+dotsHtml+'</div>'+
-      '</div>'+
-      '<button class="go-btn">›</button>';
+    item.innerHTML='<div class="drag-handle">☰</div><div class="list-item-main"><div class="list-item-name">'+ev+'</div><div class="cls-status-row">'+dotsHtml+'</div></div><button class="go-btn">›</button>';
     item.addEventListener('dragstart',function(e){ onDragStart(e,idx); });
     item.addEventListener('dragover',function(e){ onDragOver(e,item); });
     item.addEventListener('drop',function(e){ onDrop(e,idx); });
@@ -346,16 +477,10 @@ function renderSumList(){
     var item=document.createElement('div');
     item.style.cssText='display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e5ea;background:#fff;cursor:pointer;';
     item.addEventListener('click',function(){ openEntries(ev); });
-    var dotsHtml=CLASS_ORDER.map(function(cls){
-      var d=done[cls]?'dot-green':'dot-gray';
-      return '<span class="cls-dot-item"><span class="dot-sm '+d+'"></span>'+cls.replace('歳児クラス','歳')+'</span>';
+    var dotsHtml=currentClasses.map(function(cls){
+      return '<span class="cls-dot-item"><span class="dot-sm '+(done[cls]?'dot-green':'dot-gray')+'"></span>'+cls.replace('歳児クラス','歳')+'</span>';
     }).join('');
-    item.innerHTML=
-      '<div style="flex:1;">'+
-        '<div style="font-size:16px;font-weight:500;margin-bottom:5px;">'+ev+'</div>'+
-        '<div class="cls-status-row">'+dotsHtml+'</div>'+
-      '</div>'+
-      '<div style="margin-left:8px;">'+getProgressBadge(ev)+'</div>';
+    item.innerHTML='<div style="flex:1;"><div style="font-size:16px;font-weight:500;margin-bottom:5px;">'+ev+'</div><div class="cls-status-row">'+dotsHtml+'</div></div><div style="margin-left:8px;">'+getProgressBadge(ev)+'</div>';
     el.appendChild(item);
   });
 }
@@ -411,8 +536,8 @@ function renderEntries(){
     list.appendChild(d);
   });
   var sorted=[];
-  CLASS_ORDER.forEach(function(cls){ filtered.filter(function(e){ return e.cls===cls; }).forEach(function(e){ sorted.push(e); }); });
-  filtered.filter(function(e){ return CLASS_ORDER.indexOf(e.cls)<0; }).forEach(function(e){ sorted.push(e); });
+  currentClasses.forEach(function(cls){ filtered.filter(function(e){ return e.cls===cls; }).forEach(function(e){ sorted.push(e); }); });
+  filtered.filter(function(e){ return currentClasses.indexOf(e.cls)<0; }).forEach(function(e){ sorted.push(e); });
   $('copy-box').textContent=sorted.map(function(e){ return '【'+e.cls+'】\n'+e.text; }).join('\n\n');
 }
 
@@ -421,8 +546,7 @@ function submitHansei(){
   if(!selectedClasses.length){ err.textContent='クラスを選択してください'; return; }
   if(!text){ err.textContent='反省を入力してください'; return; }
   err.textContent=''; $('submit-btn').disabled=true; $('submit-btn').textContent='送信中...';
-  var clsLabel=selectedClasses.join('・');
-  api({action:'write',event:currentEvent,cls:clsLabel,text:text}).then(function(){
+  api({action:'write',event:currentEvent,cls:selectedClasses.join('・'),text:text}).then(function(){
     showScreen('s-success');
   }).catch(function(){ err.textContent='送信に失敗しました。もう一度お試しください。'; $('submit-btn').disabled=false; $('submit-btn').textContent='送信する'; });
 }
@@ -467,10 +591,6 @@ $('edit-delete-btn').addEventListener('click',function(){
 });
 $('edit-cancel-btn').addEventListener('click',closeEditModal);
 $('edit-modal').addEventListener('click',function(e){ if(e.target===$('edit-modal')) closeEditModal(); });
-
-switchTab('input');
-api({action:'getEvents'}).then(function(data){ events=data.events||[]; renderEvList(); })
-.catch(function(){ events=['運動会','お遊戯会','遠足','夏祭り','クリスマス会']; renderEvList(); });
 </script>
 </body>
 </html>
