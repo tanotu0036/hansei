@@ -21,20 +21,30 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .list-group{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:16px;}
 .list-item{display:flex;align-items:center;border-bottom:1px solid #e5e5ea;background:#fff;}
 .list-item:last-child{border-bottom:none;}
-.list-item.dragging{opacity:0.5;background:#f0f6ff;}
 .list-item.drag-over{border-top:2px solid #007AFF;}
 .drag-handle{padding:14px 10px 14px 16px;color:#c7c7cc;font-size:20px;cursor:grab;touch-action:none;flex-shrink:0;}
-.list-item-main{flex:1;padding:14px 0;font-size:16px;font-weight:500;color:#1c1c1e;cursor:default;}
+.list-item-main{flex:1;padding:10px 0;cursor:default;}
+.list-item-name{font-size:16px;font-weight:500;color:#1c1c1e;margin-bottom:5px;}
+.cls-status-row{display:flex;flex-wrap:wrap;gap:5px;}
+.cls-dot-item{display:flex;align-items:center;gap:3px;font-size:11px;color:#8e8e93;}
+.dot-sm{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
+.dot-green{background:#34c759;}
+.dot-gray{background:#c7c7cc;}
 .go-btn{padding:10px 16px;background:transparent;border:none;color:#007AFF;font-size:22px;cursor:pointer;flex-shrink:0;}
-.badge-count{font-size:13px;color:#8e8e93;background:#f2f2f7;padding:3px 10px;border-radius:10px;white-space:nowrap;}
+.progress-badge{font-size:12px;padding:3px 8px;border-radius:10px;white-space:nowrap;font-weight:600;}
+.badge-complete{background:#d1fae5;color:#065f46;}
+.badge-partial{background:#fef3c7;color:#92400e;}
+.badge-none{background:#f2f2f7;color:#8e8e93;}
 .form-group{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:16px;}
 .form-row{padding:13px 16px;border-bottom:1px solid #e5e5ea;}
 .form-row:last-child{border-bottom:none;}
 .form-label{font-size:12px;color:#8e8e93;margin-bottom:8px;}
 .cls-chips{display:flex;flex-wrap:wrap;gap:8px;}
-.cls-chip{padding:8px 14px;background:#f2f2f7;border:1.5px solid #e5e5ea;border-radius:20px;font-size:14px;color:#555;cursor:pointer;user-select:none;}
+.cls-chip{padding:8px 14px;background:#f2f2f7;border:1.5px solid #e5e5ea;border-radius:20px;font-size:14px;color:#555;cursor:pointer;user-select:none;position:relative;}
 .cls-chip.selected{background:#007AFF;color:#fff;border-color:#007AFF;}
-textarea,input{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;}
+.cls-chip.done{border-color:#34c759;}
+.cls-chip.done::after{content:'✓';position:absolute;top:-4px;right:-4px;background:#34c759;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;display:flex;align-items:center;justify-content:center;line-height:14px;text-align:center;}
+textarea,input[type=text]{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;}
 textarea{min-height:160px;resize:none;line-height:1.6;}
 .btn-p{display:block;width:100%;padding:16px;background:#007AFF;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;margin-bottom:10px;}
 .btn-p:active{background:#0062cc;}
@@ -45,6 +55,15 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .chips::-webkit-scrollbar{display:none;}
 .chip{flex-shrink:0;padding:7px 14px;background:#fff;border:1px solid #ddd;border-radius:20px;font-size:13px;color:#555;cursor:pointer;}
 .chip.active{background:#007AFF;color:#fff;border-color:#007AFF;}
+.cls-progress-card{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+.cls-progress-title{font-size:12px;font-weight:600;color:#8e8e93;margin-bottom:10px;}
+.cls-progress-list{display:flex;flex-wrap:wrap;gap:8px;}
+.cls-progress-item{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:20px;font-size:13px;font-weight:500;}
+.cls-progress-item.done{background:#d1fae5;color:#065f46;}
+.cls-progress-item.notdone{background:#f2f2f7;color:#8e8e93;}
+.cls-progress-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.cls-progress-item.done .cls-progress-dot{background:#34c759;}
+.cls-progress-item.notdone .cls-progress-dot{background:#c7c7cc;}
 .entry{background:#fff;border-radius:12px;padding:13px 16px;margin-bottom:10px;}
 .entry-cls{display:inline-block;font-size:12px;padding:2px 8px;border-radius:8px;background:#e8f0fe;color:#1a56db;margin-bottom:6px;}
 .entry-txt{font-size:15px;line-height:1.6;white-space:pre-wrap;}
@@ -52,8 +71,6 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .empty{text-align:center;padding:40px;color:#8e8e93;font-size:15px;}
 .err{color:#ff3b30;font-size:14px;margin-top:8px;}
 .toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:10px 22px;border-radius:20px;font-size:14px;display:none;z-index:999;}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;}
-.dg{background:#34c759;}.dgr{background:#c7c7cc;}
 .success-wrap{text-align:center;padding:60px 20px;}
 .success-icon{font-size:64px;margin-bottom:16px;}
 .success-title{font-size:22px;font-weight:700;margin-bottom:8px;}
@@ -97,6 +114,10 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
     <div class="navbar-title" id="input-title"></div>
   </div>
   <div class="content">
+    <div class="cls-progress-card">
+      <div class="cls-progress-title">提出状況</div>
+      <div class="cls-progress-list" id="input-cls-progress"></div>
+    </div>
     <div class="form-group">
       <div class="form-row">
         <div class="form-label">記入者クラス（複数選択可）</div>
@@ -126,6 +147,10 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
     <div class="navbar-title" id="entries-title"></div>
   </div>
   <div class="content">
+    <div class="cls-progress-card">
+      <div class="cls-progress-title">提出状況</div>
+      <div class="cls-progress-list" id="entries-cls-progress"></div>
+    </div>
     <button class="btn-s" id="reload-btn" style="padding:10px;margin-bottom:12px;">再読み込み</button>
     <div class="chips" id="chips"></div>
     <div id="entries-list"></div>
@@ -174,29 +199,56 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 var GAS = 'https://script.google.com/macros/s/AKfycbxcoORrvnJMx2yL_Nsp8GP0NaYwNqo9HMmWaJ1qB-4xo7fMvdyAVoYcW35DwcRfi1b9qQ/exec';
 var CLASS_ORDER = ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'];
-var events = [], currentEvent = '', currentFilter = 'all', currentTab = 'input', allEntries = [];
-var editingIndex = -1;
-var selectedClasses = [];
+var events=[], currentEvent='', currentFilter='all', currentTab='input', allEntries=[];
+var editingIndex=-1, selectedClasses=[];
 
 function $(i){ return document.getElementById(i); }
 function showScreen(i){ document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); }); $(i).classList.add('active'); window.scrollTo(0,0); }
 function showToast(m){ var t=$('toast'); t.textContent=m||'コピーしました'; t.style.display='block'; setTimeout(function(){ t.style.display='none'; },2000); }
 
 function api(params){
-  var url = GAS + '?' + new URLSearchParams(params).toString();
-  return fetch(url, {method:'GET', redirect:'follow', mode:'cors'})
+  var url=GAS+'?'+new URLSearchParams(params).toString();
+  return fetch(url,{method:'GET',redirect:'follow',mode:'cors'})
     .then(function(r){ return r.text(); })
-    .then(function(text){ try{ return JSON.parse(text); }catch(e){ return {}; } });
+    .then(function(t){ try{ return JSON.parse(t); }catch(e){ return {}; } });
+}
+function saveEvents(){ return api({action:'saveEvents',eventsJson:JSON.stringify(events)}); }
+
+// 提出済みクラスを返す（合同クラス「3歳児・4歳児」も各クラスに分解してカウント）
+function getDoneClasses(ev){
+  var done={};
+  allEntries.filter(function(e){ return e.event===ev; }).forEach(function(e){
+    if(!e.cls) return;
+    e.cls.split('・').forEach(function(c){ done[c.trim()]=true; });
+  });
+  return done;
 }
 
-function saveEvents(){
-  return api({action:'saveEvents', eventsJson: JSON.stringify(events)});
+// 行事一覧の提出状況バッジ
+function getProgressBadge(ev){
+  var done=getDoneClasses(ev);
+  var cnt=CLASS_ORDER.filter(function(c){ return done[c]; }).length;
+  if(cnt===0) return '<span class="progress-badge badge-none">未提出</span>';
+  if(cnt===CLASS_ORDER.length) return '<span class="progress-badge badge-complete">全員完了✓</span>';
+  return '<span class="progress-badge badge-partial">'+cnt+'/'+CLASS_ORDER.length+'クラス</span>';
+}
+
+// 提出状況カード描画
+function renderClsProgress(containerId, ev){
+  var done=getDoneClasses(ev);
+  var el=$(containerId); el.innerHTML='';
+  CLASS_ORDER.forEach(function(cls){
+    var isDone=!!done[cls];
+    var item=document.createElement('div');
+    item.className='cls-progress-item '+(isDone?'done':'notdone');
+    item.innerHTML='<span class="cls-progress-dot"></span>'+cls.replace('クラス','');
+    el.appendChild(item);
+  });
 }
 
 function switchTab(tab){
@@ -210,121 +262,78 @@ function switchTab(tab){
 
 function goHome(){ renderEvList(); renderSumList(); showScreen('s-home'); }
 
-// ===== クラス複数選択 =====
+// クラス複数選択
 document.querySelectorAll('.cls-chip').forEach(function(chip){
-  chip.addEventListener('click', function(){
-    var cls = chip.getAttribute('data-cls');
-    var idx = selectedClasses.indexOf(cls);
-    if(idx >= 0){
-      selectedClasses.splice(idx,1);
-      chip.classList.remove('selected');
-    } else {
-      selectedClasses.push(cls);
-      chip.classList.add('selected');
-    }
+  chip.addEventListener('click',function(){
+    var cls=chip.getAttribute('data-cls');
+    var idx=selectedClasses.indexOf(cls);
+    if(idx>=0){ selectedClasses.splice(idx,1); chip.classList.remove('selected'); }
+    else{ selectedClasses.push(cls); chip.classList.add('selected'); }
   });
 });
-
 function resetClsChips(){
-  selectedClasses = [];
+  selectedClasses=[];
   document.querySelectorAll('.cls-chip').forEach(function(c){ c.classList.remove('selected'); });
 }
-
-// ===== ドラッグ＆ドロップ（PC） =====
-var dragSrcIndex = -1;
-function onDragStart(e, idx){ dragSrcIndex = idx; e.dataTransfer.effectAllowed = 'move'; }
-function onDragOver(e, el){ e.preventDefault(); document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); el.classList.add('drag-over'); }
-function onDrop(e, idx){
-  e.preventDefault();
-  document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); });
-  if(dragSrcIndex === idx) return;
-  var moved = events.splice(dragSrcIndex,1)[0];
-  events.splice(idx,0,moved);
-  renderEvList(); saveEvents();
+function updateClsChipsDone(ev){
+  var done=getDoneClasses(ev);
+  document.querySelectorAll('.cls-chip').forEach(function(chip){
+    var cls=chip.getAttribute('data-cls');
+    if(done[cls]) chip.classList.add('done'); else chip.classList.remove('done');
+  });
 }
 
-// ===== タッチドラッグ（スマホ） =====
-var touchDragIndex = -1, touchClone = null, touchStartY = 0;
-function onTouchStart(e, idx){
-  touchDragIndex = idx; touchStartY = e.touches[0].clientY;
-  var el = e.currentTarget.closest('.list-item');
-  touchClone = el.cloneNode(true);
-  touchClone.style.cssText = 'position:fixed;left:0;right:0;z-index:200;opacity:0.85;background:#e8f0fe;pointer-events:none;';
-  touchClone.style.top = el.getBoundingClientRect().top + 'px';
-  document.body.appendChild(touchClone);
-}
-function onTouchMove(e){
-  if(touchDragIndex < 0 || !touchClone) return;
-  e.preventDefault();
-  var y = e.touches[0].clientY;
-  var top = parseFloat(touchClone.style.top) + (y - touchStartY);
-  touchClone.style.top = top + 'px';
-  touchStartY = y;
-  document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); });
-  var over = document.elementFromPoint(e.touches[0].clientX, y);
-  if(over){ var item = over.closest('.list-item'); if(item) item.classList.add('drag-over'); }
-}
-function onTouchEnd(e){
-  if(touchDragIndex < 0) return;
-  if(touchClone){ document.body.removeChild(touchClone); touchClone=null; }
-  document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); });
-  var y = e.changedTouches[0].clientY;
-  var over = document.elementFromPoint(e.changedTouches[0].clientX, y);
-  if(over){
-    var item = over.closest('.list-item');
-    if(item){
-      var idx = parseInt(item.getAttribute('data-idx'));
-      if(!isNaN(idx) && idx !== touchDragIndex){
-        var moved = events.splice(touchDragIndex,1)[0];
-        events.splice(idx,0,moved);
-        renderEvList(); saveEvents();
-      }
-    }
-  }
-  touchDragIndex = -1;
-}
-document.addEventListener('touchmove', onTouchMove, {passive:false});
-document.addEventListener('touchend', onTouchEnd);
+// ドラッグ＆ドロップ（PC）
+var dragSrcIndex=-1;
+function onDragStart(e,idx){ dragSrcIndex=idx; e.dataTransfer.effectAllowed='move'; }
+function onDragOver(e,el){ e.preventDefault(); document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); el.classList.add('drag-over'); }
+function onDrop(e,idx){ e.preventDefault(); document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); if(dragSrcIndex===idx) return; var m=events.splice(dragSrcIndex,1)[0]; events.splice(idx,0,m); renderEvList(); saveEvents(); }
 
-// ===== 長押し編集 =====
-var longPressTimer = null;
-function startLongPress(idx){ longPressTimer = setTimeout(function(){ openEditModal(idx); }, 600); }
+// タッチドラッグ
+var touchDragIndex=-1,touchClone=null,touchStartY=0;
+function onTouchStart(e,idx){ touchDragIndex=idx; touchStartY=e.touches[0].clientY; var el=e.currentTarget.closest('.list-item'); touchClone=el.cloneNode(true); touchClone.style.cssText='position:fixed;left:0;right:0;z-index:200;opacity:0.85;background:#e8f0fe;pointer-events:none;'; touchClone.style.top=el.getBoundingClientRect().top+'px'; document.body.appendChild(touchClone); }
+function onTouchMove(e){ if(touchDragIndex<0||!touchClone) return; e.preventDefault(); var y=e.touches[0].clientY; touchClone.style.top=(parseFloat(touchClone.style.top)+(y-touchStartY))+'px'; touchStartY=y; document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); var over=document.elementFromPoint(e.touches[0].clientX,y); if(over){ var item=over.closest('.list-item'); if(item) item.classList.add('drag-over'); } }
+function onTouchEnd(e){ if(touchDragIndex<0) return; if(touchClone){ document.body.removeChild(touchClone); touchClone=null; } document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); var y=e.changedTouches[0].clientY; var over=document.elementFromPoint(e.changedTouches[0].clientX,y); if(over){ var item=over.closest('.list-item'); if(item){ var idx=parseInt(item.getAttribute('data-idx')); if(!isNaN(idx)&&idx!==touchDragIndex){ var m=events.splice(touchDragIndex,1)[0]; events.splice(idx,0,m); renderEvList(); saveEvents(); } } } touchDragIndex=-1; }
+document.addEventListener('touchmove',onTouchMove,{passive:false});
+document.addEventListener('touchend',onTouchEnd);
+
+// 長押し
+var longPressTimer=null;
+function startLongPress(idx){ longPressTimer=setTimeout(function(){ openEditModal(idx); },600); }
 function cancelLongPress(){ if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; } }
-
-function openEditModal(idx){
-  editingIndex = idx;
-  $('edit-ev-input').value = events[idx];
-  $('edit-modal').classList.add('active');
-  setTimeout(function(){ $('edit-ev-input').focus(); },100);
-}
+function openEditModal(idx){ editingIndex=idx; $('edit-ev-input').value=events[idx]; $('edit-modal').classList.add('active'); setTimeout(function(){ $('edit-ev-input').focus(); },100); }
 function closeEditModal(){ $('edit-modal').classList.remove('active'); editingIndex=-1; }
 
-// ===== 描画 =====
 function renderEvList(){
   var el=$('ev-list'); el.innerHTML='';
   if(!events.length){ el.innerHTML='<p class="empty">行事がまだありません</p>'; return; }
-  events.forEach(function(ev, idx){
-    var item = document.createElement('div');
-    item.className = 'list-item';
-    item.setAttribute('draggable','true');
-    item.setAttribute('data-idx', idx);
-    item.innerHTML =
-      '<div class="drag-handle">☰</div>' +
-      '<div class="list-item-main">'+ev+'</div>' +
+  events.forEach(function(ev,idx){
+    var done=getDoneClasses(ev);
+    var item=document.createElement('div');
+    item.className='list-item'; item.setAttribute('draggable','true'); item.setAttribute('data-idx',idx);
+    var dotsHtml=CLASS_ORDER.map(function(cls){
+      var d=done[cls]?'dot-green':'dot-gray';
+      return '<span class="cls-dot-item"><span class="dot-sm '+d+'"></span>'+cls.replace('歳児クラス','歳')+'</span>';
+    }).join('');
+    item.innerHTML=
+      '<div class="drag-handle">☰</div>'+
+      '<div class="list-item-main">'+
+        '<div class="list-item-name">'+ev+'</div>'+
+        '<div class="cls-status-row">'+dotsHtml+'</div>'+
+      '</div>'+
       '<button class="go-btn">›</button>';
-    item.addEventListener('dragstart', function(e){ onDragStart(e,idx); });
-    item.addEventListener('dragover', function(e){ onDragOver(e,item); });
-    item.addEventListener('drop', function(e){ onDrop(e,idx); });
-    var handle = item.querySelector('.drag-handle');
-    handle.addEventListener('touchstart', function(e){ onTouchStart(e,idx); },{passive:true});
-    var main = item.querySelector('.list-item-main');
-    main.addEventListener('mousedown', function(){ startLongPress(idx); });
-    main.addEventListener('mouseup', cancelLongPress);
-    main.addEventListener('mouseleave', cancelLongPress);
-    main.addEventListener('touchstart', function(){ startLongPress(idx); },{passive:true});
-    main.addEventListener('touchend', cancelLongPress);
-    main.addEventListener('touchmove', cancelLongPress);
-    item.querySelector('.go-btn').addEventListener('click', function(e){ e.stopPropagation(); openInput(ev); });
+    item.addEventListener('dragstart',function(e){ onDragStart(e,idx); });
+    item.addEventListener('dragover',function(e){ onDragOver(e,item); });
+    item.addEventListener('drop',function(e){ onDrop(e,idx); });
+    item.querySelector('.drag-handle').addEventListener('touchstart',function(e){ onTouchStart(e,idx); },{passive:true});
+    var main=item.querySelector('.list-item-main');
+    main.addEventListener('mousedown',function(){ startLongPress(idx); });
+    main.addEventListener('mouseup',cancelLongPress);
+    main.addEventListener('mouseleave',cancelLongPress);
+    main.addEventListener('touchstart',function(){ startLongPress(idx); },{passive:true});
+    main.addEventListener('touchend',cancelLongPress);
+    main.addEventListener('touchmove',cancelLongPress);
+    item.querySelector('.go-btn').addEventListener('click',function(e){ e.stopPropagation(); openInput(ev); });
     el.appendChild(item);
   });
 }
@@ -333,12 +342,21 @@ function renderSumList(){
   var el=$('sum-list'); el.innerHTML='';
   if(!events.length){ el.innerHTML='<p class="empty">行事がまだありません</p>'; return; }
   events.forEach(function(ev){
-    var cnt=allEntries.filter(function(e){ return e.event===ev; }).length;
-    var b=document.createElement('button');
-    b.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border:none;border-bottom:1px solid #e5e5ea;background:#fff;width:100%;text-align:left;cursor:pointer;font-size:16px;font-weight:500;color:#1c1c1e;';
-    b.innerHTML='<span><span class="dot '+(cnt>0?'dg':'dgr')+'"></span>'+ev+'</span><span class="badge-count">'+cnt+'件</span>';
-    b.addEventListener('click',function(){ openEntries(ev); });
-    el.appendChild(b);
+    var done=getDoneClasses(ev);
+    var item=document.createElement('div');
+    item.style.cssText='display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e5ea;background:#fff;cursor:pointer;';
+    item.addEventListener('click',function(){ openEntries(ev); });
+    var dotsHtml=CLASS_ORDER.map(function(cls){
+      var d=done[cls]?'dot-green':'dot-gray';
+      return '<span class="cls-dot-item"><span class="dot-sm '+d+'"></span>'+cls.replace('歳児クラス','歳')+'</span>';
+    }).join('');
+    item.innerHTML=
+      '<div style="flex:1;">'+
+        '<div style="font-size:16px;font-weight:500;margin-bottom:5px;">'+ev+'</div>'+
+        '<div class="cls-status-row">'+dotsHtml+'</div>'+
+      '</div>'+
+      '<div style="margin-left:8px;">'+getProgressBadge(ev)+'</div>';
+    el.appendChild(item);
   });
 }
 
@@ -346,6 +364,8 @@ function openInput(ev){
   currentEvent=ev; $('input-title').textContent=ev;
   resetClsChips(); $('hansei').value=''; $('input-err').textContent='';
   $('submit-btn').disabled=false; $('submit-btn').textContent='送信する';
+  renderClsProgress('input-cls-progress',ev);
+  updateClsChipsDone(ev);
   showScreen('s-input');
 }
 
@@ -354,6 +374,7 @@ function openEntries(ev){
   $('entries-title').textContent=ev;
   $('entries-list').innerHTML='<p class="empty">読み込み中...</p>';
   $('copy-box').textContent='';
+  renderClsProgress('entries-cls-progress',ev);
   showScreen('s-entries'); loadEntries();
 }
 
@@ -362,7 +383,9 @@ function loadEntries(){
   api({action:'read'}).then(function(data){
     var rows=data.rows||[];
     allEntries=rows.slice(1).map(function(r){ return {event:r[1],cls:r[2],text:r[3]}; }).filter(function(r){ return r.event; });
-    renderSumList(); renderEntries();
+    renderSumList(); renderEvList();
+    renderClsProgress('entries-cls-progress',currentEvent);
+    renderEntries();
   }).catch(function(){ $('entries-list').innerHTML='<p class="empty">読み込みに失敗しました。再読み込みしてください。</p>'; });
 }
 
@@ -371,10 +394,9 @@ function renderEntries(){
   var cr=$('chips'); cr.innerHTML='';
   var ac=document.createElement('div'); ac.className='chip'+(currentFilter==='all'?' active':''); ac.textContent='すべて';
   ac.addEventListener('click',function(){ currentFilter='all'; renderEntries(); }); cr.appendChild(ac);
-  // クラス一覧（合同クラスも含めて抽出）
-  var clsSet = {};
+  var clsSet={};
   entries.forEach(function(e){ if(e.cls) clsSet[e.cls]=true; });
-  Object.keys(clsSet).sort().forEach(function(c){
+  Object.keys(clsSet).forEach(function(c){
     var ch=document.createElement('div'); ch.className='chip'+(currentFilter===c?' active':''); ch.textContent=c;
     ch.addEventListener('click',function(){ currentFilter=c; renderEntries(); }); cr.appendChild(ch);
   });
@@ -388,25 +410,19 @@ function renderEntries(){
     d.innerHTML='<span class="entry-cls">'+c+'</span><div class="entry-txt">'+t+'</div>';
     list.appendChild(d);
   });
-  // コピー用：CLASS_ORDERで並び替え、合同クラスは末尾
-  var sorted = [];
-  CLASS_ORDER.forEach(function(cls){
-    filtered.filter(function(e){ return e.cls===cls; }).forEach(function(e){ sorted.push(e); });
-  });
+  var sorted=[];
+  CLASS_ORDER.forEach(function(cls){ filtered.filter(function(e){ return e.cls===cls; }).forEach(function(e){ sorted.push(e); }); });
   filtered.filter(function(e){ return CLASS_ORDER.indexOf(e.cls)<0; }).forEach(function(e){ sorted.push(e); });
   $('copy-box').textContent=sorted.map(function(e){ return '【'+e.cls+'】\n'+e.text; }).join('\n\n');
 }
 
 function submitHansei(){
-  var text=$('hansei').value.trim();
-  var err=$('input-err');
+  var text=$('hansei').value.trim(), err=$('input-err');
   if(!selectedClasses.length){ err.textContent='クラスを選択してください'; return; }
   if(!text){ err.textContent='反省を入力してください'; return; }
-  err.textContent='';
-  $('submit-btn').disabled=true; $('submit-btn').textContent='送信中...';
-  // 合同の場合は「3歳児クラス・4歳児クラス・5歳児クラス」のように結合
-  var clsLabel = selectedClasses.join('・');
-  api({action:'write', event:currentEvent, cls:clsLabel, text:text}).then(function(){
+  err.textContent=''; $('submit-btn').disabled=true; $('submit-btn').textContent='送信中...';
+  var clsLabel=selectedClasses.join('・');
+  api({action:'write',event:currentEvent,cls:clsLabel,text:text}).then(function(){
     showScreen('s-success');
   }).catch(function(){ err.textContent='送信に失敗しました。もう一度お試しください。'; $('submit-btn').disabled=false; $('submit-btn').textContent='送信する'; });
 }
@@ -442,14 +458,12 @@ $('btn-add-ev').addEventListener('click',function(){ showScreen('s-add'); });
 $('edit-save-btn').addEventListener('click',function(){
   var name=$('edit-ev-input').value.trim();
   if(!name){ alert('行事名を入力してください'); return; }
-  if(events.indexOf(name)>=0 && events.indexOf(name)!==editingIndex){ alert('その行事名は既に存在します'); return; }
-  events[editingIndex]=name;
-  saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('行事名を更新しました'); });
+  if(events.indexOf(name)>=0&&events.indexOf(name)!==editingIndex){ alert('その行事名は既に存在します'); return; }
+  events[editingIndex]=name; saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('行事名を更新しました'); });
 });
 $('edit-delete-btn').addEventListener('click',function(){
-  if(!confirm('「'+events[editingIndex]+'」を削除しますか？\n※入力済みの反省データは残ります')){ return; }
-  events.splice(editingIndex,1);
-  saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('削除しました'); });
+  if(!confirm('「'+events[editingIndex]+'」を削除しますか？\n※入力済みの反省データは残ります')) return;
+  events.splice(editingIndex,1); saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('削除しました'); });
 });
 $('edit-cancel-btn').addEventListener('click',closeEditModal);
 $('edit-modal').addEventListener('click',function(e){ if(e.target===$('edit-modal')) closeEditModal(); });
