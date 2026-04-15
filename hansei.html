@@ -322,7 +322,7 @@ function showYearSelect(){
       btn.classList.add('active');
       currentYear=y;
       sessionStorage.setItem('hf_garden',currentGarden);
-      sessionStorage.setItem('hf_year',y);
+      sessionStorage.setItem('hf_year',y); sessionStorage.setItem('hf_tab','input');
       enterApp();
     });
     btns.appendChild(btn);
@@ -335,7 +335,8 @@ function enterApp(){
   $('ctx-year').textContent=currentYear;
   buildClsChips();
   showScreen('s-home');
-  switchTab('input');
+  var savedTab=sessionStorage.getItem('hf_tab')||'input';
+  switchTab(savedTab);
   loadAllEntries();
 }
 
@@ -473,6 +474,7 @@ function renderClsProgress(containerId,ev){
 // ===== タブ =====
 function switchTab(tab){
   currentTab=tab;
+  sessionStorage.setItem('hf_tab',tab);
   $('t-input').classList.toggle('active',tab==='input');
   $('t-summary').classList.toggle('active',tab==='summary');
   $('p-input').style.display=tab==='input'?'':'none';
