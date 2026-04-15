@@ -302,7 +302,6 @@ $('login-btn').addEventListener('click',function(){
   if(pw!=='kodomo5848'){$('login-err').textContent='パスワードが違います';return;}
   currentGarden=garden;currentClasses=GARDENS[garden]||[];
   $('login-err').textContent='';
-  localStorage.setItem('hf_garden',garden);
   showYearSelect();
 });
 $('login-pw').addEventListener('keydown',function(e){if(e.key==='Enter') $('login-btn').click();});
@@ -322,7 +321,8 @@ function showYearSelect(){
       document.querySelectorAll('.year-btn').forEach(function(b){b.classList.remove('active');});
       btn.classList.add('active');
       currentYear=y;
-      localStorage.setItem('hf_year',y);
+      sessionStorage.setItem('hf_garden',currentGarden);
+      sessionStorage.setItem('hf_year',y);
       enterApp();
     });
     btns.appendChild(btn);
@@ -331,7 +331,7 @@ function showYearSelect(){
 }
 
 function enterApp(){
-  $('ctx-garden').textContent=currentGarden+'園';
+  $('ctx-garden').textContent=currentGarden;
   $('ctx-year').textContent=currentYear;
   buildClsChips();
   showScreen('s-home');
@@ -339,10 +339,10 @@ function enterApp(){
   loadAllEntries();
 }
 
-// リロード時にログイン状態を復元
+// ===== リロード時にセッション復元 =====
 (function(){
-  var savedGarden=localStorage.getItem('hf_garden');
-  var savedYear=localStorage.getItem('hf_year');
+  var savedGarden=sessionStorage.getItem('hf_garden');
+  var savedYear=sessionStorage.getItem('hf_year');
   if(savedGarden&&savedYear&&GARDENS[savedGarden]){
     currentGarden=savedGarden;
     currentClasses=GARDENS[savedGarden];
@@ -377,7 +377,7 @@ function updateClsChipsDone(ev){
   });
 }
 
-// ===== クラスチップ（行事追加画面） =====
+// ===== クラスチップ（行事追加） =====
 function buildNewEvClsChips(){
   var el=$('new-ev-cls-chips');el.innerHTML='';
   newEvSelectedClasses=[];
@@ -415,7 +415,7 @@ function buildEditClsChips(targetClasses){
 
 $('back-to-login').addEventListener('click',function(){currentGarden='';currentYear='';showScreen('s-login');});
 $('logout-btn').addEventListener('click',function(){
-  localStorage.removeItem('hf_garden');localStorage.removeItem('hf_year');
+  sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');
   currentGarden='';currentYear='';currentClasses=[];events=[];allEntries=[];
   $('login-garden').value='';$('login-pw').value='';
   showScreen('s-login');
@@ -445,7 +445,6 @@ function getDoneClasses(evName){
   });
   return done;
 }
-
 function getEventClasses(ev){return(ev&&ev.classes&&ev.classes.length)?ev.classes:currentClasses;}
 
 function getProgressBadge(ev){
