@@ -590,7 +590,7 @@ $('sel-class-input').addEventListener('click',function(){
   toggleSelectAll($('cls-chips'),selectedClasses,function(t){return t==='class';});
 });
 $('sel-all-input').addEventListener('click',function(){
-  toggleSelectAll($('cls-chips'),selectedClasses,null);
+  toggleSelectAll($('cls-chips'),selectedClasses,function(t){return t==='person';});
 });
 
 // ===== クラスチップ（行事追加） =====
@@ -602,7 +602,7 @@ $('sel-class-add').addEventListener('click',function(){
   toggleSelectAll($('new-ev-cls-chips'),newEvSelectedClasses,function(t){return t==='class';});
 });
 $('sel-all-add').addEventListener('click',function(){
-  toggleSelectAll($('new-ev-cls-chips'),newEvSelectedClasses,null);
+  toggleSelectAll($('new-ev-cls-chips'),newEvSelectedClasses,function(t){return t==='person';});
 });
 
 // ===== クラスチップ（編集モーダル） =====
@@ -614,7 +614,7 @@ $('sel-class-edit').addEventListener('click',function(){
   toggleSelectAll($('edit-cls-chips'),editSelectedClasses,function(t){return t==='class';});
 });
 $('sel-all-edit').addEventListener('click',function(){
-  toggleSelectAll($('edit-cls-chips'),editSelectedClasses,null);
+  toggleSelectAll($('edit-cls-chips'),editSelectedClasses,function(t){return t==='person';});
 });
 
 // ===== データ =====
