@@ -109,6 +109,8 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .context-info{font-size:13px;color:#8e8e93;}
 .context-info span{color:#1c1c1e;font-weight:600;}
 .logout-btn{font-size:13px;cursor:pointer;background:none;border:none;padding:4px 8px;}
+.garden-select-btn{display:block;width:100%;padding:20px;margin-bottom:12px;background:#fff;border:1.5px solid #e5e5ea;border-radius:16px;font-size:20px;font-weight:700;color:#1c1c1e;cursor:pointer;text-align:center;letter-spacing:0.05em;}
+.garden-select-btn:active{background:#f2f2f7;}
 .edit-mode-banner{background:#fff3cd;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#856404;text-align:center;}
 .member-list{margin-bottom:12px;}
 .member-item{display:flex;align-items:center;background:#fff;border-bottom:1px solid #e5e5ea;padding:12px 16px;gap:10px;}
@@ -135,21 +137,13 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   <div class="content"><div class="login-wrap">
     <div class="login-logo">🏫</div>
     <div class="login-title">行事の反省 入力フォーム</div>
-    <div class="login-sub">園名とパスワードを入力してください</div>
-    <div class="form-group">
+    <div class="login-sub">園を選んでください</div>
+    <div class="form-group" style="margin-bottom:16px;">
       <div class="form-row">
-        <div class="form-label">園名</div>
-        <select id="login-garden">
-          <option value="">選択してください</option>
-          <option>西新</option><option>原</option><option>たの津</option><option>ちくし野</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <div class="form-label">パスワード</div>
-        <input type="password" id="login-pw" placeholder="パスワードを入力">
+        <select id="login-year" style="font-size:20px;font-weight:700;padding:8px 0;text-align:center;"></select>
       </div>
     </div>
-    <button class="btn-p" id="login-btn">ログイン</button>
+    <div id="garden-btns"></div>
     <p class="err" id="login-err"></p>
   </div></div>
 </div>
@@ -168,7 +162,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   <div class="context-bar">
     <div class="context-info"><span id="ctx-garden"></span>・<span id="ctx-year"></span></div>
     <div style="display:flex;gap:4px;">
-      <button class="logout-btn" id="change-year-btn" style="color:#007AFF;">年度変更</button>
+      <button class="logout-btn" id="change-year-btn" style="color:#007AFF;">園・年度変更</button>
       <button class="logout-btn" id="logout-btn" style="color:#ff3b30;">ログアウト</button>
     </div>
   </div>
@@ -364,35 +358,39 @@ function api(params){
 function saveEvents(){return api({action:'saveEvents',eventsJson:JSON.stringify(events)});}
 
 // ===== ログイン =====
-$('login-btn').addEventListener('click',function(){
-  var garden=$('login-garden').value,pw=$('login-pw').value;
-  if(!garden){$('login-err').textContent='園名を選択してください';return;}
-  if(!pw){$('login-err').textContent='パスワードを入力してください';return;}
-  if(pw!=='kodomo5848'){$('login-err').textContent='パスワードが違います';return;}
-  currentGarden=garden;$('login-err').textContent='';showYearSelect();
-});
-$('login-pw').addEventListener('keydown',function(e){if(e.key==='Enter') $('login-btn').click();});
-
-function showYearSelect(){
-  $('year-garden-name').textContent=currentGarden+'こども保育園';
-  var btns=$('year-btns');btns.innerHTML='';
+// 年度プルダウン初期化
+(function(){
+  var sel=$('login-year');
   var now=new Date(),nowY=now.getFullYear(),nowM=now.getMonth()+1;
   var baseY=nowM>=4?nowY:nowY-1;
-  var YEARS=[];for(var yi=baseY;yi<=baseY+9;yi++) YEARS.push(yi+'年度');
-  YEARS.forEach(function(y){
-    var yr=parseInt(y);
+  for(var yi=baseY;yi<=baseY+9;yi++){
+    var opt=document.createElement('option');
+    opt.value=yi+'年度';opt.textContent=yi+'年';
+    if(yi===baseY) opt.selected=true;
+    sel.appendChild(opt);
+  }
+})();
+
+// 園ボタン生成
+(function(){
+  var gardens=['西新','原','たの津','ちくし野'];
+  var container=$('garden-btns');
+  gardens.forEach(function(g){
     var btn=document.createElement('button');
-    btn.className='year-btn'+(yr===baseY?' active':'');btn.textContent=y;
+    btn.className='garden-select-btn';
+    btn.textContent=g;
     btn.addEventListener('click',function(){
-      document.querySelectorAll('.year-btn').forEach(function(b){b.classList.remove('active');});
-      btn.classList.add('active');currentYear=y;
-      sessionStorage.setItem('hf_garden',currentGarden);sessionStorage.setItem('hf_year',y);
+      currentGarden=g;
+      currentYear=$('login-year').value;
+      sessionStorage.setItem('hf_garden',g);
+      sessionStorage.setItem('hf_year',currentYear);
       enterApp();
     });
-    btns.appendChild(btn);
+    container.appendChild(btn);
   });
-  showScreen('s-year');
-}
+})();
+
+function showYearSelect(){ showScreen('s-year'); }
 
 function enterApp(){
   $('ctx-garden').textContent=currentGarden;$('ctx-year').textContent=currentYear;
@@ -413,9 +411,9 @@ $('back-to-login').addEventListener('click',function(){currentGarden='';currentY
 $('logout-btn').addEventListener('click',function(){
   sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');sessionStorage.removeItem('hf_tab');
   currentGarden='';currentYear='';currentMembers=[];events=[];allEntries=[];
-  $('login-garden').value='';$('login-pw').value='';showScreen('s-login');
+  $('login-year').value='';showScreen('s-login');
 });
-$('change-year-btn').addEventListener('click',showYearSelect);
+$('change-year-btn').addEventListener('click',function(){ sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');currentGarden='';currentYear='';events=[];allEntries=[];showScreen('s-login'); });
 
 // ===== メンバー設定 =====
 $('btn-members').addEventListener('click',function(){
