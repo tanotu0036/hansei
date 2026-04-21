@@ -28,7 +28,7 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .cls-status-row{display:flex;flex-wrap:wrap;gap:5px;}
 .cls-dot-item{display:flex;align-items:center;gap:3px;font-size:11px;color:#8e8e93;}
 .dot-sm{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
-.dot-green{background:#FF8C42;}.dot-gray{background:#c7c7cc;}.dot-yellow{background:#f5a623;}
+.dot-green{background:#34c759;}.dot-gray{background:#c7c7cc;}.dot-yellow{background:#f5a623;}
 .progress-badge{font-size:12px;padding:3px 8px;border-radius:10px;white-space:nowrap;font-weight:600;}
 .badge-complete{background:#ffe8d6;color:#c45e10;}
 .badge-partial{background:#fef3c7;color:#92400e;}
@@ -65,10 +65,10 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .cls-progress-title{font-size:12px;font-weight:600;color:#8e8e93;margin-bottom:10px;}
 .cls-progress-list{display:flex;flex-wrap:wrap;gap:8px;}
 .cls-progress-item{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:20px;font-size:13px;font-weight:500;}
-.cls-progress-item.done{background:#ffe8d6;color:#c45e10;}
+.cls-progress-item.done{background:#d1fae5;color:#065f46;}
 .cls-progress-item.notdone{background:#f2f2f7;color:#8e8e93;}
 .cls-progress-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-.cls-progress-item.done .cls-progress-dot{background:#FF8C42;}
+.cls-progress-item.done .cls-progress-dot{background:#34c759;}
 .cls-progress-item.notdone .cls-progress-dot{background:#c7c7cc;}
 .edit-entry-btn{font-size:11px;padding:3px 8px;border:1px solid #FF8C42;border-radius:8px;background:transparent;color:#c45e10;cursor:pointer;margin-left:4px;white-space:nowrap;}
 .entry{background:#fff;border-radius:12px;padding:13px 16px;margin-bottom:10px;}
@@ -725,7 +725,23 @@ function buildInputChips(){
     var chip=document.createElement('div');
     chip.className='cls-chip type-'+t; chip.setAttribute('data-name',n); chip.setAttribute('data-type',t);
     chip.textContent=n;
-    chip.onclick=function(){ chip.classList.toggle('selected'); };
+    chip.onclick=function(){
+      chip.classList.toggle('selected');
+      if(chip.classList.contains('selected') && currentEvent){
+        var entry=getEntryForMember(currentEvent.name, n);
+        if(entry && entry.status==='一時保存'){
+          var cur=$$('hansei').value.trim();
+          var doLoad=!cur||confirm('一時保存の内容を読み込みますか？');
+          if(doLoad){
+            $$('hansei').value=entry.text||'';
+            editingEntry=entry;
+            $$('draft-saved-banner').style.display='block';
+            $$('delete-entry-btn').style.display='block';
+            isDirty=false;
+          }
+        }
+      }
+    };
     el.appendChild(chip);
   }
   if(classes.length){
