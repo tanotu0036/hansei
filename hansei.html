@@ -225,7 +225,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
       </div>
       <div class="form-row">
         <div class="form-label">反省・気づき</div>
-        <textarea id="hansei" placeholder="気づいたこと、改善点、良かった点など" oninput="markDirty();$(&quot;draft-btn&quot;).textContent=&quot;一時保存&quot;;"></textarea>
+        <textarea id="hansei" placeholder="気づいたこと、改善点、良かった点など" oninput="markDirty();"></textarea>
       </div>
     </div>
     <button class="btn-p" id="submit-btn">提出</button>
@@ -418,6 +418,11 @@ function enterApp(){
 })();
 
 $('back-to-login')&&$('back-to-login')&&$('back-to-login').addEventListener('click',function(){currentGarden='';currentYear='';showScreen('s-login');});
+$('top-btn')&&$('top-btn').addEventListener('click',function(){
+  sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');sessionStorage.removeItem('hf_tab');
+  currentGarden='';currentYear='';currentMembers=[];events=[];allEntries=[];
+  showScreen('s-login');
+});
 $('logout-btn')&&$('logout-btn')&&$('logout-btn').addEventListener('click',function(){
   sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');sessionStorage.removeItem('hf_tab');
   currentGarden='';currentYear='';currentMembers=[];events=[];allEntries=[];
