@@ -140,25 +140,28 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
     <div class="login-title">行事の反省 入力フォーム</div>
     <div class="login-sub">園を選んでください</div>
     <div style="position:relative;margin-bottom:12px;">
-      <button id="year-btn" style="display:block;width:100%;padding:20px;background:#d6f0ff;border:1.5px solid #a8d8f0;border-radius:16px;font-size:20px;font-weight:700;color:#1a6a9a;cursor:pointer;text-align:center;">2026年</button>
-      <div id="year-list" style="display:none;background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);margin-bottom:12px;max-height:200px;overflow-y:auto;">
-        <div class="year-opt" data-year="2026年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2026年</div>
-<div class="year-opt" data-year="2027年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2027年</div>
-<div class="year-opt" data-year="2028年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2028年</div>
-<div class="year-opt" data-year="2029年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2029年</div>
-<div class="year-opt" data-year="2030年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2030年</div>
-<div class="year-opt" data-year="2031年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2031年</div>
-<div class="year-opt" data-year="2032年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2032年</div>
-<div class="year-opt" data-year="2033年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2033年</div>
-<div class="year-opt" data-year="2034年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2034年</div>
-<div class="year-opt" data-year="2035年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2035年</div>
+      <button id="year-btn" onclick="toggleYearList()" style="display:block;width:100%;padding:20px;background:#d6f0ff;border:1.5px solid #a8d8f0;border-radius:16px;font-size:20px;font-weight:700;color:#1a6a9a;cursor:pointer;text-align:center;">2026年</button>
+      <div id="year-list" style="display:none;background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);max-height:200px;overflow-y:auto;">
+        <div onclick="selectYear(2026)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2026年</div>
+<div onclick="selectYear(2027)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2027年</div>
+<div onclick="selectYear(2028)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2028年</div>
+<div onclick="selectYear(2029)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2029年</div>
+<div onclick="selectYear(2030)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2030年</div>
+<div onclick="selectYear(2031)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2031年</div>
+<div onclick="selectYear(2032)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2032年</div>
+<div onclick="selectYear(2033)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2033年</div>
+<div onclick="selectYear(2034)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2034年</div>
+<div onclick="selectYear(2035)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2035年</div>
 
       </div>
     </div>
-    <button class="garden-select-btn" data-garden="西新">西新</button>
-    <button class="garden-select-btn" data-garden="原">原</button>
-    <button class="garden-select-btn" data-garden="たの津">たの津</button>
-    <button class="garden-select-btn" data-garden="ちくし野">ちくし野</button>
+    <button class="garden-select-btn" onclick="loginGarden('西新')">西新</button>
+    <button class="garden-select-btn" onclick="loginGarden('原')">原</button>
+    <button class="garden-select-btn" onclick="loginGarden('たの津')">たの津</button>
+    <button class="garden-select-btn" onclick="loginGarden('ちくし野')">ちくし野</button>
+    <p class="err" id="login-err"></p>
+  </div></div>
+</div>
     <p class="err" id="login-err"></p>
   </div></div>
 </div>
@@ -376,31 +379,24 @@ function saveEvents(){return api({action:'saveEvents',eventsJson:JSON.stringify(
 var selectedYear='';
 function initLoginButtons(){
   selectedYear='2026年度';
-  var yBtn=$('year-btn');
-  var yList=$('year-list');
-  if(!yBtn||!yList) return;
-  document.querySelectorAll('.year-opt').forEach(function(item){
-    item.addEventListener('click',function(e){
-      e.stopPropagation();
-      selectedYear=item.getAttribute('data-year');
-      yBtn.textContent=item.textContent;
-      yList.style.display='none';
-    });
-  });
-  yBtn.addEventListener('click',function(e){
-    e.stopPropagation();
-    yList.style.display=yList.style.display==='none'?'block':'none';
-  });
-  document.querySelectorAll('.garden-select-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      currentGarden=btn.getAttribute('data-garden');
-      currentYear=selectedYear;
-      sessionStorage.setItem('hf_garden',currentGarden);
-      sessionStorage.setItem('hf_year',currentYear);
-      yList.style.display='none';
-      enterApp();
-    });
-  });
+}
+function toggleYearList(){
+  var y=$('year-list');
+  if(y) y.style.display=y.style.display==='none'?'block':'none';
+}
+function selectYear(y){
+  selectedYear=y+'年度';
+  var btn=$('year-btn');
+  if(btn) btn.textContent=y+'年';
+  var list=$('year-list');
+  if(list) list.style.display='none';
+}
+function loginGarden(g){
+  currentGarden=g;
+  currentYear=selectedYear||'2026年度';
+  sessionStorage.setItem('hf_garden',g);
+  sessionStorage.setItem('hf_year',currentYear);
+  enterApp();
 }
 
 function showYearSelect(){ showScreen('s-year'); }
@@ -880,9 +876,7 @@ function saveDraft(){
 
 function safeGoHome(){
   if(isDirty){
-    if(confirm('入力中の内容があります。一時保存しますか？
-「OK」→一時保存して戻る
-「キャンセル」→破棄して戻る')){
+    if(confirm('入力中の内容があります。\n一時保存してから戻りますか？\nOK→一時保存  キャンセル→破棄')){
       saveDraft();
     }
   }
