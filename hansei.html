@@ -23,13 +23,13 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .list-item:last-child{border-bottom:none;}
 .list-item.drag-over{border-top:2px solid #007AFF;}
 .drag-handle{padding:14px 10px 14px 16px;color:#c7c7cc;font-size:20px;cursor:grab;touch-action:none;flex-shrink:0;}
-.list-item-main{flex:1;padding:10px 0;cursor:default;}
+.list-item-main{flex:1;padding:10px 0;cursor:pointer;}
 .list-item-name{font-size:16px;font-weight:500;color:#1c1c1e;margin-bottom:5px;}
 .cls-status-row{display:flex;flex-wrap:wrap;gap:5px;}
 .cls-dot-item{display:flex;align-items:center;gap:3px;font-size:11px;color:#8e8e93;}
 .dot-sm{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
 .dot-green{background:#FF8C42;}.dot-gray{background:#c7c7cc;}
-.go-btn{padding:10px 16px;background:transparent;border:none;color:#FF8C42;font-size:22px;cursor:pointer;flex-shrink:0;}
+.go-btn{display:none;}
 .progress-badge{font-size:12px;padding:3px 8px;border-radius:10px;white-space:nowrap;font-weight:600;}
 .badge-complete{background:#ffe8d6;color:#c45e10;}
 .badge-partial{background:#fef3c7;color:#92400e;}
@@ -723,19 +723,22 @@ function renderEvList(){
     var dotsHtml=target.map(function(m){
       return '<span class="cls-dot-item"><span class="dot-sm '+(done[m]?'dot-green':'dot-gray')+'"></span>'+m+'</span>';
     }).join('');
-    item.innerHTML='<div class="drag-handle">☰</div><div class="list-item-main"><div class="list-item-name">'+ev.name+'</div><div class="cls-status-row">'+dotsHtml+'</div></div><button class="go-btn">›</button>';
+    item.innerHTML='<div class="drag-handle">☰</div><div class="list-item-main"><div class="list-item-name">'+ev.name+'</div><div class="cls-status-row">'+dotsHtml+'</div></div>';
     item.addEventListener('dragstart',function(e){onDragStart(e,idx);});
     item.addEventListener('dragover',function(e){onDragOver(e,item);});
     item.addEventListener('drop',function(e){onDrop(e,idx);});
     item.querySelector('.drag-handle').addEventListener('touchstart',function(e){onTouchStart(e,idx);},{passive:true});
     var main=item.querySelector('.list-item-main');
-    main.addEventListener('mousedown',function(){startLongPress(idx);});
-    main.addEventListener('mouseup',cancelLongPress);
-    main.addEventListener('mouseleave',cancelLongPress);
-    main.addEventListener('touchstart',function(){startLongPress(idx);},{passive:true});
-    main.addEventListener('touchend',cancelLongPress);
-    main.addEventListener('touchmove',cancelLongPress);
-    item.querySelector('.go-btn').addEventListener('click',function(e){e.stopPropagation();openInput(ev);});
+    // 短タップ→入力画面、長押し→編集モーダル
+    var pressTimer=null;
+    var moved=false;
+    main.addEventListener('mousedown',function(){moved=false;pressTimer=setTimeout(function(){openEditModal(idx);},600);});
+    main.addEventListener('mousemove',function(){moved=true;if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}});
+    main.addEventListener('mouseup',function(){if(pressTimer){clearTimeout(pressTimer);pressTimer=null;if(!moved) openInput(ev);}});
+    main.addEventListener('mouseleave',function(){if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}});
+    main.addEventListener('touchstart',function(e){moved=false;pressTimer=setTimeout(function(){pressTimer=null;openEditModal(idx);},600);},{passive:true});
+    main.addEventListener('touchmove',function(){moved=true;if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
+    main.addEventListener('touchend',function(){if(pressTimer){clearTimeout(pressTimer);pressTimer=null;if(!moved) openInput(ev);}});
     el.appendChild(item);
   });
 }
