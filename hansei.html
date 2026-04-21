@@ -417,8 +417,8 @@ function enterApp(){
   else{initLoginButtons();}
 })();
 
-$('back-to-login').addEventListener('click',function(){currentGarden='';currentYear='';showScreen('s-login');});
-$('logout-btn').addEventListener('click',function(){
+$('back-to-login')&&$('back-to-login')&&$('back-to-login').addEventListener('click',function(){currentGarden='';currentYear='';showScreen('s-login');});
+$('logout-btn')&&$('logout-btn')&&$('logout-btn').addEventListener('click',function(){
   sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');sessionStorage.removeItem('hf_tab');
   currentGarden='';currentYear='';currentMembers=[];events=[];allEntries=[];
   showScreen('s-login');
@@ -426,19 +426,19 @@ $('logout-btn').addEventListener('click',function(){
 
 
 // ===== メンバー設定 =====
-$('btn-members').addEventListener('click',function(){
+$('btn-members')&&$('btn-members').addEventListener('click',function(){
   tempMembers=currentMembers.map(function(m){return{name:memberName(m),type:memberType(m)};});
   newMemberType='class';
   $('type-class-btn').classList.add('active');$('type-person-btn').classList.remove('active');
   renderMemberList();showScreen('s-members');
 });
-$('type-class-btn').addEventListener('click',function(){
+$('type-class-btn')&&$('type-class-btn').addEventListener('click',function(){
   newMemberType='class';$('type-class-btn').classList.add('active');$('type-person-btn').classList.remove('active');
 });
-$('type-person-btn').addEventListener('click',function(){
+$('type-person-btn')&&$('type-person-btn').addEventListener('click',function(){
   newMemberType='person';$('type-person-btn').classList.add('active');$('type-class-btn').classList.remove('active');
 });
-$('add-member-btn').addEventListener('click',function(){
+$('add-member-btn')&&$('add-member-btn').addEventListener('click',function(){
   var name=$('new-member-input').value.trim();
   if(!name){$('members-err').textContent='名前を入力してください';return;}
   if(tempMembers.some(function(m){return m.name===name;})){$('members-err').textContent='既に登録されています';return;}
@@ -446,15 +446,15 @@ $('add-member-btn').addEventListener('click',function(){
   tempMembers.push({name:name,type:newMemberType});
   $('new-member-input').value='';renderMemberList();
 });
-$('new-member-input').addEventListener('keydown',function(e){if(e.key==='Enter') $('add-member-btn').click();});
-$('save-members-btn').addEventListener('click',function(){
+$('new-member-input')&&$('new-member-input').addEventListener('keydown',function(e){if(e.key==='Enter') $('add-member-btn').click();});
+$('save-members-btn')&&$('save-members-btn').addEventListener('click',function(){
   if(!tempMembers.length){$('members-err').textContent='メンバーが空です';return;}
   api({action:'saveMembers',membersJson:JSON.stringify(tempMembers)}).then(function(){
     currentMembers=tempMembers.slice();buildClsChips();showToast('メンバーを保存しました');goHome();
   });
 });
-$('cancel-members-btn').addEventListener('click',goHome);
-$('back-members').addEventListener('click',goHome);
+$('cancel-members-btn')&&$('cancel-members-btn').addEventListener('click',goHome);
+$('back-members')&&$('back-members').addEventListener('click',goHome);
 
 function renderMemberList(){
   var el=$('member-list');el.innerHTML='';
@@ -594,10 +594,10 @@ function setClsChipsSelected(list){
   });
 }
 
-$('sel-class-input').addEventListener('click',function(){
+$('sel-class-input')&&$('sel-class-input').addEventListener('click',function(){
   toggleSelectAll($('cls-chips'),selectedClasses,function(t){return t==='class';});
 });
-$('sel-all-input').addEventListener('click',function(){
+$('sel-all-input')&&$('sel-all-input').addEventListener('click',function(){
   toggleSelectAll($('cls-chips'),selectedClasses,function(t){return t==='person';});
 });
 
@@ -606,10 +606,10 @@ function buildNewEvClsChips(){
   newEvSelectedClasses=allMemberNames().slice();
   buildChips($('new-ev-cls-chips'),currentMembers,newEvSelectedClasses,null);
 }
-$('sel-class-add').addEventListener('click',function(){
+$('sel-class-add')&&$('sel-class-add').addEventListener('click',function(){
   toggleSelectAll($('new-ev-cls-chips'),newEvSelectedClasses,function(t){return t==='class';});
 });
-$('sel-all-add').addEventListener('click',function(){
+$('sel-all-add')&&$('sel-all-add').addEventListener('click',function(){
   toggleSelectAll($('new-ev-cls-chips'),newEvSelectedClasses,function(t){return t==='person';});
 });
 
@@ -618,10 +618,10 @@ function buildEditClsChips(targetClasses){
   editSelectedClasses=targetClasses?targetClasses.slice():allMemberNames().slice();
   buildModalChips($('edit-cls-chips'),currentMembers,editSelectedClasses);
 }
-$('sel-class-edit').addEventListener('click',function(){
+$('sel-class-edit')&&$('sel-class-edit').addEventListener('click',function(){
   toggleSelectAll($('edit-cls-chips'),editSelectedClasses,function(t){return t==='class';});
 });
-$('sel-all-edit').addEventListener('click',function(){
+$('sel-all-edit')&&$('sel-all-edit').addEventListener('click',function(){
   toggleSelectAll($('edit-cls-chips'),editSelectedClasses,function(t){return t==='person';});
 });
 
@@ -905,7 +905,7 @@ function submitHansei(){
   }
 }
 
-$('delete-entry-btn').addEventListener('click',function(){
+$('delete-entry-btn')&&$('delete-entry-btn').addEventListener('click',function(){
   if(!editingEntry) return;
   if(!confirm('この反省を削除しますか？')) return;
   api({action:'delete',rowNum:editingEntry.rowNum}).then(function(){
@@ -922,26 +922,26 @@ function addEvent(){
   saveEvents().then(function(){$('new-ev').value='';err.textContent='';goHome();});
 }
 
-$('t-input').addEventListener('click',function(){switchTab('input');});
-$('t-summary').addEventListener('click',function(){switchTab('summary');});
-$('back-input').addEventListener('click',safeGoHome);
-$('back-entries').addEventListener('click',goHome);
-$('back-add').addEventListener('click',goHome);
-$('back-success').addEventListener('click',function(){editingEntry=null;loadAllEntries();goHome();});
-$('cancel-btn').addEventListener('click',safeGoHome);
-$('cancel-add-btn').addEventListener('click',goHome);
-$('submit-btn').addEventListener('click',submitHansei);
-$('draft-btn').addEventListener('click',saveDraft);
-$('save-ev-btn').addEventListener('click',addEvent);
-$('reload-btn').addEventListener('click',loadEntries);
-$('copy-btn').addEventListener('click',function(){
+$('t-input')&&$('t-input').addEventListener('click',function(){switchTab('input');});
+$('t-summary')&&$('t-summary').addEventListener('click',function(){switchTab('summary');});
+$('back-input')&&$('back-input').addEventListener('click',safeGoHome);
+$('back-entries')&&$('back-entries').addEventListener('click',goHome);
+$('back-add')&&$('back-add').addEventListener('click',goHome);
+$('back-success')&&$('back-success').addEventListener('click',function(){editingEntry=null;loadAllEntries();goHome();});
+$('cancel-btn')&&$('cancel-btn').addEventListener('click',safeGoHome);
+$('cancel-add-btn')&&$('cancel-add-btn').addEventListener('click',goHome);
+$('submit-btn')&&$('submit-btn').addEventListener('click',submitHansei);
+$('draft-btn')&&$('draft-btn').addEventListener('click',saveDraft);
+$('save-ev-btn')&&$('save-ev-btn').addEventListener('click',addEvent);
+$('reload-btn')&&$('reload-btn').addEventListener('click',loadEntries);
+$('copy-btn')&&$('copy-btn').addEventListener('click',function(){
   var text=$('copy-box').textContent;
   if(!text){showToast('コピーするデータがありません');return;}
   if(navigator.clipboard){navigator.clipboard.writeText(text).then(function(){showToast();});}
   else{var r=document.createRange();r.selectNodeContents($('copy-box'));window.getSelection().removeAllRanges();window.getSelection().addRange(r);document.execCommand('copy');showToast();}
 });
-$('btn-add-ev').addEventListener('click',function(){buildNewEvClsChips();$('add-err').textContent='';showScreen('s-add');});
-$('edit-save-btn').addEventListener('click',function(){
+$('btn-add-ev')&&$('btn-add-ev').addEventListener('click',function(){buildNewEvClsChips();$('add-err').textContent='';showScreen('s-add');});
+$('edit-save-btn')&&$('edit-save-btn').addEventListener('click',function(){
   var name=$('edit-ev-input').value.trim();
   if(!name){alert('行事名を入力してください');return;}
   if(events.some(function(e,i){return e.name===name&&i!==editingIndex;})){alert('その行事名は既に存在します');return;}
@@ -949,13 +949,13 @@ $('edit-save-btn').addEventListener('click',function(){
   events[editingIndex]={name:name,classes:editSelectedClasses.slice()};
   saveEvents().then(function(){closeEditModal();renderEvList();renderSumList();showToast('行事を更新しました');});
 });
-$('edit-delete-btn').addEventListener('click',function(){
+$('edit-delete-btn')&&$('edit-delete-btn').addEventListener('click',function(){
   if(!confirm('「'+events[editingIndex].name+'」を削除しますか？\n※入力済みの反省データは残ります')) return;
   events.splice(editingIndex,1);
   saveEvents().then(function(){closeEditModal();renderEvList();showToast('削除しました');});
 });
-$('edit-cancel-btn').addEventListener('click',closeEditModal);
-$('edit-modal').addEventListener('click',function(e){if(e.target===$('edit-modal')) closeEditModal();});
+$('edit-cancel-btn')&&$('edit-cancel-btn').addEventListener('click',closeEditModal);
+$('edit-modal')&&$('edit-modal').addEventListener('click',function(e){if(e.target===$('edit-modal')) closeEditModal();});
 initLoginButtons();
 document.addEventListener('click',function(){var y=$('year-list');if(y) y.style.display='none';});
 </script>
