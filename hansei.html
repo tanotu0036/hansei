@@ -28,7 +28,7 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .cls-status-row{display:flex;flex-wrap:wrap;gap:5px;}
 .cls-dot-item{display:flex;align-items:center;gap:3px;font-size:11px;color:#8e8e93;}
 .dot-sm{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
-.dot-green{background:#FF8C42;}.dot-gray{background:#c7c7cc;}
+.dot-green{background:#FF8C42;}.dot-gray{background:#c7c7cc;}.dot-yellow{background:#f5a623;}
 .progress-badge{font-size:12px;padding:3px 8px;border-radius:10px;white-space:nowrap;font-weight:600;}
 .badge-complete{background:#ffe8d6;color:#c45e10;}
 .badge-partial{background:#fef3c7;color:#92400e;}
@@ -517,6 +517,14 @@ function getDoneClasses(evName){
   });
   return done;
 }
+function getDraftClasses(evName){
+  var draft={};
+  allEntries.filter(function(e){ return e.event===evName&&e.status==='一時保存'; }).forEach(function(e){
+    if(!e.cls) return;
+    e.cls.split('・').forEach(function(c){ draft[c.trim()]=true; });
+  });
+  return draft;
+}
 function getEventClasses(ev){ return (ev&&ev.classes&&ev.classes.length)?ev.classes:allMemberNames(); }
 function getEntryForMember(evName,member){
   var found=null;
@@ -556,8 +564,10 @@ function renderEvList(){
     var done=getDoneClasses(ev.name), target=getEventClasses(ev);
     var item=document.createElement('div');
     item.className='list-item'; item.setAttribute('draggable','true'); item.setAttribute('data-idx',idx);
+    var draft=getDraftClasses(ev.name);
     var dots=target.map(function(m){
-      return '<span class="cls-dot-item"><span class="dot-sm '+(done[m]?'dot-green':'dot-gray')+'"></span>'+m+'</span>';
+      var dotClass=done[m]?'dot-green':(draft[m]?'dot-yellow':'dot-gray');
+      return '<span class="cls-dot-item"><span class="dot-sm '+dotClass+'"></span>'+m+'</span>';
     }).join('');
     item.innerHTML='<div class="drag-handle">☰</div><div class="list-item-main"><div class="list-item-name">'+ev.name+'</div><div class="cls-status-row">'+dots+'</div></div>';
     // ドラッグ
@@ -590,8 +600,10 @@ function renderSumList(){
     var item=document.createElement('div');
     item.style.cssText='display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e5ea;background:#fff;cursor:pointer;';
     item.onclick=function(){ openEntries(ev); };
+    var draft=getDraftClasses(ev.name);
     var dots=target.map(function(m){
-      return '<span class="cls-dot-item"><span class="dot-sm '+(done[m]?'dot-green':'dot-gray')+'"></span>'+m+'</span>';
+      var dotClass=done[m]?'dot-green':(draft[m]?'dot-yellow':'dot-gray');
+      return '<span class="cls-dot-item"><span class="dot-sm '+dotClass+'"></span>'+m+'</span>';
     }).join('');
     item.innerHTML='<div style="flex:1;"><div style="font-size:16px;font-weight:500;margin-bottom:5px;">'+ev.name+'</div><div class="cls-status-row">'+dots+'</div></div><div style="margin-left:8px;">'+getProgressBadge(ev)+'</div>';
     el.appendChild(item);
