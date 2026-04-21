@@ -21,7 +21,7 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .list-group{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:16px;}
 .list-item{display:flex;align-items:center;border-bottom:1px solid #e5e5ea;background:#fff;}
 .list-item:last-child{border-bottom:none;}
-.list-item.drag-over{border-top:2px solid #007AFF;}
+.list-item.drag-over{border-top:2px solid #FF8C42;}
 .drag-handle{padding:14px 10px 14px 16px;color:#c7c7cc;font-size:20px;cursor:grab;touch-action:none;flex-shrink:0;}
 .list-item-main{flex:1;padding:10px 0;cursor:pointer;}
 .list-item-name{font-size:16px;font-weight:500;color:#1c1c1e;margin-bottom:5px;}
@@ -29,7 +29,6 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .cls-dot-item{display:flex;align-items:center;gap:3px;font-size:11px;color:#8e8e93;}
 .dot-sm{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
 .dot-green{background:#FF8C42;}.dot-gray{background:#c7c7cc;}
-.go-btn{display:none;}
 .progress-badge{font-size:12px;padding:3px 8px;border-radius:10px;white-space:nowrap;font-weight:600;}
 .badge-complete{background:#ffe8d6;color:#c45e10;}
 .badge-partial{background:#fef3c7;color:#92400e;}
@@ -49,7 +48,6 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .cls-chip.done::after{content:'✓';position:absolute;top:-4px;right:-4px;background:#FF8C42;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;line-height:14px;text-align:center;}
 .cls-chip.type-class{border-left:3px solid #5856d6;}
 .cls-chip.type-person{border-left:3px solid #ff9500;}
-.cls-chip.selected.type-class,.cls-chip.selected.type-person{border-left-width:3px;}
 .chip-group-label{font-size:11px;color:#8e8e93;width:100%;margin-top:6px;margin-bottom:2px;}
 select{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;padding:4px 0;}
 textarea,input[type=text],input[type=password]{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;}
@@ -76,6 +74,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .entry{background:#fff;border-radius:12px;padding:13px 16px;margin-bottom:10px;}
 .entry-cls{display:inline-block;font-size:12px;padding:2px 8px;border-radius:8px;background:#ffe8d6;color:#c45e10;margin-bottom:6px;}
 .entry-txt{font-size:15px;line-height:1.6;white-space:pre-wrap;}
+.draft-badge{display:inline-block;font-size:11px;padding:2px 7px;border-radius:8px;background:#e8f4ff;color:#1a6a9a;margin-left:6px;vertical-align:middle;}
 .copy-box{background:#fff;border-radius:12px;padding:14px 16px;font-size:14px;white-space:pre-wrap;line-height:1.7;min-height:60px;margin-bottom:12px;}
 .empty{text-align:center;padding:40px;color:#8e8e93;font-size:15px;}
 .err{color:#ff3b30;font-size:14px;margin-top:8px;}
@@ -98,22 +97,27 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .modal-cls-chip.selected{background:#FF8C42;color:#fff;border-color:#FF8C42;}
 .modal-cls-chip.type-class{border-left:3px solid #5856d6;}
 .modal-cls-chip.type-person{border-left:3px solid #ff9500;}
+/* ログイン */
 .login-wrap{padding:40px 16px;}
 .login-logo{font-size:40px;text-align:center;margin-bottom:8px;}
 .login-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:4px;}
-.login-sub{font-size:14px;color:#8e8e93;text-align:center;margin-bottom:32px;}
-.year-btns{display:flex;gap:8px;flex-wrap:wrap;}
-.year-btn{flex:1;min-width:100px;padding:12px;background:#f2f2f7;border:1.5px solid #e5e5ea;border-radius:12px;font-size:15px;font-weight:500;color:#1c1c1e;cursor:pointer;text-align:center;}
-.year-btn.active{background:#FF8C42;color:#fff;border-color:#FF8C42;}
+.login-sub{font-size:14px;color:#8e8e93;text-align:center;margin-bottom:24px;}
+.year-btn{display:block;width:100%;padding:20px;margin-bottom:12px;background:#d6f0ff;border:1.5px solid #a8d8f0;border-radius:16px;font-size:20px;font-weight:700;color:#1a6a9a;cursor:pointer;text-align:center;}
+.year-dropdown{display:none;background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);margin-bottom:12px;max-height:200px;overflow-y:auto;}
+.year-dropdown-item{padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;}
+.year-dropdown-item:last-child{border-bottom:none;}
+.year-dropdown-item:active{background:#d6f0ff;}
+.garden-btn{display:block;width:100%;padding:20px;margin-bottom:12px;background:#fff0e6;border:1.5px solid #ffcba4;border-radius:16px;font-size:20px;font-weight:700;color:#c45e10;cursor:pointer;text-align:center;}
+.garden-btn:active{background:#ffe5d0;}
+/* コンテキストバー */
 .context-bar{background:#fff;border-bottom:1px solid #e5e5ea;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;}
 .context-info{font-size:13px;color:#8e8e93;}
 .context-info span{color:#1c1c1e;font-weight:600;}
-.logout-btn{font-size:13px;cursor:pointer;background:none;border:none;padding:4px 8px;}
-.garden-select-btn{display:block;width:100%;padding:20px;margin-bottom:12px;background:#fff0e6;border:1.5px solid #ffcba4;border-radius:16px;font-size:20px;font-weight:700;color:#c45e10;cursor:pointer;text-align:center;letter-spacing:0.05em;}
-.garden-select-btn:active{background:#ffe5d0;}
+.top-page-btn{font-size:13px;color:#e07030;cursor:pointer;background:none;border:none;padding:4px 8px;}
+/* 編集バナー */
 .edit-mode-banner{background:#fff3cd;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#856404;text-align:center;}
-.draft-badge{display:inline-block;font-size:11px;padding:2px 7px;border-radius:8px;background:#e8f4ff;color:#1a6a9a;margin-left:6px;vertical-align:middle;}
-.member-list{margin-bottom:12px;}
+.draft-banner{background:#e8f4ff;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#1a6a9a;text-align:center;}
+/* メンバー設定 */
 .member-item{display:flex;align-items:center;background:#fff;border-bottom:1px solid #e5e5ea;padding:12px 16px;gap:10px;}
 .member-item:last-child{border-bottom:none;}
 .member-item-handle{color:#c7c7cc;font-size:18px;cursor:grab;touch-action:none;flex-shrink:0;}
@@ -124,6 +128,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .member-del-btn{color:#ff3b30;background:none;border:none;font-size:20px;cursor:pointer;flex-shrink:0;padding:0 4px;}
 .add-member-row{display:flex;gap:8px;margin-bottom:8px;}
 .add-member-row input{flex:1;padding:12px;border:1px solid #e5e5ea;border-radius:10px;font-size:15px;font-family:inherit;outline:none;}
+.add-member-row button{padding:12px 16px;background:#FF8C42;color:#fff;border:none;border-radius:10px;font-size:15px;cursor:pointer;white-space:nowrap;}
 .type-toggle{display:flex;background:#e5e5ea;border-radius:9px;padding:2px;margin-bottom:12px;}
 .type-toggle button{flex:1;padding:8px;border:none;background:transparent;border-radius:7px;font-size:14px;font-weight:500;color:#666;cursor:pointer;}
 .type-toggle button.active{background:#fff;color:#1c1c1e;font-weight:600;}
@@ -134,64 +139,41 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 <body>
 <div class="app">
 
+<!-- ログイン画面 -->
 <div id="s-login" class="screen active">
   <div class="content"><div class="login-wrap">
     <div class="login-logo">🏫</div>
     <div class="login-title">行事の反省 入力フォーム</div>
     <div class="login-sub">園を選んでください</div>
-    <div style="position:relative;margin-bottom:12px;">
-      <button id="year-btn" onclick="toggleYearList()" style="display:block;width:100%;padding:20px;background:#d6f0ff;border:1.5px solid #a8d8f0;border-radius:16px;font-size:20px;font-weight:700;color:#1a6a9a;cursor:pointer;text-align:center;">2026年</button>
-      <div id="year-list" style="display:none;background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);max-height:200px;overflow-y:auto;">
-        <div onclick="selectYear(2026)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2026年</div>
-<div onclick="selectYear(2027)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2027年</div>
-<div onclick="selectYear(2028)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2028年</div>
-<div onclick="selectYear(2029)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2029年</div>
-<div onclick="selectYear(2030)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2030年</div>
-<div onclick="selectYear(2031)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2031年</div>
-<div onclick="selectYear(2032)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2032年</div>
-<div onclick="selectYear(2033)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2033年</div>
-<div onclick="selectYear(2034)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2034年</div>
-<div onclick="selectYear(2035)" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2035年</div>
-
-      </div>
+    <div style="position:relative;">
+      <button class="year-btn" id="year-display-btn" onclick="toggleYearDropdown()">2026年</button>
+      <div class="year-dropdown" id="year-dropdown"></div>
     </div>
-    <button class="garden-select-btn" onclick="loginGarden('西新')">西新</button>
-    <button class="garden-select-btn" onclick="loginGarden('原')">原</button>
-    <button class="garden-select-btn" onclick="loginGarden('たの津')">たの津</button>
-    <button class="garden-select-btn" onclick="loginGarden('ちくし野')">ちくし野</button>
-    <p class="err" id="login-err"></p>
-  </div></div>
-</div>
+    <button class="garden-btn" onclick="loginGarden('西新')">西新</button>
+    <button class="garden-btn" onclick="loginGarden('原')">原</button>
+    <button class="garden-btn" onclick="loginGarden('たの津')">たの津</button>
+    <button class="garden-btn" onclick="loginGarden('ちくし野')">ちくし野</button>
     <p class="err" id="login-err"></p>
   </div></div>
 </div>
 
-<div id="s-year" class="screen">
-  <div class="content"><div class="login-wrap">
-    <div class="login-logo">📅</div>
-    <div class="login-title" id="year-garden-name"></div>
-    <div class="login-sub">年度を選択してください</div>
-    <div class="year-btns" id="year-btns"></div>
-    <div style="margin-top:16px;"><button class="btn-s" id="back-to-login">← 園選択に戻る</button></div>
-  </div></div>
-</div>
-
+<!-- ホーム画面 -->
 <div id="s-home" class="screen">
   <div class="context-bar">
     <div class="context-info"><span id="ctx-garden"></span>・<span id="ctx-year"></span></div>
-    <button class="logout-btn" id="top-btn" style="color:#e07030;">トップページ</button>
+    <button class="top-page-btn" onclick="goTop()">トップページ</button>
   </div>
   <div class="navbar">
     <div class="navbar-title">行事の反省 入力フォーム</div>
-    <div class="seg"><button id="t-input">入力</button><button id="t-summary">取りまとめ</button></div>
+    <div class="seg"><button id="t-input" onclick="switchTab('input')">入力</button><button id="t-summary" onclick="switchTab('summary')">取りまとめ</button></div>
   </div>
   <div class="content">
     <div id="p-input">
       <p class="sec-title">行事を選択</p>
       <p class="hint">長押しで編集 ／ ☰ をドラッグで並び替え</p>
       <div class="list-group" id="ev-list"><p class="empty">読み込み中...</p></div>
-      <button class="btn-s" id="btn-add-ev">＋ 行事を追加</button>
-      <button class="btn-s" id="btn-members" style="color:#555;">⚙️ メンバー設定</button>
+      <button class="btn-s" onclick="showAddEvent()">＋ 行事を追加</button>
+      <button class="btn-s" style="color:#555;" onclick="showScreen('s-members')">⚙️ メンバー設定</button>
     </div>
     <div id="p-summary" style="display:none">
       <p class="sec-title">反省取りまとめ</p>
@@ -200,9 +182,10 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
   </div>
 </div>
 
+<!-- 反省入力画面 -->
 <div id="s-input" class="screen">
   <div class="navbar">
-    <div class="back" id="back-input">‹ 行事一覧</div>
+    <div class="back" onclick="goHome()">‹ 行事一覧</div>
     <div class="navbar-title" id="input-title"></div>
   </div>
   <div class="content">
@@ -211,34 +194,35 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
       <div class="cls-progress-list" id="input-cls-progress"></div>
     </div>
     <div id="edit-mode-banner" class="edit-mode-banner" style="display:none;">編集モード：内容を修正して「更新する」を押してください</div>
-    <div id="draft-banner" style="display:none;background:#e8f4ff;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#1a6a9a;text-align:center;">一時保存中のデータがあります</div>
+    <div id="draft-saved-banner" class="draft-banner" style="display:none;">一時保存されています</div>
     <div class="form-group">
       <div class="form-row">
         <div class="form-label-row">
           <span class="form-label">記入者（複数選択可）</span>
           <div class="sel-btn-group">
-            <button class="sel-all-btn" id="sel-class-input">全クラス</button>
-            <button class="sel-all-btn" id="sel-all-input">全員</button>
+            <button class="sel-all-btn" onclick="selAllClass()">全クラス</button>
+            <button class="sel-all-btn" onclick="selAllPerson()">全員</button>
           </div>
         </div>
         <div class="cls-chips" id="cls-chips"></div>
       </div>
       <div class="form-row">
         <div class="form-label">反省・気づき</div>
-        <textarea id="hansei" placeholder="気づいたこと、改善点、良かった点など" oninput="markDirty();"></textarea>
+        <textarea id="hansei" placeholder="気づいたこと、改善点、良かった点など" oninput="isDirty=true;"></textarea>
       </div>
     </div>
-    <button class="btn-p" id="submit-btn">提出</button>
-    <button class="btn-s" id="draft-btn">一時保存</button>
-    <button class="btn-danger" id="delete-entry-btn" style="display:none;">この反省を削除する</button>
-    <button class="btn-s" id="cancel-btn">キャンセル</button>
+    <button class="btn-p" id="submit-btn" onclick="submitHansei()">提出</button>
+    <button class="btn-s" id="draft-btn" onclick="saveDraft()">一時保存</button>
+    <button class="btn-danger" id="delete-entry-btn" style="display:none;" onclick="deleteEntry()">この反省を削除する</button>
+    <button class="btn-s" onclick="safeGoHome()">キャンセル</button>
     <p class="err" id="input-err"></p>
   </div>
 </div>
 
+<!-- 取りまとめ画面 -->
 <div id="s-entries" class="screen">
   <div class="navbar">
-    <div class="back" id="back-entries">‹ 行事一覧</div>
+    <div class="back" onclick="goHome()">‹ 行事一覧</div>
     <div class="navbar-title" id="entries-title"></div>
   </div>
   <div class="content">
@@ -246,18 +230,19 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
       <div class="cls-progress-title">提出状況</div>
       <div class="cls-progress-list" id="entries-cls-progress"></div>
     </div>
-    <button class="btn-s" id="reload-btn" style="padding:10px;margin-bottom:12px;">再読み込み</button>
+    <button class="btn-s" style="padding:10px;margin-bottom:12px;" onclick="loadEntries()">再読み込み</button>
     <div class="chips" id="chips"></div>
     <div id="entries-list"></div>
     <p class="sec-title">まとめてコピー</p>
     <div class="copy-box" id="copy-box"></div>
-    <button class="btn-p" id="copy-btn">まとめてコピー</button>
+    <button class="btn-p" onclick="copyAll()">まとめてコピー</button>
   </div>
 </div>
 
+<!-- 行事追加画面 -->
 <div id="s-add" class="screen">
   <div class="navbar">
-    <div class="back" id="back-add">‹ 行事一覧</div>
+    <div class="back" onclick="goHome()">‹ 行事一覧</div>
     <div class="navbar-title">行事を追加</div>
   </div>
   <div class="content">
@@ -270,699 +255,776 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
         <div class="form-label-row">
           <span class="form-label">対象メンバー（複数選択可）</span>
           <div class="sel-btn-group">
-            <button class="sel-all-btn" id="sel-class-add">全クラス</button>
-            <button class="sel-all-btn" id="sel-all-add">全員</button>
+            <button class="sel-all-btn" onclick="selAllClassAdd()">全クラス</button>
+            <button class="sel-all-btn" onclick="selAllPersonAdd()">全員</button>
           </div>
         </div>
-        <div class="cls-chips" id="new-ev-cls-chips"></div>
+        <div class="cls-chips" id="new-ev-chips"></div>
       </div>
     </div>
-    <button class="btn-p" id="save-ev-btn">追加する</button>
-    <button class="btn-s" id="cancel-add-btn">キャンセル</button>
+    <button class="btn-p" onclick="addEvent()">追加する</button>
+    <button class="btn-s" onclick="goHome()">キャンセル</button>
     <p class="err" id="add-err"></p>
   </div>
 </div>
 
+<!-- メンバー設定画面 -->
 <div id="s-members" class="screen">
   <div class="navbar">
-    <div class="back" id="back-members">‹ 行事一覧</div>
+    <div class="back" onclick="goHome()">‹ 行事一覧</div>
     <div class="navbar-title">メンバー設定</div>
   </div>
   <div class="content">
     <p class="sec-title">種別を選んで追加</p>
     <div class="type-toggle">
-      <button id="type-class-btn" class="active">クラス</button>
-      <button id="type-person-btn">個人</button>
+      <button id="type-class-btn" class="active" onclick="setMemberType('class')">クラス</button>
+      <button id="type-person-btn" onclick="setMemberType('person')">個人</button>
     </div>
     <div class="add-member-row">
       <input type="text" id="new-member-input" placeholder="例：0歳児クラス、田中先生...">
-      <button id="add-member-btn">追加</button>
+      <button onclick="addMember()">追加</button>
     </div>
     <div class="legend">
       <span class="legend-dot" style="background:#5856d6;"></span>クラス
       <span class="legend-dot" style="background:#ff9500;margin-left:4px;"></span>個人
     </div>
     <p class="sec-title">登録メンバー（☰ ドラッグで並び替え）</p>
-    <div class="list-group member-list" id="member-list"></div>
-    <button class="btn-p" id="save-members-btn">保存する</button>
-    <button class="btn-s" id="cancel-members-btn">キャンセル</button>
+    <div class="list-group" id="member-list"></div>
+    <button class="btn-p" onclick="saveMembers()">保存する</button>
+    <button class="btn-s" onclick="goHome()">キャンセル</button>
     <p class="err" id="members-err"></p>
   </div>
 </div>
 
+<!-- 完了画面 -->
 <div id="s-success" class="screen">
   <div class="success-wrap">
     <div class="success-icon">✅</div>
-    <div class="success-title" id="success-title">送信しました</div>
+    <div class="success-title" id="success-title">提出しました</div>
     <div class="success-sub" id="success-sub">スプレッドシートに保存されました</div>
-    <button class="btn-p" id="back-success">行事一覧に戻る</button>
+    <button class="btn-p" onclick="successBack()">行事一覧に戻る</button>
   </div>
 </div>
 
 </div>
 
+<!-- 行事編集モーダル -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
     <div class="modal-title">行事を編集</div>
     <div class="modal-label">行事名</div>
     <input type="text" id="edit-ev-input" placeholder="行事名">
     <div class="modal-label-row">
-      <span class="modal-label">対象メンバー（複数選択可）</span>
+      <span class="modal-label">対象メンバー</span>
       <div class="sel-btn-group">
-        <button class="sel-all-btn" id="sel-class-edit">全クラス</button>
-        <button class="sel-all-btn" id="sel-all-edit">全員</button>
+        <button class="sel-all-btn" onclick="selAllClassEdit()">全クラス</button>
+        <button class="sel-all-btn" onclick="selAllPersonEdit()">全員</button>
       </div>
     </div>
     <div class="modal-cls-chips" id="edit-cls-chips"></div>
     <div class="modal-btns">
-      <button class="btn-p" id="edit-save-btn">保存する</button>
-      <button class="btn-danger" id="edit-delete-btn">削除する</button>
-      <button class="btn-s" id="edit-cancel-btn">キャンセル</button>
+      <button class="btn-p" onclick="saveEditEvent()">保存する</button>
+      <button class="btn-danger" onclick="deleteEvent()">削除する</button>
+      <button class="btn-s" onclick="closeEditModal()">キャンセル</button>
     </div>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 var GAS='https://script.google.com/macros/s/AKfycbxcoORrvnJMx2yL_Nsp8GP0NaYwNqo9HMmWaJ1qB-4xo7fMvdyAVoYcW35DwcRfi1b9qQ/exec';
-var GARDENS={'西新':['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],'原':['0歳児クラス','1歳児クラス','2歳児クラス'],'たの津':['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],'ちくし野':['0歳児クラス','1歳児クラス','2歳児クラス']};
+var GARDENS={
+  '西新':   ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
+  '原':     ['0歳児クラス','1歳児クラス','2歳児クラス'],
+  'たの津': ['0歳児クラス','1歳児クラス','2歳児クラス','3歳児クラス','4歳児クラス','5歳児クラス'],
+  'ちくし野':['0歳児クラス','1歳児クラス','2歳児クラス'],
+};
+var DEFAULT_EVENTS=['進級・入園式','歓迎遠足','園外保育','夏祭り','生活発表会','クリスマス会','節分','お別れ会','卒園式'];
 
-var currentGarden='',currentYear='',currentMembers=[];
-var events=[],currentEvent=null,currentFilter='all',currentTab='input',allEntries=[];
-var editingIndex=-1,selectedClasses=[],newEvSelectedClasses=[],editSelectedClasses=[];
-var editingEntry=null,tempMembers=[],newMemberType='class';
+var currentGarden='', currentYear='', currentMembers=[];
+var events=[], currentEvent=null, currentFilter='all', currentTab='input', allEntries=[];
+var editingEventIndex=-1, editingEntry=null;
+var isDirty=false;
+var newMemberType='class', tempMembers=[];
+var editMemberSelected=[];
+var newEvSelected=[];
+var selectedNow=[]; // 入力画面の現在の選択
 
-function $(i){return document.getElementById(i);}
-function showScreen(i){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});$(i).classList.add('active');window.scrollTo(0,0);if(i==='s-login') initLoginButtons();}
-function showToast(m){var t=$('toast');t.textContent=m||'コピーしました';t.style.display='block';setTimeout(function(){t.style.display='none';},2000);}
-
-function memberName(m){return typeof m==='string'?m:m.name;}
-function memberType(m){return typeof m==='string'?'class':(m.type||'class');}
-function isClass(m){return memberType(m)==='class';}
-function isPerson(m){return memberType(m)==='person';}
-function allMemberNames(){return currentMembers.map(memberName);}
-function classMemberNames(){return currentMembers.filter(isClass).map(memberName);}
-
+// ===== ユーティリティ =====
+function $$(id){ return document.getElementById(id); }
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  $$(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function showToast(m){
+  var t=$$('toast'); t.textContent=m||'コピーしました'; t.style.display='block';
+  setTimeout(function(){ t.style.display='none'; }, 2000);
+}
 function api(params){
   params.pw='kodomo5848';
   if(currentGarden) params.garden=currentGarden;
   if(currentYear) params.year=currentYear;
-  var url=GAS+'?'+new URLSearchParams(params).toString();
-  return fetch(url,{method:'GET',redirect:'follow',mode:'cors'})
-    .then(function(r){return r.text();})
-    .then(function(t){try{return JSON.parse(t);}catch(e){return{};}});
+  return fetch(GAS+'?'+new URLSearchParams(params).toString(),{method:'GET',redirect:'follow',mode:'cors'})
+    .then(function(r){ return r.text(); })
+    .then(function(t){ try{ return JSON.parse(t); }catch(e){ return {}; } });
 }
-function saveEvents(){return api({action:'saveEvents',eventsJson:JSON.stringify(events)});}
+function saveEvents(){ return api({action:'saveEvents',eventsJson:JSON.stringify(events)}); }
+function memberName(m){ return typeof m==='string'?m:m.name; }
+function memberType(m){ return typeof m==='string'?'class':(m.type||'class'); }
+function isClass(m){ return memberType(m)==='class'; }
+function isPerson(m){ return memberType(m)==='person'; }
+function allMemberNames(){ return currentMembers.map(memberName); }
 
 // ===== ログイン =====
-// 年度セレクト初期化
-var selectedYear='';
-function initLoginButtons(){
-  selectedYear='2026年度';
+(function initLogin(){
+  var now=new Date(), nowY=now.getFullYear(), nowM=now.getMonth()+1;
+  var baseY=nowM>=4?nowY:nowY-1;
+  selectedYear=baseY+'年度';
+  var btn=$$('year-display-btn');
+  if(btn) btn.textContent=baseY+'年';
+  var dd=$$('year-dropdown');
+  if(dd){
+    dd.innerHTML='';
+    for(var yi=baseY;yi<=baseY+9;yi++){
+      var item=document.createElement('div');
+      item.className='year-dropdown-item';
+      item.textContent=yi+'年';
+      item.setAttribute('data-year',yi+'年度');
+      item.onclick=(function(y,yi){ return function(){
+        selectedYear=y; $$('year-display-btn').textContent=yi+'年'; $$('year-dropdown').style.display='none';
+      }; })(yi+'年度',yi);
+      dd.appendChild(item);
+    }
+  }
+})();
+
+var selectedYear='2026年度';
+
+function toggleYearDropdown(){
+  var d=$$('year-dropdown');
+  d.style.display=d.style.display==='none'||d.style.display===''?'block':'none';
 }
-function toggleYearList(){
-  var y=$('year-list');
-  if(y) y.style.display=y.style.display==='none'?'block':'none';
-}
-function selectYear(y){
-  selectedYear=y+'年度';
-  var btn=$('year-btn');
-  if(btn) btn.textContent=y+'年';
-  var list=$('year-list');
-  if(list) list.style.display='none';
-}
+document.addEventListener('click',function(e){
+  var wrap=$$('year-display-btn');
+  var dd=$$('year-dropdown');
+  if(dd&&wrap&&!wrap.contains(e.target)&&!dd.contains(e.target)){
+    dd.style.display='none';
+  }
+});
+
 function loginGarden(g){
-  currentGarden=g;
-  currentYear=selectedYear||'2026年度';
+  currentGarden=g; currentYear=selectedYear;
   sessionStorage.setItem('hf_garden',g);
-  sessionStorage.setItem('hf_year',currentYear);
+  sessionStorage.setItem('hf_year',selectedYear);
   enterApp();
 }
 
-function showYearSelect(){ showScreen('s-year'); }
+// セッション復元
+(function(){
+  var sg=sessionStorage.getItem('hf_garden'), sy=sessionStorage.getItem('hf_year');
+  if(sg&&sy&&GARDENS[sg]){
+    currentGarden=sg; currentYear=sy;
+    enterApp();
+  }
+})();
 
 function enterApp(){
-  $('ctx-garden').textContent=currentGarden;$('ctx-year').textContent=currentYear;
+  $$('ctx-garden').textContent=currentGarden;
+  $$('ctx-year').textContent=currentYear;
   showScreen('s-home');
   var savedTab=sessionStorage.getItem('hf_tab')||'input';
   api({action:'getMembers'}).then(function(d){
-    currentMembers=d.members||GARDENS[currentGarden].map(function(n){return{name:n,type:'class'};});
-    buildClsChips();switchTab(savedTab);loadAllEntries();
+    currentMembers=d.members||GARDENS[currentGarden].map(function(n){ return {name:n,type:'class'}; });
+    buildInputChips();
+    switchTab(savedTab);
+    loadAllData();
   });
 }
 
-(function(){
-  var sg=sessionStorage.getItem('hf_garden'),sy=sessionStorage.getItem('hf_year');
-  if(sg&&sy&&GARDENS[sg]){currentGarden=sg;currentYear=sy;enterApp();}
-  else{initLoginButtons();}
-})();
-
-$('back-to-login')&&$('back-to-login')&&$('back-to-login').addEventListener('click',function(){currentGarden='';currentYear='';showScreen('s-login');});
-$('top-btn')&&$('top-btn').addEventListener('click',function(){
-  sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');sessionStorage.removeItem('hf_tab');
-  currentGarden='';currentYear='';currentMembers=[];events=[];allEntries=[];
+function goTop(){
+  sessionStorage.removeItem('hf_garden');
+  sessionStorage.removeItem('hf_year');
+  sessionStorage.removeItem('hf_tab');
+  currentGarden=''; currentYear=''; currentMembers=[];
+  events=[]; allEntries=[];
   showScreen('s-login');
-});
-$('logout-btn')&&$('logout-btn')&&$('logout-btn').addEventListener('click',function(){
-  sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');sessionStorage.removeItem('hf_tab');
-  currentGarden='';currentYear='';currentMembers=[];events=[];allEntries=[];
-  showScreen('s-login');
-});
-
-
-// ===== メンバー設定 =====
-$('btn-members')&&$('btn-members').addEventListener('click',function(){
-  tempMembers=currentMembers.map(function(m){return{name:memberName(m),type:memberType(m)};});
-  newMemberType='class';
-  $('type-class-btn').classList.add('active');$('type-person-btn').classList.remove('active');
-  renderMemberList();showScreen('s-members');
-});
-$('type-class-btn')&&$('type-class-btn').addEventListener('click',function(){
-  newMemberType='class';$('type-class-btn').classList.add('active');$('type-person-btn').classList.remove('active');
-});
-$('type-person-btn')&&$('type-person-btn').addEventListener('click',function(){
-  newMemberType='person';$('type-person-btn').classList.add('active');$('type-class-btn').classList.remove('active');
-});
-$('add-member-btn')&&$('add-member-btn').addEventListener('click',function(){
-  var name=$('new-member-input').value.trim();
-  if(!name){$('members-err').textContent='名前を入力してください';return;}
-  if(tempMembers.some(function(m){return m.name===name;})){$('members-err').textContent='既に登録されています';return;}
-  $('members-err').textContent='';
-  tempMembers.push({name:name,type:newMemberType});
-  $('new-member-input').value='';renderMemberList();
-});
-$('new-member-input')&&$('new-member-input').addEventListener('keydown',function(e){if(e.key==='Enter') $('add-member-btn').click();});
-$('save-members-btn')&&$('save-members-btn').addEventListener('click',function(){
-  if(!tempMembers.length){$('members-err').textContent='メンバーが空です';return;}
-  api({action:'saveMembers',membersJson:JSON.stringify(tempMembers)}).then(function(){
-    currentMembers=tempMembers.slice();buildClsChips();showToast('メンバーを保存しました');goHome();
-  });
-});
-$('cancel-members-btn')&&$('cancel-members-btn').addEventListener('click',goHome);
-$('back-members')&&$('back-members').addEventListener('click',goHome);
-
-function renderMemberList(){
-  var el=$('member-list');el.innerHTML='';
-  if(!tempMembers.length){el.innerHTML='<p class="empty" style="padding:20px;">メンバーがいません</p>';return;}
-  tempMembers.forEach(function(m,idx){
-    var item=document.createElement('div');item.className='member-item';item.setAttribute('data-idx',idx);
-    var badge=m.type==='class'?'<span class="member-type-badge class">クラス</span>':'<span class="member-type-badge person">個人</span>';
-    item.innerHTML='<span class="member-item-handle">☰</span><span class="member-item-name">'+m.name+'</span>'+badge+'<button class="member-del-btn" data-idx="'+idx+'">×</button>';
-    item.querySelector('.member-del-btn').addEventListener('click',function(){
-      tempMembers.splice(parseInt(this.getAttribute('data-idx')),1);renderMemberList();
-    });
-    item.querySelector('.member-item-handle').addEventListener('touchstart',function(e){memberTouchStart(e,idx);},{passive:true});
-    el.appendChild(item);
-  });
 }
 
-var mTouchIdx=-1,mTouchClone=null,mTouchStartY=0;
-function memberTouchStart(e,idx){
-  mTouchIdx=idx;mTouchStartY=e.touches[0].clientY;
-  var el=e.currentTarget.closest('.member-item');
-  mTouchClone=el.cloneNode(true);
-  mTouchClone.style.cssText='position:fixed;left:0;right:0;z-index:200;opacity:0.85;background:#e8f0fe;pointer-events:none;';
-  mTouchClone.style.top=el.getBoundingClientRect().top+'px';document.body.appendChild(mTouchClone);
+// ===== タブ =====
+function switchTab(tab){
+  currentTab=tab;
+  sessionStorage.setItem('hf_tab',tab);
+  $$('t-input').classList.toggle('active',tab==='input');
+  $$('t-summary').classList.toggle('active',tab==='summary');
+  $$('p-input').style.display=tab==='input'?'':'none';
+  $$('p-summary').style.display=tab==='summary'?'':'none';
+  if(tab==='summary') renderSumList(); else renderEvList();
 }
-document.addEventListener('touchmove',function(e){
-  if(mTouchIdx<0||!mTouchClone) return;e.preventDefault();
-  var y=e.touches[0].clientY;
-  mTouchClone.style.top=(parseFloat(mTouchClone.style.top)+(y-mTouchStartY))+'px';mTouchStartY=y;
-  document.querySelectorAll('.member-item').forEach(function(i){i.style.borderTop='';});
-  var over=document.elementFromPoint(e.touches[0].clientX,y);
-  if(over){var item=over.closest('.member-item');if(item) item.style.borderTop='2px solid #007AFF';}
-},{passive:false});
-document.addEventListener('touchend',function(e){
-  if(mTouchIdx<0) return;
-  if(mTouchClone){document.body.removeChild(mTouchClone);mTouchClone=null;}
-  document.querySelectorAll('.member-item').forEach(function(i){i.style.borderTop='';});
-  var y=e.changedTouches[0].clientY;
-  var over=document.elementFromPoint(e.changedTouches[0].clientX,y);
-  if(over){var item=over.closest('.member-item');if(item){var idx=parseInt(item.getAttribute('data-idx'));if(!isNaN(idx)&&idx!==mTouchIdx){var m=tempMembers.splice(mTouchIdx,1)[0];tempMembers.splice(idx,0,m);renderMemberList();}}}
-  mTouchIdx=-1;
-});
 
-// ===== チップ構築ヘルパー =====
-function buildChips(container, members, selectedList, visibleList){
-  container.innerHTML='';
-  var classes=members.filter(isClass);
-  var persons=members.filter(isPerson);
-  function addChip(m){
-    var n=memberName(m),t=memberType(m);
-    if(visibleList&&visibleList.indexOf(n)<0) return;
-    var chip=document.createElement('div');
-    chip.className='cls-chip type-'+t;chip.setAttribute('data-name',n);chip.setAttribute('data-type',t);
-    chip.textContent=n;
-    if(selectedList.indexOf(n)>=0) chip.classList.add('selected');
-    chip.addEventListener('click',function(){
-      var idx=selectedList.indexOf(n);
-      if(idx>=0){selectedList.splice(idx,1);chip.classList.remove('selected');}
-      else{selectedList.push(n);chip.classList.add('selected');}
-    });
-    container.appendChild(chip);
+function goHome(){
+  renderEvList(); renderSumList(); showScreen('s-home');
+}
+
+function safeGoHome(){
+  if(isDirty && $$('hansei').value.trim()){
+    if(confirm('入力中の内容があります。一時保存してから戻りますか？\nOK→一時保存  キャンセル→破棄')){
+      saveDraft();
+      return;
+    }
   }
-  if(classes.length){
-    var lbl=document.createElement('div');lbl.className='chip-group-label';lbl.textContent='▌ クラス';container.appendChild(lbl);
-    classes.forEach(addChip);
-  }
-  if(persons.length){
-    var lbl2=document.createElement('div');lbl2.className='chip-group-label';lbl2.textContent='▌ 個人';container.appendChild(lbl2);
-    persons.forEach(addChip);
-  }
+  isDirty=false;
+  goHome();
 }
 
-function buildModalChips(container, members, selectedList){
-  container.innerHTML='';
-  var classes=members.filter(isClass);
-  var persons=members.filter(isPerson);
-  function addChip(m){
-    var n=memberName(m),t=memberType(m);
-    var chip=document.createElement('div');
-    chip.className='modal-cls-chip type-'+t;chip.setAttribute('data-name',n);chip.setAttribute('data-type',t);
-    chip.textContent=n;
-    if(selectedList.indexOf(n)>=0) chip.classList.add('selected');
-    chip.addEventListener('click',function(){
-      var idx=selectedList.indexOf(n);
-      if(idx>=0){selectedList.splice(idx,1);chip.classList.remove('selected');}
-      else{selectedList.push(n);chip.classList.add('selected');}
-    });
-    container.appendChild(chip);
-  }
-  if(classes.length){
-    var lbl=document.createElement('div');lbl.className='chip-group-label';lbl.textContent='▌ クラス';container.appendChild(lbl);
-    classes.forEach(addChip);
-  }
-  if(persons.length){
-    var lbl2=document.createElement('div');lbl2.className='chip-group-label';lbl2.textContent='▌ 個人';container.appendChild(lbl2);
-    persons.forEach(addChip);
-  }
-}
-
-// 全選択ヘルパー
-function toggleSelectAll(container, selectedList, filterFn){
-  var chips=Array.from(container.querySelectorAll('.cls-chip, .modal-cls-chip')).filter(function(c){
-    return !filterFn||filterFn(c.getAttribute('data-type'));
-  });
-  var allSel=chips.every(function(c){return c.classList.contains('selected');});
-  chips.forEach(function(chip){
-    var n=chip.getAttribute('data-name');
-    var idx=selectedList.indexOf(n);
-    if(allSel){chip.classList.remove('selected');if(idx>=0) selectedList.splice(idx,1);}
-    else{if(idx<0){selectedList.push(n);}chip.classList.add('selected');}
-  });
-}
-
-// ===== クラスチップ（入力画面） =====
-function buildClsChips(){
-  selectedClasses=[];
-  buildChips($('cls-chips'),currentMembers,selectedClasses,null);
-}
-function resetClsChips(){
-  selectedClasses=[];
-  document.querySelectorAll('#cls-chips .cls-chip').forEach(function(c){c.classList.remove('selected');c.style.display='';});
-}
-function updateClsChipsDone(ev){
-  var done=getDoneClasses(ev.name);
-  var target=getEventClasses(ev);
-  document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
-    var n=chip.getAttribute('data-name');
-    if(target.indexOf(n)<0){chip.style.display='none';}
-    else{chip.style.display='';if(done[n])chip.classList.add('done');else chip.classList.remove('done');}
-  });
-}
-function setClsChipsSelected(list){
-  selectedClasses=[];
-  document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
-    var n=chip.getAttribute('data-name');
-    if(list.indexOf(n)>=0){chip.classList.add('selected');selectedClasses.push(n);}
-    else chip.classList.remove('selected');
-  });
-}
-
-$('sel-class-input')&&$('sel-class-input').addEventListener('click',function(){
-  toggleSelectAll($('cls-chips'),selectedClasses,function(t){return t==='class';});
-});
-$('sel-all-input')&&$('sel-all-input').addEventListener('click',function(){
-  toggleSelectAll($('cls-chips'),selectedClasses,function(t){return t==='person';});
-});
-
-// ===== クラスチップ（行事追加） =====
-function buildNewEvClsChips(){
-  newEvSelectedClasses=allMemberNames().slice();
-  buildChips($('new-ev-cls-chips'),currentMembers,newEvSelectedClasses,null);
-}
-$('sel-class-add')&&$('sel-class-add').addEventListener('click',function(){
-  toggleSelectAll($('new-ev-cls-chips'),newEvSelectedClasses,function(t){return t==='class';});
-});
-$('sel-all-add')&&$('sel-all-add').addEventListener('click',function(){
-  toggleSelectAll($('new-ev-cls-chips'),newEvSelectedClasses,function(t){return t==='person';});
-});
-
-// ===== クラスチップ（編集モーダル） =====
-function buildEditClsChips(targetClasses){
-  editSelectedClasses=targetClasses?targetClasses.slice():allMemberNames().slice();
-  buildModalChips($('edit-cls-chips'),currentMembers,editSelectedClasses);
-}
-$('sel-class-edit')&&$('sel-class-edit').addEventListener('click',function(){
-  toggleSelectAll($('edit-cls-chips'),editSelectedClasses,function(t){return t==='class';});
-});
-$('sel-all-edit')&&$('sel-all-edit').addEventListener('click',function(){
-  toggleSelectAll($('edit-cls-chips'),editSelectedClasses,function(t){return t==='person';});
-});
-
-// ===== データ =====
-function loadAllEntries(){
+// ===== データ読み込み =====
+function loadAllData(){
   api({action:'read'}).then(function(data){
     var rows=data.rows||[];
-    allEntries=rows.filter(function(r){return r.rowNum>1&&r.data&&r.data[1];}).map(function(r){
-      return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3],status:r.data[4]||'提出'};
+    allEntries=rows.filter(function(r){ return r.rowNum>1&&r.data&&r.data[1]; }).map(function(r){
+      return {rowNum:r.rowNum, event:r.data[1], cls:r.data[2], text:r.data[3], status:r.data[4]||'提出'};
     });
     api({action:'getEvents'}).then(function(d){
       events=(d.events||[]).map(function(e){
-        if(typeof e==='string') return{name:e,classes:allMemberNames()};
+        if(typeof e==='string') return {name:e, classes:allMemberNames()};
         return e;
       });
-      renderEvList();renderSumList();
+      renderEvList(); renderSumList();
     });
   });
 }
 
+function loadEntries(){
+  $$('entries-list').innerHTML='<p class="empty">読み込み中...</p>';
+  api({action:'read'}).then(function(data){
+    var rows=data.rows||[];
+    allEntries=rows.filter(function(r){ return r.rowNum>1&&r.data&&r.data[1]; }).map(function(r){
+      return {rowNum:r.rowNum, event:r.data[1], cls:r.data[2], text:r.data[3], status:r.data[4]||'提出'};
+    });
+    renderSumList(); renderEvList();
+    renderClsProgress('entries-cls-progress',currentEvent,false);
+    renderEntries();
+  }).catch(function(){ $$('entries-list').innerHTML='<p class="empty">読み込みに失敗しました</p>'; });
+}
+
+// ===== 提出状況 =====
 function getDoneClasses(evName){
   var done={};
-  allEntries.filter(function(e){return e.event===evName&&e.status!=='一時保存';}).forEach(function(e){
+  allEntries.filter(function(e){ return e.event===evName&&e.status!=='一時保存'; }).forEach(function(e){
     if(!e.cls) return;
-    e.cls.split('・').forEach(function(c){done[c.trim()]=true;});
+    e.cls.split('・').forEach(function(c){ done[c.trim()]=true; });
   });
   return done;
 }
+function getEventClasses(ev){ return (ev&&ev.classes&&ev.classes.length)?ev.classes:allMemberNames(); }
 function getEntryForMember(evName,member){
   var found=null;
   allEntries.forEach(function(e){
     if(e.event===evName){
-      var list=e.cls?e.cls.split('・').map(function(c){return c.trim();}):[];
+      var list=e.cls?e.cls.split('・').map(function(c){ return c.trim(); }):[];
       if(list.indexOf(member)>=0) found=e;
     }
   });
   return found;
 }
-function getEventClasses(ev){return(ev&&ev.classes&&ev.classes.length)?ev.classes:allMemberNames();}
-
 function getProgressBadge(ev){
-  var done=getDoneClasses(ev.name);
-  var target=getEventClasses(ev);
-  var cnt=target.filter(function(c){return done[c];}).length;
-  var total=target.length;
+  var done=getDoneClasses(ev.name), target=getEventClasses(ev);
+  var cnt=target.filter(function(c){ return done[c]; }).length, total=target.length;
   if(cnt===0) return '<span class="progress-badge badge-none">未提出</span>';
   if(cnt===total) return '<span class="progress-badge badge-complete">全員完了✓</span>';
   return '<span class="progress-badge badge-partial">'+cnt+'/'+total+'</span>';
 }
-
-function renderClsProgress(containerId,ev,showEditBtn){
-  var done=getDoneClasses(ev.name);
-  var target=getEventClasses(ev);
-  var el=$(containerId);el.innerHTML='';
+function renderClsProgress(containerId, ev, showEditBtn){
+  var done=getDoneClasses(ev.name), target=getEventClasses(ev);
+  var el=$$(containerId); el.innerHTML='';
   target.forEach(function(m){
     var isDone=!!done[m];
-    var item=document.createElement('div');item.className='cls-progress-item '+(isDone?'done':'notdone');
-    var editBtnHtml=showEditBtn&&isDone?'<button class="edit-entry-btn" data-member="'+m+'">編集</button>':'';
-    item.innerHTML='<span class="cls-progress-dot"></span>'+m+editBtnHtml;
-    if(showEditBtn&&isDone){
-      item.querySelector('.edit-entry-btn').addEventListener('click',function(e){
-        e.stopPropagation();
-        var entry=getEntryForMember(ev.name,this.getAttribute('data-member'));
-        if(entry) openEditEntry(ev,entry);
-      });
-    }
+    var item=document.createElement('div');
+    item.className='cls-progress-item '+(isDone?'done':'notdone');
+    var editHtml=showEditBtn&&isDone?'<button class="edit-entry-btn" onclick="editEntryFor(\''+m.replace(/'/g,"\\'")+'\')" >編集</button>':'';
+    item.innerHTML='<span class="cls-progress-dot"></span>'+m+editHtml;
     el.appendChild(item);
   });
 }
 
-// ===== タブ =====
-function switchTab(tab){
-  currentTab=tab;sessionStorage.setItem('hf_tab',tab);
-  $('t-input').classList.toggle('active',tab==='input');
-  $('t-summary').classList.toggle('active',tab==='summary');
-  $('p-input').style.display=tab==='input'?'':'none';
-  $('p-summary').style.display=tab==='summary'?'':'none';
-  if(tab==='summary') renderSumList();else renderEvList();
-}
-function goHome(){renderEvList();renderSumList();showScreen('s-home');}
-
-// ===== ドラッグ（PC） =====
-var dragSrcIndex=-1;
-function onDragStart(e,idx){dragSrcIndex=idx;e.dataTransfer.effectAllowed='move';}
-function onDragOver(e,el){e.preventDefault();document.querySelectorAll('.list-item').forEach(function(i){i.classList.remove('drag-over');});el.classList.add('drag-over');}
-function onDrop(e,idx){e.preventDefault();document.querySelectorAll('.list-item').forEach(function(i){i.classList.remove('drag-over');});if(dragSrcIndex===idx) return;var m=events.splice(dragSrcIndex,1)[0];events.splice(idx,0,m);renderEvList();saveEvents();}
-
-// ===== タッチドラッグ（行事） =====
-var touchDragIndex=-1,touchClone=null,touchStartY=0;
-function onTouchStart(e,idx){touchDragIndex=idx;touchStartY=e.touches[0].clientY;var el=e.currentTarget.closest('.list-item');touchClone=el.cloneNode(true);touchClone.style.cssText='position:fixed;left:0;right:0;z-index:200;opacity:0.85;background:#e8f0fe;pointer-events:none;';touchClone.style.top=el.getBoundingClientRect().top+'px';document.body.appendChild(touchClone);}
-function onTouchMove(e){if(touchDragIndex<0||!touchClone) return;e.preventDefault();var y=e.touches[0].clientY;touchClone.style.top=(parseFloat(touchClone.style.top)+(y-touchStartY))+'px';touchStartY=y;document.querySelectorAll('.list-item').forEach(function(i){i.classList.remove('drag-over');});var over=document.elementFromPoint(e.touches[0].clientX,y);if(over){var item=over.closest('.list-item');if(item) item.classList.add('drag-over');}}
-function onTouchEnd(e){if(touchDragIndex<0) return;if(touchClone){document.body.removeChild(touchClone);touchClone=null;}document.querySelectorAll('.list-item').forEach(function(i){i.classList.remove('drag-over');});var y=e.changedTouches[0].clientY;var over=document.elementFromPoint(e.changedTouches[0].clientX,y);if(over){var item=over.closest('.list-item');if(item){var idx=parseInt(item.getAttribute('data-idx'));if(!isNaN(idx)&&idx!==touchDragIndex){var m=events.splice(touchDragIndex,1)[0];events.splice(idx,0,m);renderEvList();saveEvents();}}}touchDragIndex=-1;}
-document.addEventListener('touchmove',function(e){if(touchDragIndex>=0) onTouchMove(e);},{passive:false});
-document.addEventListener('touchend',function(e){if(touchDragIndex>=0) onTouchEnd(e);});
-
-// ===== 長押し =====
-var longPressTimer=null;
-function startLongPress(idx){longPressTimer=setTimeout(function(){openEditModal(idx);},600);}
-function cancelLongPress(){if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null;}}
-function openEditModal(idx){editingIndex=idx;$('edit-ev-input').value=events[idx].name;buildEditClsChips(events[idx].classes);$('edit-modal').classList.add('active');setTimeout(function(){$('edit-ev-input').focus();},100);}
-function closeEditModal(){$('edit-modal').classList.remove('active');editingIndex=-1;}
-
-// ===== 描画 =====
+// ===== 行事一覧描画 =====
 function renderEvList(){
-  var el=$('ev-list');el.innerHTML='';
-  if(!events.length){el.innerHTML='<p class="empty">行事がまだありません</p>';return;}
+  var el=$$('ev-list'); el.innerHTML='';
+  if(!events.length){ el.innerHTML='<p class="empty">行事がまだありません</p>'; return; }
   events.forEach(function(ev,idx){
-    var done=getDoneClasses(ev.name);
-    var target=getEventClasses(ev);
+    var done=getDoneClasses(ev.name), target=getEventClasses(ev);
     var item=document.createElement('div');
-    item.className='list-item';item.setAttribute('draggable','true');item.setAttribute('data-idx',idx);
-    var dotsHtml=target.map(function(m){
+    item.className='list-item'; item.setAttribute('draggable','true'); item.setAttribute('data-idx',idx);
+    var dots=target.map(function(m){
       return '<span class="cls-dot-item"><span class="dot-sm '+(done[m]?'dot-green':'dot-gray')+'"></span>'+m+'</span>';
     }).join('');
-    item.innerHTML='<div class="drag-handle">☰</div><div class="list-item-main"><div class="list-item-name">'+ev.name+'</div><div class="cls-status-row">'+dotsHtml+'</div></div>';
-    item.addEventListener('dragstart',function(e){onDragStart(e,idx);});
-    item.addEventListener('dragover',function(e){onDragOver(e,item);});
-    item.addEventListener('drop',function(e){onDrop(e,idx);});
-    item.querySelector('.drag-handle').addEventListener('touchstart',function(e){onTouchStart(e,idx);},{passive:true});
+    item.innerHTML='<div class="drag-handle">☰</div><div class="list-item-main"><div class="list-item-name">'+ev.name+'</div><div class="cls-status-row">'+dots+'</div></div>';
+    // ドラッグ
+    item.addEventListener('dragstart',function(e){ dragSrcIdx=idx; e.dataTransfer.effectAllowed='move'; });
+    item.addEventListener('dragover',function(e){ e.preventDefault(); document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); item.classList.add('drag-over'); });
+    item.addEventListener('drop',function(e){ e.preventDefault(); document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); }); if(dragSrcIdx!==idx){ var m=events.splice(dragSrcIdx,1)[0]; events.splice(idx,0,m); renderEvList(); saveEvents(); } });
+    // タッチドラッグ
+    item.querySelector('.drag-handle').addEventListener('touchstart',function(e){ evTouchStart(e,idx); },{passive:true});
+    // 長押し＆タップ
     var main=item.querySelector('.list-item-main');
-    // 短タップ→入力画面、長押し→編集モーダル
-    var pressTimer=null;
-    var moved=false;
-    main.addEventListener('mousedown',function(){moved=false;pressTimer=setTimeout(function(){openEditModal(idx);},600);});
-    main.addEventListener('mousemove',function(){moved=true;if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}});
-    main.addEventListener('mouseup',function(){if(pressTimer){clearTimeout(pressTimer);pressTimer=null;if(!moved) openInput(ev);}});
-    main.addEventListener('mouseleave',function(){if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}});
-    main.addEventListener('touchstart',function(e){moved=false;pressTimer=setTimeout(function(){pressTimer=null;openEditModal(idx);},600);},{passive:true});
-    main.addEventListener('touchmove',function(){moved=true;if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}},{passive:true});
-    main.addEventListener('touchend',function(){if(pressTimer){clearTimeout(pressTimer);pressTimer=null;if(!moved) openInput(ev);}});
+    var pressTimer=null, touchMoved=false;
+    function startPress(){ pressTimer=setTimeout(function(){ pressTimer=null; openEditModal(idx); },600); }
+    function endPress(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer=null; openInput(ev); } }
+    function cancelPress(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer=null; } }
+    main.addEventListener('mousedown',startPress);
+    main.addEventListener('mouseup',endPress);
+    main.addEventListener('mouseleave',cancelPress);
+    main.addEventListener('touchstart',function(){ touchMoved=false; startPress(); },{passive:true});
+    main.addEventListener('touchmove',function(){ touchMoved=true; cancelPress(); },{passive:true});
+    main.addEventListener('touchend',function(){ if(!touchMoved) endPress(); else cancelPress(); });
     el.appendChild(item);
   });
 }
 
 function renderSumList(){
-  var el=$('sum-list');el.innerHTML='';
-  if(!events.length){el.innerHTML='<p class="empty">行事がまだありません</p>';return;}
+  var el=$$('sum-list'); el.innerHTML='';
+  if(!events.length){ el.innerHTML='<p class="empty">行事がまだありません</p>'; return; }
   events.forEach(function(ev){
-    var done=getDoneClasses(ev.name);
-    var target=getEventClasses(ev);
+    var done=getDoneClasses(ev.name), target=getEventClasses(ev);
     var item=document.createElement('div');
     item.style.cssText='display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e5ea;background:#fff;cursor:pointer;';
-    item.addEventListener('click',function(){openEntries(ev);});
-    var dotsHtml=target.map(function(m){
+    item.onclick=function(){ openEntries(ev); };
+    var dots=target.map(function(m){
       return '<span class="cls-dot-item"><span class="dot-sm '+(done[m]?'dot-green':'dot-gray')+'"></span>'+m+'</span>';
     }).join('');
-    item.innerHTML='<div style="flex:1;"><div style="font-size:16px;font-weight:500;margin-bottom:5px;">'+ev.name+'</div><div class="cls-status-row">'+dotsHtml+'</div></div><div style="margin-left:8px;">'+getProgressBadge(ev)+'</div>';
+    item.innerHTML='<div style="flex:1;"><div style="font-size:16px;font-weight:500;margin-bottom:5px;">'+ev.name+'</div><div class="cls-status-row">'+dots+'</div></div><div style="margin-left:8px;">'+getProgressBadge(ev)+'</div>';
     el.appendChild(item);
   });
 }
 
+// ===== ドラッグ =====
+var dragSrcIdx=-1;
+var evTouchIdx=-1, evTouchClone=null, evTouchY=0;
+function evTouchStart(e,idx){
+  evTouchIdx=idx; evTouchY=e.touches[0].clientY;
+  var el=e.currentTarget.closest('.list-item');
+  evTouchClone=el.cloneNode(true);
+  evTouchClone.style.cssText='position:fixed;left:0;right:0;z-index:200;opacity:0.85;background:#ffe8d6;pointer-events:none;';
+  evTouchClone.style.top=el.getBoundingClientRect().top+'px';
+  document.body.appendChild(evTouchClone);
+}
+document.addEventListener('touchmove',function(e){
+  if(evTouchIdx<0||!evTouchClone) return;
+  e.preventDefault();
+  var y=e.touches[0].clientY;
+  evTouchClone.style.top=(parseFloat(evTouchClone.style.top)+(y-evTouchY))+'px'; evTouchY=y;
+  document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); });
+  var over=document.elementFromPoint(e.touches[0].clientX,y);
+  if(over){ var item=over.closest('.list-item'); if(item) item.classList.add('drag-over'); }
+},{passive:false});
+document.addEventListener('touchend',function(e){
+  if(evTouchIdx<0) return;
+  if(evTouchClone){ document.body.removeChild(evTouchClone); evTouchClone=null; }
+  document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); });
+  var y=e.changedTouches[0].clientY;
+  var over=document.elementFromPoint(e.changedTouches[0].clientX,y);
+  if(over){ var item=over.closest('.list-item'); if(item){
+    var idx=parseInt(item.getAttribute('data-idx'));
+    if(!isNaN(idx)&&idx!==evTouchIdx){ var m=events.splice(evTouchIdx,1)[0]; events.splice(idx,0,m); renderEvList(); saveEvents(); }
+  }}
+  evTouchIdx=-1;
+});
+
+// ===== 行事編集モーダル =====
+function openEditModal(idx){
+  editingEventIndex=idx;
+  $$('edit-ev-input').value=events[idx].name;
+  buildModalChips(events[idx].classes);
+  $$('edit-modal').classList.add('active');
+}
+function closeEditModal(){ $$('edit-modal').classList.remove('active'); editingEventIndex=-1; }
+function saveEditEvent(){
+  var name=$$('edit-ev-input').value.trim();
+  if(!name){ alert('行事名を入力してください'); return; }
+  if(events.some(function(e,i){ return e.name===name&&i!==editingEventIndex; })){ alert('その行事名は既に存在します'); return; }
+  if(!editMemberSelected.length){ alert('対象メンバーを選択してください'); return; }
+  events[editingEventIndex]={name:name, classes:editMemberSelected.slice()};
+  saveEvents().then(function(){ closeEditModal(); renderEvList(); renderSumList(); showToast('行事を更新しました'); });
+}
+function deleteEvent(){
+  if(!confirm('「'+events[editingEventIndex].name+'」を削除しますか？')) return;
+  events.splice(editingEventIndex,1);
+  saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('削除しました'); });
+}
+$$('edit-modal').addEventListener('click',function(e){ if(e.target===$$('edit-modal')) closeEditModal(); });
+
+// ===== 入力画面 =====
 function openInput(ev){
-  editingEntry=null;currentEvent=ev;$('input-title').textContent=ev.name;
-  resetClsChips();$('hansei').value='';$('input-err').textContent='';
-  $('submit-btn').textContent='提出';$('submit-btn').disabled=false;
-  $('draft-btn').textContent='一時保存';$('draft-btn').style.display='block';
-  $('delete-entry-btn').style.display='none';$('edit-mode-banner').style.display='none';
-  $('draft-banner').style.display='none';
+  currentEvent=ev;
   isDirty=false;
+  $$('input-title').textContent=ev.name;
+  $$('hansei').value='';
+  $$('input-err').textContent='';
+  $$('submit-btn').textContent='提出';
+  $$('submit-btn').disabled=false;
+  $$('draft-btn').textContent='一時保存';
+  $$('delete-entry-btn').style.display='none';
+  $$('edit-mode-banner').style.display='none';
+  $$('draft-saved-banner').style.display='none';
+  buildInputChips();
+  updateInputChipsDone(ev);
   renderClsProgress('input-cls-progress',ev,true);
-  updateClsChipsDone(ev);showScreen('s-input');
+  showScreen('s-input');
+}
+
+function editEntryFor(member){
+  var entry=getEntryForMember(currentEvent.name,member);
+  if(entry) openEditEntry(currentEvent,entry);
 }
 
 function openEditEntry(ev,entry){
-  editingEntry=entry;currentEvent=ev;$('input-title').textContent=ev.name;
-  selectedClasses=[];resetClsChips();
-  $('hansei').value=entry.text||'';$('input-err').textContent='';
-  $('submit-btn').textContent='更新する';$('submit-btn').disabled=false;
-  $('draft-btn').textContent='一時保存';$('draft-btn').style.display='block';
-  $('delete-entry-btn').style.display='block';$('edit-mode-banner').style.display='block';
-  updateClsChipsDone(ev);
-  var list=entry.cls?entry.cls.split('・').map(function(c){return c.trim();}):[];
-  setClsChipsSelected(list);
-  showScreen('s-input');window.scrollTo(0,0);
+  editingEntry=entry;
+  currentEvent=ev;
+  isDirty=false;
+  $$('input-title').textContent=ev.name;
+  $$('hansei').value=entry.text||'';
+  $$('input-err').textContent='';
+  $$('submit-btn').textContent='更新する';
+  $$('submit-btn').disabled=false;
+  $$('draft-btn').textContent='一時保存';
+  $$('delete-entry-btn').style.display='block';
+  $$('edit-mode-banner').style.display='block';
+  $$('draft-saved-banner').style.display=entry.status==='一時保存'?'block':'none';
+  buildInputChips();
+  updateInputChipsDone(ev);
+  // 既存クラスを選択
+  var list=entry.cls?entry.cls.split('・').map(function(c){ return c.trim(); }):[];
+  document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
+    var n=chip.getAttribute('data-name');
+    if(list.indexOf(n)>=0) chip.classList.add('selected');
+  });
+  renderClsProgress('input-cls-progress',ev,true);
+  showScreen('s-input');
 }
 
+// ===== 入力チップ =====
+function buildInputChips(){
+  var el=$$('cls-chips'); el.innerHTML='';
+  var classes=currentMembers.filter(isClass);
+  var persons=currentMembers.filter(isPerson);
+  function addChip(m){
+    var n=memberName(m), t=memberType(m);
+    var chip=document.createElement('div');
+    chip.className='cls-chip type-'+t; chip.setAttribute('data-name',n); chip.setAttribute('data-type',t);
+    chip.textContent=n;
+    chip.onclick=function(){ chip.classList.toggle('selected'); };
+    el.appendChild(chip);
+  }
+  if(classes.length){
+    var l=document.createElement('div'); l.className='chip-group-label'; l.textContent='▌ クラス'; el.appendChild(l);
+    classes.forEach(addChip);
+  }
+  if(persons.length){
+    var l2=document.createElement('div'); l2.className='chip-group-label'; l2.textContent='▌ 個人'; el.appendChild(l2);
+    persons.forEach(addChip);
+  }
+}
+function updateInputChipsDone(ev){
+  var done=getDoneClasses(ev.name), target=getEventClasses(ev);
+  document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
+    var n=chip.getAttribute('data-name');
+    if(target.indexOf(n)<0){ chip.style.display='none'; }
+    else{ chip.style.display=''; if(done[n]) chip.classList.add('done'); else chip.classList.remove('done'); }
+  });
+}
+function getSelectedChips(){
+  var sel=[];
+  document.querySelectorAll('#cls-chips .cls-chip.selected').forEach(function(c){ sel.push(c.getAttribute('data-name')); });
+  return sel;
+}
+function selAllClass(){
+  document.querySelectorAll('#cls-chips .cls-chip[data-type="class"]').forEach(function(c){
+    if(c.style.display!=='none') c.classList.add('selected');
+  });
+}
+function selAllPerson(){
+  document.querySelectorAll('#cls-chips .cls-chip[data-type="person"]').forEach(function(c){
+    if(c.style.display!=='none') c.classList.add('selected');
+  });
+}
+
+// ===== 提出・一時保存・削除 =====
+function submitHansei(){
+  var sel=getSelectedChips(), text=$$('hansei').value.trim(), err=$$('input-err');
+  if(!sel.length){ err.textContent='記入者を選択してください'; return; }
+  if(!text){ err.textContent='反省を入力してください'; return; }
+  err.textContent=''; $$('submit-btn').disabled=true;
+  var clsLabel=sel.join('・');
+  if(editingEntry){
+    $$('submit-btn').textContent='更新中...';
+    api({action:'update',rowNum:editingEntry.rowNum,cls:clsLabel,text:text,status:'提出'}).then(function(){
+      isDirty=false; editingEntry=null;
+      $$('success-title').textContent='更新しました';
+      $$('success-sub').textContent='反省内容を更新しました';
+      showScreen('s-success');
+    }).catch(function(){ err.textContent='更新に失敗しました'; $$('submit-btn').disabled=false; $$('submit-btn').textContent='更新する'; });
+  } else {
+    $$('submit-btn').textContent='提出中...';
+    api({action:'write',event:currentEvent.name,cls:clsLabel,text:text,status:'提出'}).then(function(){
+      isDirty=false;
+      $$('success-title').textContent='提出しました';
+      $$('success-sub').textContent='スプレッドシートに保存されました';
+      showScreen('s-success');
+    }).catch(function(){ err.textContent='提出に失敗しました'; $$('submit-btn').disabled=false; $$('submit-btn').textContent='提出'; });
+  }
+}
+
+function saveDraft(){
+  var sel=getSelectedChips(), text=$$('hansei').value.trim(), err=$$('input-err');
+  if(!sel.length){ err.textContent='記入者を選択してください'; return; }
+  if(!text){ err.textContent='反省を入力してください'; return; }
+  err.textContent=''; $$('draft-btn').disabled=true; $$('draft-btn').textContent='保存中...';
+  var clsLabel=sel.join('・');
+  if(editingEntry){
+    api({action:'update',rowNum:editingEntry.rowNum,cls:clsLabel,text:text,status:'一時保存'}).then(function(){
+      isDirty=false; $$('draft-btn').disabled=false; $$('draft-btn').textContent='一時保存済 ✓';
+      showToast('一時保存しました');
+    }).catch(function(){ err.textContent='一時保存に失敗しました'; $$('draft-btn').disabled=false; $$('draft-btn').textContent='一時保存'; });
+  } else {
+    api({action:'write',event:currentEvent.name,cls:clsLabel,text:text,status:'一時保存'}).then(function(res){
+      isDirty=false; $$('draft-btn').disabled=false; $$('draft-btn').textContent='一時保存済 ✓';
+      showToast('一時保存しました');
+    }).catch(function(){ err.textContent='一時保存に失敗しました'; $$('draft-btn').disabled=false; $$('draft-btn').textContent='一時保存'; });
+  }
+}
+
+function deleteEntry(){
+  if(!editingEntry) return;
+  if(!confirm('この反省を削除しますか？')) return;
+  api({action:'delete',rowNum:editingEntry.rowNum}).then(function(){
+    editingEntry=null; isDirty=false;
+    $$('success-title').textContent='削除しました';
+    $$('success-sub').textContent='反省を削除しました';
+    showScreen('s-success');
+  }).catch(function(){ $$('input-err').textContent='削除に失敗しました'; });
+}
+
+function successBack(){
+  editingEntry=null; isDirty=false;
+  loadAllData(); goHome();
+}
+
+// ===== 取りまとめ画面 =====
 function openEntries(ev){
-  currentEvent=ev;currentFilter='all';
-  $('entries-title').textContent=ev.name;
-  $('entries-list').innerHTML='<p class="empty">読み込み中...</p>';
-  $('copy-box').textContent='';
+  currentEvent=ev; currentFilter='all';
+  $$('entries-title').textContent=ev.name;
+  $$('entries-list').innerHTML='<p class="empty">読み込み中...</p>';
+  $$('copy-box').textContent='';
   renderClsProgress('entries-cls-progress',ev,false);
-  showScreen('s-entries');loadEntries();
-}
-
-function loadEntries(){
-  $('entries-list').innerHTML='<p class="empty">読み込み中...</p>';
-  api({action:'read'}).then(function(data){
-    var rows=data.rows||[];
-    allEntries=rows.filter(function(r){return r.rowNum>1&&r.data&&r.data[1];}).map(function(r){
-      return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3],status:r.data[4]||'提出'};
-    });
-    renderSumList();renderEvList();
-    renderClsProgress('entries-cls-progress',currentEvent,false);
-    renderEntries();
-  }).catch(function(){$('entries-list').innerHTML='<p class="empty">読み込みに失敗しました。再読み込みしてください。</p>';});
+  showScreen('s-entries'); loadEntries();
 }
 
 function renderEntries(){
-  var entries=allEntries.filter(function(e){return e.event===currentEvent.name;});
-  var cr=$('chips');cr.innerHTML='';
-  var ac=document.createElement('div');ac.className='chip'+(currentFilter==='all'?' active':'');ac.textContent='すべて';
-  ac.addEventListener('click',function(){currentFilter='all';renderEntries();});cr.appendChild(ac);
+  var entries=allEntries.filter(function(e){ return e.event===currentEvent.name; });
+  var cr=$$('chips'); cr.innerHTML='';
+  var ac=document.createElement('div'); ac.className='chip'+(currentFilter==='all'?' active':''); ac.textContent='すべて';
+  ac.onclick=function(){ currentFilter='all'; renderEntries(); }; cr.appendChild(ac);
   var clsSet={};
-  entries.forEach(function(e){if(e.cls) clsSet[e.cls]=true;});
+  entries.forEach(function(e){ if(e.cls) clsSet[e.cls]=true; });
   Object.keys(clsSet).forEach(function(c){
-    var ch=document.createElement('div');ch.className='chip'+(currentFilter===c?' active':'');ch.textContent=c;
-    ch.addEventListener('click',function(){currentFilter=c;renderEntries();});cr.appendChild(ch);
+    var ch=document.createElement('div'); ch.className='chip'+(currentFilter===c?' active':''); ch.textContent=c;
+    ch.onclick=function(){ currentFilter=c; renderEntries(); }; cr.appendChild(ch);
   });
-  var filtered=currentFilter==='all'?entries:entries.filter(function(e){return e.cls===currentFilter;});
-  var list=$('entries-list');list.innerHTML='';
-  if(!filtered.length){list.innerHTML='<p class="empty">まだ反省が入力されていません</p>';$('copy-box').textContent='';return;}
+  var filtered=currentFilter==='all'?entries:entries.filter(function(e){ return e.cls===currentFilter; });
+  var list=$$('entries-list'); list.innerHTML='';
+  if(!filtered.length){ list.innerHTML='<p class="empty">まだ反省が入力されていません</p>'; $$('copy-box').textContent=''; return; }
   filtered.forEach(function(e){
-    var d=document.createElement('div');d.className='entry';
+    var d=document.createElement('div'); d.className='entry';
     var t=(e.text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     var c=(e.cls||'').replace(/</g,'&lt;');
-    d.innerHTML='<span class="entry-cls">'+c+'</span><div class="entry-txt">'+t+'</div>';
+    var badge=e.status==='一時保存'?'<span class="draft-badge">一時保存</span>':'';
+    d.innerHTML='<span class="entry-cls">'+c+'</span>'+badge+'<div class="entry-txt">'+t+'</div>';
     list.appendChild(d);
   });
   var target=getEventClasses(currentEvent);
   var sorted=[];
-  target.forEach(function(m){filtered.filter(function(e){return e.cls===m;}).forEach(function(e){sorted.push(e);});});
-  filtered.filter(function(e){return target.indexOf(e.cls)<0;}).forEach(function(e){sorted.push(e);});
-  $('copy-box').textContent=sorted.map(function(e){return'【'+e.cls+'】\n'+e.text;}).join('\n\n');
+  target.forEach(function(m){ filtered.filter(function(e){ return e.cls===m; }).forEach(function(e){ sorted.push(e); }); });
+  filtered.filter(function(e){ return target.indexOf(e.cls)<0; }).forEach(function(e){ sorted.push(e); });
+  $$('copy-box').textContent=sorted.map(function(e){ return '【'+e.cls+'】\n'+e.text; }).join('\n\n');
 }
 
-// 未保存フラグ
-var isDirty=false;
-function markDirty(){isDirty=true;}
-function clearDirty(){isDirty=false;sessionStorage.removeItem('hf_draft');}
+function copyAll(){
+  var text=$$('copy-box').textContent;
+  if(!text){ showToast('コピーするデータがありません'); return; }
+  if(navigator.clipboard){ navigator.clipboard.writeText(text).then(function(){ showToast(); }); }
+  else{ var r=document.createRange(); r.selectNodeContents($$('copy-box')); window.getSelection().removeAllRanges(); window.getSelection().addRange(r); document.execCommand('copy'); showToast(); }
+}
 
-function saveDraft(){
-  var text=$('hansei').value.trim(),err=$('input-err');
-  if(!selectedClasses.length){err.textContent='記入者を選択してください';return;}
-  if(!text){err.textContent='反省を入力してください';return;}
-  err.textContent='';
-  var draft={event:currentEvent.name,cls:selectedClasses.join('・'),text:text,rowNum:editingEntry?editingEntry.rowNum:null};
-  sessionStorage.setItem('hf_draft',JSON.stringify(draft));
-  $('draft-btn').textContent='一時保存済 ✓';
-  isDirty=false;
-  // スプレッドシートにも一時保存
-  if(editingEntry){
-    api({action:'update',rowNum:editingEntry.rowNum,cls:draft.cls,text:draft.text,status:'一時保存'}).then(function(){
-      showToast('一時保存しました');
-    });
-  } else {
-    api({action:'write',event:currentEvent.name,cls:draft.cls,text:draft.text,status:'一時保存'}).then(function(res){
-      if(res.ok) showToast('一時保存しました');
-    });
+// ===== 行事追加 =====
+function showAddEvent(){
+  $$('new-ev').value=''; $$('add-err').textContent='';
+  buildAddChips();
+  showScreen('s-add');
+}
+function buildAddChips(){
+  var el=$$('new-ev-chips'); el.innerHTML='';
+  newEvSelected=allMemberNames().slice();
+  var classes=currentMembers.filter(isClass), persons=currentMembers.filter(isPerson);
+  function addChip(m){
+    var n=memberName(m), t=memberType(m);
+    var chip=document.createElement('div');
+    chip.className='cls-chip type-'+t+' selected'; chip.setAttribute('data-name',n); chip.setAttribute('data-type',t);
+    chip.textContent=n;
+    chip.onclick=function(){
+      chip.classList.toggle('selected');
+      var idx=newEvSelected.indexOf(n);
+      if(chip.classList.contains('selected')){ if(idx<0) newEvSelected.push(n); }
+      else{ if(idx>=0) newEvSelected.splice(idx,1); }
+    };
+    el.appendChild(chip);
+  }
+  if(classes.length){
+    var l=document.createElement('div'); l.className='chip-group-label'; l.textContent='▌ クラス'; el.appendChild(l);
+    classes.forEach(addChip);
+  }
+  if(persons.length){
+    var l2=document.createElement('div'); l2.className='chip-group-label'; l2.textContent='▌ 個人'; el.appendChild(l2);
+    persons.forEach(addChip);
   }
 }
-
-function safeGoHome(){
-  if(isDirty&&$('hansei').value.trim()){
-    if(confirm('入力中の内容があります。\n一時保存してから戻りますか？\nOK→一時保存  キャンセル→破棄')){
-      saveDraft();
-    }
-  }
-  isDirty=false;
-  $('draft-btn').textContent='一時保存';
-  renderEvList();renderSumList();showScreen('s-home');
+function selAllClassAdd(){
+  newEvSelected=[];
+  document.querySelectorAll('#new-ev-chips .cls-chip').forEach(function(c){
+    if(c.getAttribute('data-type')==='class'){ c.classList.add('selected'); newEvSelected.push(c.getAttribute('data-name')); }
+    else c.classList.remove('selected');
+  });
 }
-
-function submitHansei(){
-  var text=$('hansei').value.trim(),err=$('input-err');
-  if(!selectedClasses.length){err.textContent='記入者を選択してください';return;}
-  if(!text){err.textContent='反省を入力してください';return;}
-  err.textContent='';$('submit-btn').disabled=true;
-  if(editingEntry){
-    $('submit-btn').textContent='更新中...';
-    api({action:'update',rowNum:editingEntry.rowNum,cls:selectedClasses.join('・'),text:text,status:'提出'}).then(function(){
-      clearDirty();
-      $('success-title').textContent='更新しました';$('success-sub').textContent='反省内容を更新しました';showScreen('s-success');
-    }).catch(function(){err.textContent='更新に失敗しました。';$('submit-btn').disabled=false;$('submit-btn').textContent='更新する';});
-  } else {
-    $('submit-btn').textContent='提出中...';
-    api({action:'write',event:currentEvent.name,cls:selectedClasses.join('・'),text:text,status:'提出'}).then(function(){
-      clearDirty();
-      $('success-title').textContent='提出しました';$('success-sub').textContent='スプレッドシートに保存されました';showScreen('s-success');
-    }).catch(function(){err.textContent='提出に失敗しました。';$('submit-btn').disabled=false;$('submit-btn').textContent='提出';});
-  }
+function selAllPersonAdd(){
+  newEvSelected=[];
+  document.querySelectorAll('#new-ev-chips .cls-chip').forEach(function(c){
+    if(c.getAttribute('data-type')==='person'){ c.classList.add('selected'); newEvSelected.push(c.getAttribute('data-name')); }
+    else c.classList.remove('selected');
+  });
 }
-
-$('delete-entry-btn')&&$('delete-entry-btn').addEventListener('click',function(){
-  if(!editingEntry) return;
-  if(!confirm('この反省を削除しますか？')) return;
-  api({action:'delete',rowNum:editingEntry.rowNum}).then(function(){
-    $('success-title').textContent='削除しました';$('success-sub').textContent='反省を削除しました';showScreen('s-success');
-  }).catch(function(){$('input-err').textContent='削除に失敗しました。';});
-});
-
 function addEvent(){
-  var name=$('new-ev').value.trim(),err=$('add-err');
-  if(!name){err.textContent='行事名を入力してください';return;}
-  if(events.some(function(e){return e.name===name;})){err.textContent='その行事は既に登録されています';return;}
-  if(!newEvSelectedClasses.length){err.textContent='対象メンバーを選択してください';return;}
-  events.unshift({name:name,classes:newEvSelectedClasses.slice()});
-  saveEvents().then(function(){$('new-ev').value='';err.textContent='';goHome();});
+  var name=$$('new-ev').value.trim(), err=$$('add-err');
+  if(!name){ err.textContent='行事名を入力してください'; return; }
+  if(events.some(function(e){ return e.name===name; })){ err.textContent='その行事は既に登録されています'; return; }
+  if(!newEvSelected.length){ err.textContent='対象メンバーを選択してください'; return; }
+  events.unshift({name:name, classes:newEvSelected.slice()});
+  saveEvents().then(function(){ err.textContent=''; goHome(); });
 }
 
-$('t-input')&&$('t-input').addEventListener('click',function(){switchTab('input');});
-$('t-summary')&&$('t-summary').addEventListener('click',function(){switchTab('summary');});
-$('back-input')&&$('back-input').addEventListener('click',safeGoHome);
-$('back-entries')&&$('back-entries').addEventListener('click',goHome);
-$('back-add')&&$('back-add').addEventListener('click',goHome);
-$('back-success')&&$('back-success').addEventListener('click',function(){editingEntry=null;loadAllEntries();goHome();});
-$('cancel-btn')&&$('cancel-btn').addEventListener('click',safeGoHome);
-$('cancel-add-btn')&&$('cancel-add-btn').addEventListener('click',goHome);
-$('submit-btn')&&$('submit-btn').addEventListener('click',submitHansei);
-$('draft-btn')&&$('draft-btn').addEventListener('click',saveDraft);
-$('save-ev-btn')&&$('save-ev-btn').addEventListener('click',addEvent);
-$('reload-btn')&&$('reload-btn').addEventListener('click',loadEntries);
-$('copy-btn')&&$('copy-btn').addEventListener('click',function(){
-  var text=$('copy-box').textContent;
-  if(!text){showToast('コピーするデータがありません');return;}
-  if(navigator.clipboard){navigator.clipboard.writeText(text).then(function(){showToast();});}
-  else{var r=document.createRange();r.selectNodeContents($('copy-box'));window.getSelection().removeAllRanges();window.getSelection().addRange(r);document.execCommand('copy');showToast();}
+// ===== モーダルチップ =====
+function buildModalChips(targetClasses){
+  var el=$$('edit-cls-chips'); el.innerHTML='';
+  editMemberSelected=targetClasses?targetClasses.slice():allMemberNames().slice();
+  var classes=currentMembers.filter(isClass), persons=currentMembers.filter(isPerson);
+  function addChip(m){
+    var n=memberName(m), t=memberType(m);
+    var chip=document.createElement('div');
+    chip.className='modal-cls-chip type-'+t; chip.setAttribute('data-name',n); chip.setAttribute('data-type',t);
+    chip.textContent=n;
+    if(editMemberSelected.indexOf(n)>=0) chip.classList.add('selected');
+    chip.onclick=function(){
+      chip.classList.toggle('selected');
+      var idx=editMemberSelected.indexOf(n);
+      if(chip.classList.contains('selected')){ if(idx<0) editMemberSelected.push(n); }
+      else{ if(idx>=0) editMemberSelected.splice(idx,1); }
+    };
+    el.appendChild(chip);
+  }
+  if(classes.length){
+    var l=document.createElement('div'); l.className='chip-group-label'; l.textContent='▌ クラス'; el.appendChild(l);
+    classes.forEach(addChip);
+  }
+  if(persons.length){
+    var l2=document.createElement('div'); l2.className='chip-group-label'; l2.textContent='▌ 個人'; el.appendChild(l2);
+    persons.forEach(addChip);
+  }
+}
+function selAllClassEdit(){
+  editMemberSelected=[];
+  document.querySelectorAll('#edit-cls-chips .modal-cls-chip').forEach(function(c){
+    if(c.getAttribute('data-type')==='class'){ c.classList.add('selected'); editMemberSelected.push(c.getAttribute('data-name')); }
+    else c.classList.remove('selected');
+  });
+}
+function selAllPersonEdit(){
+  editMemberSelected=[];
+  document.querySelectorAll('#edit-cls-chips .modal-cls-chip').forEach(function(c){
+    if(c.getAttribute('data-type')==='person'){ c.classList.add('selected'); editMemberSelected.push(c.getAttribute('data-name')); }
+    else c.classList.remove('selected');
+  });
+}
+
+// ===== メンバー設定 =====
+function setMemberType(t){
+  newMemberType=t;
+  $$('type-class-btn').classList.toggle('active',t==='class');
+  $$('type-person-btn').classList.toggle('active',t==='person');
+}
+function openMembersScreen(){
+  tempMembers=currentMembers.map(function(m){ return {name:memberName(m),type:memberType(m)}; });
+  newMemberType='class';
+  $$('type-class-btn').classList.add('active'); $$('type-person-btn').classList.remove('active');
+  renderMemberList(); showScreen('s-members');
+}
+// メンバー設定ボタンのonclickはHTMLに書いてあるのでここで上書き
+document.querySelector('[onclick="showScreen(\'s-members\')"]') && (document.querySelector('[onclick="showScreen(\'s-members\')"]').onclick=function(){ openMembersScreen(); });
+
+function renderMemberList(){
+  var el=$$('member-list'); el.innerHTML='';
+  if(!tempMembers.length){ el.innerHTML='<p class="empty" style="padding:20px;">メンバーがいません</p>'; return; }
+  tempMembers.forEach(function(m,idx){
+    var item=document.createElement('div'); item.className='member-item'; item.setAttribute('data-idx',idx);
+    var badge=m.type==='class'?'<span class="member-type-badge class">クラス</span>':'<span class="member-type-badge person">個人</span>';
+    item.innerHTML='<span class="member-item-handle">☰</span><span class="member-item-name">'+m.name+'</span>'+badge+'<button class="member-del-btn">×</button>';
+    item.querySelector('.member-del-btn').onclick=function(){ tempMembers.splice(idx,1); renderMemberList(); };
+    item.querySelector('.member-item-handle').addEventListener('touchstart',function(e){ mTouchStart(e,idx); },{passive:true});
+    el.appendChild(item);
+  });
+}
+var mTouchIdx=-1, mTouchClone=null, mTouchY=0;
+function mTouchStart(e,idx){
+  mTouchIdx=idx; mTouchY=e.touches[0].clientY;
+  var el=e.currentTarget.closest('.member-item');
+  mTouchClone=el.cloneNode(true);
+  mTouchClone.style.cssText='position:fixed;left:0;right:0;z-index:200;opacity:0.85;background:#ffe8d6;pointer-events:none;';
+  mTouchClone.style.top=el.getBoundingClientRect().top+'px';
+  document.body.appendChild(mTouchClone);
+}
+document.addEventListener('touchmove',function(e){
+  if(mTouchIdx<0||!mTouchClone) return;
+  var y=e.touches[0].clientY;
+  mTouchClone.style.top=(parseFloat(mTouchClone.style.top)+(y-mTouchY))+'px'; mTouchY=y;
+  document.querySelectorAll('.member-item').forEach(function(i){ i.style.borderTop=''; });
+  var over=document.elementFromPoint(e.touches[0].clientX,y);
+  if(over){ var item=over.closest('.member-item'); if(item) item.style.borderTop='2px solid #FF8C42'; }
+},{passive:false});
+document.addEventListener('touchend',function(e){
+  if(mTouchIdx<0) return;
+  if(mTouchClone){ document.body.removeChild(mTouchClone); mTouchClone=null; }
+  document.querySelectorAll('.member-item').forEach(function(i){ i.style.borderTop=''; });
+  var y=e.changedTouches[0].clientY;
+  var over=document.elementFromPoint(e.changedTouches[0].clientX,y);
+  if(over){ var item=over.closest('.member-item'); if(item){
+    var idx=parseInt(item.getAttribute('data-idx'));
+    if(!isNaN(idx)&&idx!==mTouchIdx){ var m=tempMembers.splice(mTouchIdx,1)[0]; tempMembers.splice(idx,0,m); renderMemberList(); }
+  }}
+  mTouchIdx=-1;
 });
-$('btn-add-ev')&&$('btn-add-ev').addEventListener('click',function(){buildNewEvClsChips();$('add-err').textContent='';showScreen('s-add');});
-$('edit-save-btn')&&$('edit-save-btn').addEventListener('click',function(){
-  var name=$('edit-ev-input').value.trim();
-  if(!name){alert('行事名を入力してください');return;}
-  if(events.some(function(e,i){return e.name===name&&i!==editingIndex;})){alert('その行事名は既に存在します');return;}
-  if(!editSelectedClasses.length){alert('対象メンバーを選択してください');return;}
-  events[editingIndex]={name:name,classes:editSelectedClasses.slice()};
-  saveEvents().then(function(){closeEditModal();renderEvList();renderSumList();showToast('行事を更新しました');});
-});
-$('edit-delete-btn')&&$('edit-delete-btn').addEventListener('click',function(){
-  if(!confirm('「'+events[editingIndex].name+'」を削除しますか？\n※入力済みの反省データは残ります')) return;
-  events.splice(editingIndex,1);
-  saveEvents().then(function(){closeEditModal();renderEvList();showToast('削除しました');});
-});
-$('edit-cancel-btn')&&$('edit-cancel-btn').addEventListener('click',closeEditModal);
-$('edit-modal')&&$('edit-modal').addEventListener('click',function(e){if(e.target===$('edit-modal')) closeEditModal();});
-initLoginButtons();
-document.addEventListener('click',function(){var y=$('year-list');if(y) y.style.display='none';});
+function addMember(){
+  var name=$$('new-member-input').value.trim();
+  if(!name){ $$('members-err').textContent='名前を入力してください'; return; }
+  if(tempMembers.some(function(m){ return m.name===name; })){ $$('members-err').textContent='既に登録されています'; return; }
+  $$('members-err').textContent='';
+  tempMembers.push({name:name,type:newMemberType});
+  $$('new-member-input').value=''; renderMemberList();
+}
+$$('new-member-input').addEventListener('keydown',function(e){ if(e.key==='Enter') addMember(); });
+function saveMembers(){
+  if(!tempMembers.length){ $$('members-err').textContent='メンバーが空です'; return; }
+  api({action:'saveMembers',membersJson:JSON.stringify(tempMembers)}).then(function(){
+    currentMembers=tempMembers.slice(); buildInputChips(); showToast('メンバーを保存しました'); goHome();
+  });
+}
 </script>
 </body>
 </html>
