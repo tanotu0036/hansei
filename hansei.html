@@ -112,6 +112,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .garden-select-btn{display:block;width:100%;padding:20px;margin-bottom:12px;background:#fff0e6;border:1.5px solid #ffcba4;border-radius:16px;font-size:20px;font-weight:700;color:#c45e10;cursor:pointer;text-align:center;letter-spacing:0.05em;}
 .garden-select-btn:active{background:#ffe5d0;}
 .edit-mode-banner{background:#fff3cd;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#856404;text-align:center;}
+.draft-badge{display:inline-block;font-size:11px;padding:2px 7px;border-radius:8px;background:#e8f4ff;color:#1a6a9a;margin-left:6px;vertical-align:middle;}
 .member-list{margin-bottom:12px;}
 .member-item{display:flex;align-items:center;background:#fff;border-bottom:1px solid #e5e5ea;padding:12px 16px;gap:10px;}
 .member-item:last-child{border-bottom:none;}
@@ -138,11 +139,26 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
     <div class="login-logo">🏫</div>
     <div class="login-title">行事の反省 入力フォーム</div>
     <div class="login-sub">園を選んでください</div>
-    <select id="year-sel" style="display:block;width:100%;padding:20px;margin-bottom:12px;background:#d6f0ff;border:1.5px solid #a8d8f0;border-radius:16px;font-size:20px;font-weight:700;color:#1a6a9a;cursor:pointer;text-align:center;text-align-last:center;-webkit-appearance:none;appearance:none;"></select>
-    <button class="garden-select-btn" id="g-nishijin">西新</button>
-    <button class="garden-select-btn" id="g-hara">原</button>
-    <button class="garden-select-btn" id="g-tanotsu">たの津</button>
-    <button class="garden-select-btn" id="g-chikushino">ちくし野</button>
+    <div style="position:relative;margin-bottom:12px;">
+      <button id="year-btn" style="display:block;width:100%;padding:20px;background:#d6f0ff;border:1.5px solid #a8d8f0;border-radius:16px;font-size:20px;font-weight:700;color:#1a6a9a;cursor:pointer;text-align:center;">2026年</button>
+      <div id="year-list" style="display:none;background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);margin-bottom:12px;max-height:200px;overflow-y:auto;">
+        <div class="year-opt" data-year="2026年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2026年</div>
+<div class="year-opt" data-year="2027年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2027年</div>
+<div class="year-opt" data-year="2028年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2028年</div>
+<div class="year-opt" data-year="2029年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2029年</div>
+<div class="year-opt" data-year="2030年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2030年</div>
+<div class="year-opt" data-year="2031年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2031年</div>
+<div class="year-opt" data-year="2032年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2032年</div>
+<div class="year-opt" data-year="2033年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2033年</div>
+<div class="year-opt" data-year="2034年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2034年</div>
+<div class="year-opt" data-year="2035年度" style="padding:14px;font-size:17px;font-weight:600;text-align:center;color:#1a6a9a;cursor:pointer;border-bottom:1px solid #f0f0f0;">2035年</div>
+
+      </div>
+    </div>
+    <button class="garden-select-btn" data-garden="西新">西新</button>
+    <button class="garden-select-btn" data-garden="原">原</button>
+    <button class="garden-select-btn" data-garden="たの津">たの津</button>
+    <button class="garden-select-btn" data-garden="ちくし野">ちくし野</button>
     <p class="err" id="login-err"></p>
   </div></div>
 </div>
@@ -160,10 +176,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 <div id="s-home" class="screen">
   <div class="context-bar">
     <div class="context-info"><span id="ctx-garden"></span>・<span id="ctx-year"></span></div>
-    <div style="display:flex;gap:4px;">
-      <button class="logout-btn" id="change-year-btn" style="color:#e07030;">園・年度変更</button>
-      <button class="logout-btn" id="logout-btn" style="color:#ff3b30;">ログアウト</button>
-    </div>
+    <button class="logout-btn" id="top-btn" style="color:#e07030;">トップページ</button>
   </div>
   <div class="navbar">
     <div class="navbar-title">行事の反省 入力フォーム</div>
@@ -195,6 +208,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
       <div class="cls-progress-list" id="input-cls-progress"></div>
     </div>
     <div id="edit-mode-banner" class="edit-mode-banner" style="display:none;">編集モード：内容を修正して「更新する」を押してください</div>
+    <div id="draft-banner" style="display:none;background:#e8f4ff;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#1a6a9a;text-align:center;">一時保存中のデータがあります</div>
     <div class="form-group">
       <div class="form-row">
         <div class="form-label-row">
@@ -208,10 +222,11 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
       </div>
       <div class="form-row">
         <div class="form-label">反省・気づき</div>
-        <textarea id="hansei" placeholder="気づいたこと、改善点、良かった点など"></textarea>
+        <textarea id="hansei" placeholder="気づいたこと、改善点、良かった点など" oninput="markDirty();$(&quot;draft-btn&quot;).textContent=&quot;一時保存&quot;;"></textarea>
       </div>
     </div>
-    <button class="btn-p" id="submit-btn">送信する</button>
+    <button class="btn-p" id="submit-btn">提出</button>
+    <button class="btn-s" id="draft-btn">一時保存</button>
     <button class="btn-danger" id="delete-entry-btn" style="display:none;">この反省を削除する</button>
     <button class="btn-s" id="cancel-btn">キャンセル</button>
     <p class="err" id="input-err"></p>
@@ -335,7 +350,7 @@ var editingIndex=-1,selectedClasses=[],newEvSelectedClasses=[],editSelectedClass
 var editingEntry=null,tempMembers=[],newMemberType='class';
 
 function $(i){return document.getElementById(i);}
-function showScreen(i){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});$(i).classList.add('active');window.scrollTo(0,0);}
+function showScreen(i){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});$(i).classList.add('active');window.scrollTo(0,0);if(i==='s-login') initLoginButtons();}
 function showToast(m){var t=$('toast');t.textContent=m||'コピーしました';t.style.display='block';setTimeout(function(){t.style.display='none';},2000);}
 
 function memberName(m){return typeof m==='string'?m:m.name;}
@@ -360,28 +375,29 @@ function saveEvents(){return api({action:'saveEvents',eventsJson:JSON.stringify(
 // 年度セレクト初期化
 var selectedYear='';
 function initLoginButtons(){
-  var sel=$('year-sel');
-  if(!sel) return;
-  var now=new Date(),nowY=now.getFullYear(),nowM=now.getMonth()+1;
-  var baseY=nowM>=4?nowY:nowY-1;
-  for(var yi=baseY;yi<=baseY+9;yi++){
-    var opt=document.createElement('option');
-    opt.value=yi+'年度';opt.textContent=yi+'年';
-    if(yi===baseY) opt.selected=true;
-    sel.appendChild(opt);
-  }
-  selectedYear=baseY+'年度';
-  sel.addEventListener('change',function(){selectedYear=this.value;});
-  // 園ボタン
-  var gmap={'g-nishijin':'西新','g-hara':'原','g-tanotsu':'たの津','g-chikushino':'ちくし野'};
-  Object.keys(gmap).forEach(function(id){
-    var btn=$(id);
-    if(!btn) return;
+  selectedYear='2026年度';
+  var yBtn=$('year-btn');
+  var yList=$('year-list');
+  if(!yBtn||!yList) return;
+  document.querySelectorAll('.year-opt').forEach(function(item){
+    item.addEventListener('click',function(e){
+      e.stopPropagation();
+      selectedYear=item.getAttribute('data-year');
+      yBtn.textContent=item.textContent;
+      yList.style.display='none';
+    });
+  });
+  yBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    yList.style.display=yList.style.display==='none'?'block':'none';
+  });
+  document.querySelectorAll('.garden-select-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
-      currentGarden=gmap[id];
+      currentGarden=btn.getAttribute('data-garden');
       currentYear=selectedYear;
       sessionStorage.setItem('hf_garden',currentGarden);
       sessionStorage.setItem('hf_year',currentYear);
+      yList.style.display='none';
       enterApp();
     });
   });
@@ -402,6 +418,7 @@ function enterApp(){
 (function(){
   var sg=sessionStorage.getItem('hf_garden'),sy=sessionStorage.getItem('hf_year');
   if(sg&&sy&&GARDENS[sg]){currentGarden=sg;currentYear=sy;enterApp();}
+  else{initLoginButtons();}
 })();
 
 $('back-to-login').addEventListener('click',function(){currentGarden='';currentYear='';showScreen('s-login');});
@@ -410,7 +427,7 @@ $('logout-btn').addEventListener('click',function(){
   currentGarden='';currentYear='';currentMembers=[];events=[];allEntries=[];
   showScreen('s-login');
 });
-$('change-year-btn').addEventListener('click',function(){ sessionStorage.removeItem('hf_garden');sessionStorage.removeItem('hf_year');currentGarden='';currentYear='';events=[];allEntries=[];showScreen('s-login'); });
+
 
 // ===== メンバー設定 =====
 $('btn-members').addEventListener('click',function(){
@@ -617,7 +634,7 @@ function loadAllEntries(){
   api({action:'read'}).then(function(data){
     var rows=data.rows||[];
     allEntries=rows.filter(function(r){return r.rowNum>1&&r.data&&r.data[1];}).map(function(r){
-      return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3]};
+      return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3],status:r.data[4]||'提出'};
     });
     api({action:'getEvents'}).then(function(d){
       events=(d.events||[]).map(function(e){
@@ -631,7 +648,7 @@ function loadAllEntries(){
 
 function getDoneClasses(evName){
   var done={};
-  allEntries.filter(function(e){return e.event===evName;}).forEach(function(e){
+  allEntries.filter(function(e){return e.event===evName&&e.status!=='一時保存';}).forEach(function(e){
     if(!e.cls) return;
     e.cls.split('・').forEach(function(c){done[c.trim()]=true;});
   });
@@ -763,8 +780,11 @@ function renderSumList(){
 function openInput(ev){
   editingEntry=null;currentEvent=ev;$('input-title').textContent=ev.name;
   resetClsChips();$('hansei').value='';$('input-err').textContent='';
-  $('submit-btn').textContent='送信する';$('submit-btn').disabled=false;
+  $('submit-btn').textContent='提出';$('submit-btn').disabled=false;
+  $('draft-btn').textContent='一時保存';$('draft-btn').style.display='block';
   $('delete-entry-btn').style.display='none';$('edit-mode-banner').style.display='none';
+  $('draft-banner').style.display='none';
+  isDirty=false;
   renderClsProgress('input-cls-progress',ev,true);
   updateClsChipsDone(ev);showScreen('s-input');
 }
@@ -774,6 +794,7 @@ function openEditEntry(ev,entry){
   selectedClasses=[];resetClsChips();
   $('hansei').value=entry.text||'';$('input-err').textContent='';
   $('submit-btn').textContent='更新する';$('submit-btn').disabled=false;
+  $('draft-btn').textContent='一時保存';$('draft-btn').style.display='block';
   $('delete-entry-btn').style.display='block';$('edit-mode-banner').style.display='block';
   updateClsChipsDone(ev);
   var list=entry.cls?entry.cls.split('・').map(function(c){return c.trim();}):[];
@@ -795,7 +816,7 @@ function loadEntries(){
   api({action:'read'}).then(function(data){
     var rows=data.rows||[];
     allEntries=rows.filter(function(r){return r.rowNum>1&&r.data&&r.data[1];}).map(function(r){
-      return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3]};
+      return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3],status:r.data[4]||'提出'};
     });
     renderSumList();renderEvList();
     renderClsProgress('entries-cls-progress',currentEvent,false);
@@ -831,6 +852,45 @@ function renderEntries(){
   $('copy-box').textContent=sorted.map(function(e){return'【'+e.cls+'】\n'+e.text;}).join('\n\n');
 }
 
+// 未保存フラグ
+var isDirty=false;
+function markDirty(){isDirty=true;}
+function clearDirty(){isDirty=false;sessionStorage.removeItem('hf_draft');}
+
+function saveDraft(){
+  var text=$('hansei').value.trim(),err=$('input-err');
+  if(!selectedClasses.length){err.textContent='記入者を選択してください';return;}
+  if(!text){err.textContent='反省を入力してください';return;}
+  err.textContent='';
+  var draft={event:currentEvent.name,cls:selectedClasses.join('・'),text:text,rowNum:editingEntry?editingEntry.rowNum:null};
+  sessionStorage.setItem('hf_draft',JSON.stringify(draft));
+  $('draft-btn').textContent='一時保存済 ✓';
+  isDirty=false;
+  // スプレッドシートにも一時保存
+  if(editingEntry){
+    api({action:'update',rowNum:editingEntry.rowNum,cls:draft.cls,text:draft.text,status:'一時保存'}).then(function(){
+      showToast('一時保存しました');
+    });
+  } else {
+    api({action:'write',event:currentEvent.name,cls:draft.cls,text:draft.text,status:'一時保存'}).then(function(res){
+      if(res.ok) showToast('一時保存しました');
+    });
+  }
+}
+
+function safeGoHome(){
+  if(isDirty){
+    if(confirm('入力中の内容があります。一時保存しますか？
+「OK」→一時保存して戻る
+「キャンセル」→破棄して戻る')){
+      saveDraft();
+    }
+  }
+  isDirty=false;
+  $('draft-btn').textContent='一時保存';
+  renderEvList();renderSumList();showScreen('s-home');
+}
+
 function submitHansei(){
   var text=$('hansei').value.trim(),err=$('input-err');
   if(!selectedClasses.length){err.textContent='記入者を選択してください';return;}
@@ -838,14 +898,16 @@ function submitHansei(){
   err.textContent='';$('submit-btn').disabled=true;
   if(editingEntry){
     $('submit-btn').textContent='更新中...';
-    api({action:'update',rowNum:editingEntry.rowNum,cls:selectedClasses.join('・'),text:text}).then(function(){
+    api({action:'update',rowNum:editingEntry.rowNum,cls:selectedClasses.join('・'),text:text,status:'提出'}).then(function(){
+      clearDirty();
       $('success-title').textContent='更新しました';$('success-sub').textContent='反省内容を更新しました';showScreen('s-success');
     }).catch(function(){err.textContent='更新に失敗しました。';$('submit-btn').disabled=false;$('submit-btn').textContent='更新する';});
   } else {
-    $('submit-btn').textContent='送信中...';
-    api({action:'write',event:currentEvent.name,cls:selectedClasses.join('・'),text:text}).then(function(){
-      $('success-title').textContent='送信しました';$('success-sub').textContent='スプレッドシートに保存されました';showScreen('s-success');
-    }).catch(function(){err.textContent='送信に失敗しました。';$('submit-btn').disabled=false;$('submit-btn').textContent='送信する';});
+    $('submit-btn').textContent='提出中...';
+    api({action:'write',event:currentEvent.name,cls:selectedClasses.join('・'),text:text,status:'提出'}).then(function(){
+      clearDirty();
+      $('success-title').textContent='提出しました';$('success-sub').textContent='スプレッドシートに保存されました';showScreen('s-success');
+    }).catch(function(){err.textContent='提出に失敗しました。';$('submit-btn').disabled=false;$('submit-btn').textContent='提出';});
   }
 }
 
@@ -868,13 +930,14 @@ function addEvent(){
 
 $('t-input').addEventListener('click',function(){switchTab('input');});
 $('t-summary').addEventListener('click',function(){switchTab('summary');});
-$('back-input').addEventListener('click',goHome);
+$('back-input').addEventListener('click',safeGoHome);
 $('back-entries').addEventListener('click',goHome);
 $('back-add').addEventListener('click',goHome);
 $('back-success').addEventListener('click',function(){editingEntry=null;loadAllEntries();goHome();});
-$('cancel-btn').addEventListener('click',goHome);
+$('cancel-btn').addEventListener('click',safeGoHome);
 $('cancel-add-btn').addEventListener('click',goHome);
 $('submit-btn').addEventListener('click',submitHansei);
+$('draft-btn').addEventListener('click',saveDraft);
 $('save-ev-btn').addEventListener('click',addEvent);
 $('reload-btn').addEventListener('click',loadEntries);
 $('copy-btn').addEventListener('click',function(){
@@ -900,6 +963,7 @@ $('edit-delete-btn').addEventListener('click',function(){
 $('edit-cancel-btn').addEventListener('click',closeEditModal);
 $('edit-modal').addEventListener('click',function(e){if(e.target===$('edit-modal')) closeEditModal();});
 initLoginButtons();
+document.addEventListener('click',function(){var y=$('year-list');if(y) y.style.display='none';});
 </script>
 </body>
 </html>
