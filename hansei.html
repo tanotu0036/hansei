@@ -875,7 +875,7 @@ function saveDraft(){
 }
 
 function safeGoHome(){
-  if(isDirty){
+  if(isDirty&&$('hansei').value.trim()){
     if(confirm('入力中の内容があります。\n一時保存してから戻りますか？\nOK→一時保存  キャンセル→破棄')){
       saveDraft();
     }
