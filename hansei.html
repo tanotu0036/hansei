@@ -41,7 +41,7 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 .form-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .form-label-row .form-label{margin-bottom:0;}
 .sel-btn-group{display:flex;gap:6px;}
-.sel-all-btn{font-size:12px;color:#e07030;background:#fff0e6;border:none;border-radius:8px;cursor:pointer;padding:3px 8px;white-space:nowrap;}
+.sel-all-btn{font-size:12px;color:#e07030;background:#fff0e6;border:1px solid #ffcba4;border-radius:8px;cursor:pointer;padding:3px 8px;white-space:nowrap;}
 .cls-chips{display:flex;flex-wrap:wrap;gap:8px;}
 .cls-chip{padding:8px 14px;background:#f2f2f7;border:1.5px solid #e5e5ea;border-radius:20px;font-size:14px;color:#555;cursor:pointer;user-select:none;position:relative;}
 .cls-chip.selected{background:#FF8C42;color:#fff;border-color:#FF8C42;}
@@ -54,10 +54,10 @@ html,body{height:100%;background:#f2f2f7;font-family:-apple-system,BlinkMacSyste
 select{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;padding:4px 0;}
 textarea,input[type=text],input[type=password]{width:100%;border:none;outline:none;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;-webkit-appearance:none;}
 textarea{min-height:160px;resize:none;line-height:1.6;}
-.btn-p{display:block;width:100%;padding:16px;background:#FF8C42;color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;margin-bottom:10px;}
+.btn-p{display:block;width:100%;padding:16px;background:#FF8C42;color:#fff;border:1.5px solid #e67a30;border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;margin-bottom:10px;}
 .btn-p:active{background:#e67a30;}
-.btn-s{display:block;width:100%;padding:16px;background:#fff0e6;color:#e07030;border:none;border-radius:12px;font-size:17px;cursor:pointer;margin-bottom:10px;}
-.btn-danger{display:block;width:100%;padding:16px;background:#fff0ef;color:#ff3b30;border:none;border-radius:12px;font-size:17px;cursor:pointer;margin-bottom:10px;}
+.btn-s{display:block;width:100%;padding:16px;background:#fff0e6;color:#e07030;border:1.5px solid #ffcba4;border-radius:12px;font-size:17px;cursor:pointer;margin-bottom:10px;}
+.btn-danger{display:block;width:100%;padding:16px;background:#fff0ef;color:#ff3b30;border:1.5px solid #ffb3b0;border-radius:12px;font-size:17px;cursor:pointer;margin-bottom:10px;}
 .back{color:#e07030;font-size:16px;cursor:pointer;padding:4px 0;margin-bottom:4px;display:inline-block;}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;}
 .chips::-webkit-scrollbar{display:none;}
@@ -109,7 +109,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
 .context-info{font-size:13px;color:#8e8e93;}
 .context-info span{color:#1c1c1e;font-weight:600;}
 .logout-btn{font-size:13px;cursor:pointer;background:none;border:none;padding:4px 8px;}
-.garden-select-btn{display:block;width:100%;padding:20px;margin-bottom:12px;background:#fff0e6;border:none;border-radius:16px;font-size:20px;font-weight:700;color:#c45e10;cursor:pointer;text-align:center;letter-spacing:0.05em;}
+.garden-select-btn{display:block;width:100%;padding:20px;margin-bottom:12px;background:#fff0e6;border:1.5px solid #ffcba4;border-radius:16px;font-size:20px;font-weight:700;color:#c45e10;cursor:pointer;text-align:center;letter-spacing:0.05em;}
 .garden-select-btn:active{background:#ffe5d0;}
 .edit-mode-banner{background:#fff3cd;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#856404;text-align:center;}
 .member-list{margin-bottom:12px;}
@@ -138,7 +138,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
     <div class="login-logo">🏫</div>
     <div class="login-title">行事の反省 入力フォーム</div>
     <div class="login-sub">園を選んでください</div>
-    <select id="year-sel" style="display:block;width:100%;padding:20px;margin-bottom:12px;background:#d6f0ff;border:none;border-radius:16px;font-size:20px;font-weight:700;color:#1a6a9a;cursor:pointer;text-align:center;text-align-last:center;-webkit-appearance:none;appearance:none;"></select>
+    <select id="year-sel" style="display:block;width:100%;padding:20px;margin-bottom:12px;background:#d6f0ff;border:1.5px solid #a8d8f0;border-radius:16px;font-size:20px;font-weight:700;color:#1a6a9a;cursor:pointer;text-align:center;text-align-last:center;-webkit-appearance:none;appearance:none;"></select>
     <button class="garden-select-btn" id="g-nishijin">西新</button>
     <button class="garden-select-btn" id="g-hara">原</button>
     <button class="garden-select-btn" id="g-tanotsu">たの津</button>
