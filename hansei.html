@@ -823,8 +823,8 @@ function reloadDraftForSelected(){
     }
   }
 
-  // チップロック更新
-  updateChipLock(draftEntry);
+  // チップロック更新（一時保存 or 提出済みエントリでロック）
+  updateChipLock(draftEntry||editingEntry);
 }
 
 function updateInputChipsDone(ev){
