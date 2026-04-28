@@ -767,17 +767,42 @@ function reloadDraftForSelected(){
     }
   }
 
+  // 選択中メンバーに関連する一時保存が別の組み合わせで存在するか確認
+  var mismatchDraft=null;
+  if(!draftEntry){
+    for(var k=0;k<allEntries.length;k++){
+      var ek=allEntries[k];
+      if(ek.event===currentEvent.name && ek.status==='一時保存'){
+        var elistk=ek.cls?ek.cls.split('・').map(function(c){return c.trim();}):[];
+        // 選択中メンバーと部分的に一致（完全一致ではない）
+        var partialMatch=sel.some(function(s){ return elistk.indexOf(s)>=0; });
+        if(partialMatch){ mismatchDraft=ek; break; }
+      }
+    }
+  }
+
   if(draftEntry){
-    // 一時保存あり → 内容を反省欄に表示
+    // 完全一致の一時保存あり → 内容を反省欄に表示
     $$('hansei').value=draftEntry.text||'';
     editingEntry=draftEntry;
     $$('draft-saved-banner').style.display='block';
     $$('delete-entry-btn').style.display='block';
     isDirty=false;
   } else {
-    // 一時保存なし → 反省欄をクリア、提出済みがあればeditingEntryだけ設定
+    // 一時保存なし（または組み合わせ不一致）→ 反省欄をクリア
+    if(mismatchDraft){
+      // 組み合わせが違う一時保存がある場合は警告表示
+      $$('draft-saved-banner').style.display='block';
+      $$('draft-saved-banner').textContent='⚠️ 「'+mismatchDraft.cls+'」で一時保存中の内容があります（記入者の組み合わせが違います）';
+      $$('draft-saved-banner').style.background='#fff3cd';
+      $$('draft-saved-banner').style.color='#856404';
+    } else {
+      $$('draft-saved-banner').style.display='none';
+      $$('draft-saved-banner').textContent='一時保存されています';
+      $$('draft-saved-banner').style.background='';
+      $$('draft-saved-banner').style.color='';
+    }
     $$('hansei').value='';
-    $$('draft-saved-banner').style.display='none';
     isDirty=false;
     var submitted=null;
     for(var j=0;j<allEntries.length;j++){
