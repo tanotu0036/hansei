@@ -740,6 +740,20 @@ function buildInputChips(){
     persons.forEach(addChip);
   }
 }
+function checkMismatch(sel){
+  // 選択中メンバーと部分一致するが完全一致しない一時保存を返す
+  for(var i=0;i<allEntries.length;i++){
+    var e=allEntries[i];
+    if(e.event===currentEvent.name && e.status==='一時保存'){
+      var elist=e.cls?e.cls.split('・').map(function(c){return c.trim();}):[];
+      var partial=sel.some(function(s){return elist.indexOf(s)>=0;});
+      var exact=sel.length===elist.length&&sel.every(function(s){return elist.indexOf(s)>=0;});
+      if(partial&&!exact) return e;
+    }
+  }
+  return null;
+}
+
 function reloadDraftForSelected(){
   if(!currentEvent) return;
   var sel=getSelectedChips();
@@ -852,6 +866,11 @@ function submitHansei(){
   var sel=getSelectedChips(), text=$$('hansei').value.trim(), err=$$('input-err');
   if(!sel.length){ err.textContent='記入者を選択してください'; return; }
   if(!text){ err.textContent='反省を入力してください'; return; }
+  // 組み合わせ不一致チェック
+  var mismatch=checkMismatch(sel);
+  if(mismatch){
+    if(!confirm('「'+mismatch.cls+'」で一時保存した内容があります。新しい組み合わせ「'+sel.join('・')+'」で保存しますか？')){return;}
+  }
   err.textContent=''; $$('submit-btn').disabled=true;
   var clsLabel=sel.join('・');
   if(editingEntry){
@@ -877,6 +896,11 @@ function saveDraft(){
   var sel=getSelectedChips(), text=$$('hansei').value.trim(), err=$$('input-err');
   if(!sel.length){ err.textContent='記入者を選択してください'; return; }
   if(!text){ err.textContent='反省を入力してください'; return; }
+  // 組み合わせ不一致チェック
+  var mismatch=checkMismatch(sel);
+  if(mismatch){
+    if(!confirm('「'+mismatch.cls+'」で一時保存した内容があります。新しい組み合わせ「'+sel.join('・')+'」で保存しますか？')){return;}
+  }
   err.textContent=''; $$('draft-btn').disabled=true; $$('draft-btn').textContent='保存中...';
   var clsLabel=sel.join('・');
 
