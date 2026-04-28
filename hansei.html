@@ -809,14 +809,50 @@ function saveDraft(){
   if(!text){ err.textContent='反省を入力してください'; return; }
   err.textContent=''; $$('draft-btn').disabled=true; $$('draft-btn').textContent='保存中...';
   var clsLabel=sel.join('・');
+
+  // 既存の一時保存行を探す（editingEntryがあればそれを使用）
+  if(!editingEntry){
+    // 選択クラスに対応する一時保存エントリを検索
+    for(var i=0;i<allEntries.length;i++){
+      var e=allEntries[i];
+      if(e.event===currentEvent.name && e.status==='一時保存'){
+        var elist=e.cls?e.cls.split('・').map(function(c){return c.trim();}):[];
+        var hasMatch=sel.some(function(s){ return elist.indexOf(s)>=0; });
+        if(hasMatch){ editingEntry=e; break; }
+      }
+    }
+  }
+
   if(editingEntry){
+    // 既存行を上書き更新
     api({action:'update',rowNum:editingEntry.rowNum,cls:clsLabel,text:text,status:'一時保存'}).then(function(){
       isDirty=false; $$('draft-btn').disabled=false; $$('draft-btn').textContent='一時保存済 ✓';
+      // allEntriesも更新
+      for(var i=0;i<allEntries.length;i++){
+        if(allEntries[i].rowNum===editingEntry.rowNum){
+          allEntries[i].cls=clsLabel; allEntries[i].text=text; break;
+        }
+      }
       showToast('一時保存しました');
     }).catch(function(){ err.textContent='一時保存に失敗しました'; $$('draft-btn').disabled=false; $$('draft-btn').textContent='一時保存'; });
   } else {
-    api({action:'write',event:currentEvent.name,cls:clsLabel,text:text,status:'一時保存'}).then(function(res){
+    // 新規追加
+    api({action:'write',event:currentEvent.name,cls:clsLabel,text:text,status:'一時保存'}).then(function(){
       isDirty=false; $$('draft-btn').disabled=false; $$('draft-btn').textContent='一時保存済 ✓';
+      // 次回から上書きできるようにリロード
+      api({action:'read'}).then(function(data){
+        var rows=data.rows||[];
+        allEntries=rows.filter(function(r){return r.rowNum>1&&r.data&&r.data[1];}).map(function(r){
+          return{rowNum:r.rowNum,event:r.data[1],cls:r.data[2],text:r.data[3],status:r.data[4]||'提出'};
+        });
+        // editingEntryを最新の一時保存行に設定
+        for(var i=allEntries.length-1;i>=0;i--){
+          if(allEntries[i].event===currentEvent.name&&allEntries[i].status==='一時保存'){
+            editingEntry=allEntries[i]; break;
+          }
+        }
+        renderEvList(); renderSumList();
+      });
       showToast('一時保存しました');
     }).catch(function(){ err.textContent='一時保存に失敗しました'; $$('draft-btn').disabled=false; $$('draft-btn').textContent='一時保存'; });
   }
