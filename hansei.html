@@ -727,20 +727,7 @@ function buildInputChips(){
     chip.textContent=n;
     chip.onclick=function(){
       chip.classList.toggle('selected');
-      if(chip.classList.contains('selected') && currentEvent){
-        var entry=getEntryForMember(currentEvent.name, n);
-        if(entry && entry.status==='一時保存'){
-          var cur=$$('hansei').value.trim();
-          var doLoad=!cur||confirm('一時保存の内容を読み込みますか？');
-          if(doLoad){
-            $$('hansei').value=entry.text||'';
-            editingEntry=entry;
-            $$('draft-saved-banner').style.display='block';
-            $$('delete-entry-btn').style.display='block';
-            isDirty=false;
-          }
-        }
-      }
+      reloadDraftForSelected();
     };
     el.appendChild(chip);
   }
@@ -753,6 +740,59 @@ function buildInputChips(){
     persons.forEach(addChip);
   }
 }
+function reloadDraftForSelected(){
+  if(!currentEvent) return;
+  var sel=getSelectedChips();
+  if(!sel.length){
+    // 全解除されたらリセット
+    $$('hansei').value='';
+    editingEntry=null;
+    $$('draft-saved-banner').style.display='none';
+    $$('delete-entry-btn').style.display='none';
+    isDirty=false;
+    return;
+  }
+  // 選択中メンバーの一時保存を検索
+  var found=null;
+  for(var i=0;i<allEntries.length;i++){
+    var e=allEntries[i];
+    if(e.event===currentEvent.name && e.status==='一時保存'){
+      var elist=e.cls?e.cls.split('・').map(function(c){return c.trim();}):[];
+      var match=sel.some(function(s){ return elist.indexOf(s)>=0; });
+      if(match){ found=e; break; }
+    }
+  }
+  if(found){
+    $$('hansei').value=found.text||'';
+    editingEntry=found;
+    $$('draft-saved-banner').style.display='block';
+    $$('delete-entry-btn').style.display='block';
+    isDirty=false;
+  } else {
+    // 一時保存なし → 通常の提出済みを確認
+    var submitted=null;
+    for(var j=0;j<allEntries.length;j++){
+      var e2=allEntries[j];
+      if(e2.event===currentEvent.name && e2.status!=='一時保存'){
+        var elist2=e2.cls?e2.cls.split('・').map(function(c){return c.trim();}):[];
+        var match2=sel.some(function(s){ return elist2.indexOf(s)>=0; });
+        if(match2){ submitted=e2; break; }
+      }
+    }
+    if(submitted){
+      // 提出済みがある場合はeditingEntryだけ設定（テキストは上書きしない）
+      editingEntry=submitted;
+      $$('draft-saved-banner').style.display='none';
+      $$('delete-entry-btn').style.display='block';
+    } else {
+      // 新規入力
+      editingEntry=null;
+      $$('draft-saved-banner').style.display='none';
+      $$('delete-entry-btn').style.display='none';
+    }
+  }
+}
+
 function updateInputChipsDone(ev){
   var done=getDoneClasses(ev.name), target=getEventClasses(ev);
   document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
