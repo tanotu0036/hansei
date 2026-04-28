@@ -202,6 +202,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
           <div class="sel-btn-group">
             <button class="sel-all-btn" onclick="selAllClass()">全クラス</button>
             <button class="sel-all-btn" onclick="selAllPerson()">全員</button>
+            <button class="sel-all-btn" id="add-member-sel-btn" style="display:none;background:#e8f4ff;color:#1a6a9a;border-color:#a8d8f0;" onclick="unlockChips()">記入者追加</button>
           </div>
         </div>
         <div class="cls-chips" id="cls-chips"></div>
@@ -681,6 +682,9 @@ function openInput(ev){
   $$('draft-saved-banner').style.display='none';
   buildInputChips();
   updateInputChipsDone(ev);
+  updateChipLock(null);
+  var addBtn=$$('add-member-sel-btn');
+  if(addBtn) addBtn.style.display='none';
   renderClsProgress('input-cls-progress',ev,true);
   showScreen('s-input');
 }
@@ -726,6 +730,11 @@ function buildInputChips(){
     chip.className='cls-chip type-'+t; chip.setAttribute('data-name',n); chip.setAttribute('data-type',t);
     chip.textContent=n;
     chip.onclick=function(){
+      // ロックされているチップは選択不可
+      if(chip.classList.contains('chip-locked')){
+        alert('記入者が一時保存時の組合せと異なります');
+        return;
+      }
       chip.classList.toggle('selected');
       reloadDraftForSelected();
     };
