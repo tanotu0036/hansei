@@ -581,7 +581,7 @@ function renderEvList(){
     var main=item.querySelector('.list-item-main');
     var pressTimer=null, touchMoved=false;
     function startPress(){ pressTimer=setTimeout(function(){ pressTimer=null; openEditModal(idx); },600); }
-    function endPress(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer=null; alert('タップ検知: '+ev.name); openInput(ev); } }
+    function endPress(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer=null; openInput(ev); } }
     function cancelPress(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer=null; } }
     main.addEventListener('mousedown',startPress);
     main.addEventListener('mouseup',endPress);
@@ -669,24 +669,28 @@ $$('edit-modal')&&$$('edit-modal').addEventListener('click',function(e){ if(e.ta
 
 // ===== 入力画面 =====
 function openInput(ev){
-  currentEvent=ev;
-  isDirty=false;
-  $$('input-title').textContent=ev.name;
-  $$('hansei').value='';
-  $$('input-err').textContent='';
-  $$('submit-btn').textContent='提出';
-  $$('submit-btn').disabled=false;
-  $$('draft-btn').textContent='一時保存';
-  $$('delete-entry-btn').style.display='none';
-  $$('edit-mode-banner').style.display='none';
-  $$('draft-saved-banner').style.display='none';
-  buildInputChips();
-  updateInputChipsDone(ev);
-  updateChipLock(null);
-  var addBtn=$$('add-member-sel-btn');
-  if(addBtn) addBtn.style.display='none';
-  renderClsProgress('input-cls-progress',ev,true);
-  showScreen('s-input');
+  try {
+    currentEvent=ev;
+    isDirty=false;
+    $$('input-title').textContent=ev.name;
+    $$('hansei').value='';
+    $$('input-err').textContent='';
+    $$('submit-btn').textContent='提出';
+    $$('submit-btn').disabled=false;
+    $$('draft-btn').textContent='一時保存';
+    $$('delete-entry-btn').style.display='none';
+    $$('edit-mode-banner').style.display='none';
+    $$('draft-saved-banner').style.display='none';
+    buildInputChips();
+    updateInputChipsDone(ev);
+    updateChipLock(null);
+    var addBtn=$$('add-member-sel-btn');
+    if(addBtn) addBtn.style.display='none';
+    renderClsProgress('input-cls-progress',ev,true);
+    showScreen('s-input');
+  } catch(err){
+    alert('openInputエラー: '+err.message+' / '+err.stack);
+  }
 }
 
 function editEntryFor(member){
