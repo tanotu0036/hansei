@@ -774,76 +774,56 @@ function reloadDraftForSelected(){
     $$('draft-saved-banner').style.display='none';
     $$('delete-entry-btn').style.display='none';
     isDirty=false;
+    updateChipLock(null);
     return;
   }
 
-  // 選択中メンバーと一時保存の記入者が完全一致する場合のみ読み込む
+  // 完全一致の一時保存を探す
   var draftEntry=null;
   for(var i=0;i<allEntries.length;i++){
     var e=allEntries[i];
     if(e.event===currentEvent.name && e.status==='一時保存'){
       var elist=e.cls?e.cls.split('・').map(function(c){return c.trim();}):[];
-      // 完全一致チェック：選択数が同じ＆全員一致
       var sameLen=sel.length===elist.length;
       var allMatch=sameLen&&sel.every(function(s){ return elist.indexOf(s)>=0; });
       if(allMatch){ draftEntry=e; break; }
     }
   }
 
-  // 選択中メンバーに関連する一時保存が別の組み合わせで存在するか確認
-  var mismatchDraft=null;
-  if(!draftEntry){
-    for(var k=0;k<allEntries.length;k++){
-      var ek=allEntries[k];
-      if(ek.event===currentEvent.name && ek.status==='一時保存'){
-        var elistk=ek.cls?ek.cls.split('・').map(function(c){return c.trim();}):[];
-        // 選択中メンバーと部分的に一致（完全一致ではない）
-        var partialMatch=sel.some(function(s){ return elistk.indexOf(s)>=0; });
-        if(partialMatch){ mismatchDraft=ek; break; }
-      }
-    }
-  }
+  // バナーリセット
+  var banner=$$('draft-saved-banner');
+  banner.style.display='none';
+  banner.style.background='#e8f4ff';
+  banner.style.color='#1a6a9a';
+  banner.textContent='一時保存されています';
+  $$('delete-entry-btn').style.display='none';
+  editingEntry=null;
+  isDirty=false;
 
   if(draftEntry){
-    // 完全一致の一時保存あり → 内容を反省欄に表示
+    // 完全一致の一時保存あり
     $$('hansei').value=draftEntry.text||'';
     editingEntry=draftEntry;
-    $$('draft-saved-banner').style.display='block';
+    banner.style.display='block';
     $$('delete-entry-btn').style.display='block';
-    isDirty=false;
   } else {
-    // 一時保存なし（または組み合わせ不一致）→ 反省欄をクリア
-    if(mismatchDraft){
-      // 組み合わせが違う一時保存がある場合は警告表示
-      $$('draft-saved-banner').style.display='block';
-      $$('draft-saved-banner').textContent='⚠️ 「'+mismatchDraft.cls+'」で一時保存中の内容があります（記入者の組み合わせが違います）';
-      $$('draft-saved-banner').style.background='#fff3cd';
-      $$('draft-saved-banner').style.color='#856404';
-    } else {
-      $$('draft-saved-banner').style.display='none';
-      $$('draft-saved-banner').textContent='一時保存されています';
-      $$('draft-saved-banner').style.background='';
-      $$('draft-saved-banner').style.color='';
-    }
     $$('hansei').value='';
-    isDirty=false;
-    var submitted=null;
+    // 提出済みを探す
     for(var j=0;j<allEntries.length;j++){
       var e2=allEntries[j];
       if(e2.event===currentEvent.name && e2.status!=='一時保存'){
         var elist2=e2.cls?e2.cls.split('・').map(function(c){return c.trim();}):[];
-        var match2=sel.some(function(s){ return elist2.indexOf(s)>=0; });
-        if(match2){ submitted=e2; break; }
+        if(sel.some(function(s){ return elist2.indexOf(s)>=0; })){
+          editingEntry=e2;
+          $$('delete-entry-btn').style.display='block';
+          break;
+        }
       }
     }
-    if(submitted){
-      editingEntry=submitted;
-      $$('delete-entry-btn').style.display='block';
-    } else {
-      editingEntry=null;
-      $$('delete-entry-btn').style.display='none';
-    }
   }
+
+  // チップロック更新
+  updateChipLock(draftEntry);
 }
 
 function updateInputChipsDone(ev){
