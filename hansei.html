@@ -589,6 +589,7 @@ function renderEvList(){
     main.addEventListener('touchstart',function(){ touchMoved=false; startPress(); },{passive:true});
     main.addEventListener('touchmove',function(){ touchMoved=true; cancelPress(); },{passive:true});
     main.addEventListener('touchend',function(){ if(!touchMoved) endPress(); else cancelPress(); });
+    main.addEventListener('click',function(){ openInput(ev); });
     el.appendChild(item);
   });
 }
@@ -669,28 +670,24 @@ $$('edit-modal')&&$$('edit-modal').addEventListener('click',function(e){ if(e.ta
 
 // ===== 入力画面 =====
 function openInput(ev){
-  try {
-    currentEvent=ev;
-    isDirty=false;
-    $$('input-title').textContent=ev.name;
-    $$('hansei').value='';
-    $$('input-err').textContent='';
-    $$('submit-btn').textContent='提出';
-    $$('submit-btn').disabled=false;
-    $$('draft-btn').textContent='一時保存';
-    $$('delete-entry-btn').style.display='none';
-    $$('edit-mode-banner').style.display='none';
-    $$('draft-saved-banner').style.display='none';
-    buildInputChips();
-    updateInputChipsDone(ev);
-    updateChipLock(null);
-    var addBtn=$$('add-member-sel-btn');
-    if(addBtn) addBtn.style.display='none';
-    renderClsProgress('input-cls-progress',ev,true);
-    showScreen('s-input');
-  } catch(err){
-    alert('openInputエラー: '+err.message+' / '+err.stack);
-  }
+  currentEvent=ev;
+  isDirty=false;
+  $$('input-title').textContent=ev.name;
+  $$('hansei').value='';
+  $$('input-err').textContent='';
+  $$('submit-btn').textContent='提出';
+  $$('submit-btn').disabled=false;
+  $$('draft-btn').textContent='一時保存';
+  $$('delete-entry-btn').style.display='none';
+  $$('edit-mode-banner').style.display='none';
+  $$('draft-saved-banner').style.display='none';
+  buildInputChips();
+  updateInputChipsDone(ev);
+  updateChipLock(null);
+  var addBtn=$$('add-member-sel-btn');
+  if(addBtn) addBtn.style.display='none';
+  renderClsProgress('input-cls-progress',ev,true);
+  showScreen('s-input');
 }
 
 function editEntryFor(member){
