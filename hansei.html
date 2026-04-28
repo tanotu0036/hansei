@@ -754,15 +754,16 @@ function reloadDraftForSelected(){
     return;
   }
 
-  // 選択中メンバーの中に一時保存があるか確認
+  // 選択中メンバーと一時保存の記入者が完全一致する場合のみ読み込む
   var draftEntry=null;
   for(var i=0;i<allEntries.length;i++){
     var e=allEntries[i];
     if(e.event===currentEvent.name && e.status==='一時保存'){
       var elist=e.cls?e.cls.split('・').map(function(c){return c.trim();}):[];
-      // 選択中メンバーと一時保存メンバーが1人でも一致
-      var match=sel.some(function(s){ return elist.indexOf(s)>=0; });
-      if(match){ draftEntry=e; break; }
+      // 完全一致チェック：選択数が同じ＆全員一致
+      var sameLen=sel.length===elist.length;
+      var allMatch=sameLen&&sel.every(function(s){ return elist.indexOf(s)>=0; });
+      if(allMatch){ draftEntry=e; break; }
     }
   }
 
