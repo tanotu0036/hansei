@@ -173,7 +173,7 @@ textarea{min-height:160px;resize:none;line-height:1.6;}
       <p class="hint">長押しで編集 ／ ☰ をドラッグで並び替え</p>
       <div class="list-group" id="ev-list"><p class="empty">読み込み中...</p></div>
       <button class="btn-s" onclick="showAddEvent()">＋ 行事を追加</button>
-      <button class="btn-s" style="color:#555;" onclick="showScreen('s-members')">⚙️ メンバー設定</button>
+      <button class="btn-s" style="color:#555;" onclick="openMembersScreen()">⚙️ メンバー設定</button>
     </div>
     <div id="p-summary" style="display:none">
       <p class="sec-title">反省取りまとめ</p>
@@ -665,7 +665,7 @@ function deleteEvent(){
   events.splice(editingEventIndex,1);
   saveEvents().then(function(){ closeEditModal(); renderEvList(); showToast('削除しました'); });
 }
-$$('edit-modal').addEventListener('click',function(e){ if(e.target===$$('edit-modal')) closeEditModal(); });
+$$('edit-modal')&&$$('edit-modal').addEventListener('click',function(e){ if(e.target===$$('edit-modal')) closeEditModal(); });
 
 // ===== 入力画面 =====
 function openInput(ev){
@@ -1185,7 +1185,7 @@ function addMember(){
   tempMembers.push({name:name,type:newMemberType});
   $$('new-member-input').value=''; renderMemberList();
 }
-$$('new-member-input').addEventListener('keydown',function(e){ if(e.key==='Enter') addMember(); });
+$$('new-member-input')&&$$('new-member-input').addEventListener('keydown',function(e){ if(e.key==='Enter') addMember(); });
 function saveMembers(){
   if(!tempMembers.length){ $$('members-err').textContent='メンバーが空です'; return; }
   api({action:'saveMembers',membersJson:JSON.stringify(tempMembers)}).then(function(){
