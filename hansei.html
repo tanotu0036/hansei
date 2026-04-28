@@ -632,8 +632,8 @@ document.addEventListener('touchmove',function(e){
   if(over){ var item=over.closest('.list-item'); if(item) item.classList.add('drag-over'); }
 },{passive:false});
 document.addEventListener('touchend',function(e){
-  if(evTouchIdx<0) return;
-  if(evTouchClone){ document.body.removeChild(evTouchClone); evTouchClone=null; }
+  if(evTouchIdx<0||!evTouchClone) return; // クローンがない＝ドラッグ中でない
+  document.body.removeChild(evTouchClone); evTouchClone=null;
   document.querySelectorAll('.list-item').forEach(function(i){ i.classList.remove('drag-over'); });
   var y=e.changedTouches[0].clientY;
   var over=document.elementFromPoint(e.changedTouches[0].clientX,y);
