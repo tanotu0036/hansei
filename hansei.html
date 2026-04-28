@@ -743,8 +743,9 @@ function buildInputChips(){
 function reloadDraftForSelected(){
   if(!currentEvent) return;
   var sel=getSelectedChips();
+
+  // 全解除 → 完全リセット
   if(!sel.length){
-    // 全解除されたらリセット
     $$('hansei').value='';
     editingEntry=null;
     $$('draft-saved-banner').style.display='none';
@@ -752,24 +753,31 @@ function reloadDraftForSelected(){
     isDirty=false;
     return;
   }
-  // 選択中メンバーの一時保存を検索
-  var found=null;
+
+  // 選択中メンバーの中に一時保存があるか確認
+  var draftEntry=null;
   for(var i=0;i<allEntries.length;i++){
     var e=allEntries[i];
     if(e.event===currentEvent.name && e.status==='一時保存'){
       var elist=e.cls?e.cls.split('・').map(function(c){return c.trim();}):[];
+      // 選択中メンバーと一時保存メンバーが1人でも一致
       var match=sel.some(function(s){ return elist.indexOf(s)>=0; });
-      if(match){ found=e; break; }
+      if(match){ draftEntry=e; break; }
     }
   }
-  if(found){
-    $$('hansei').value=found.text||'';
-    editingEntry=found;
+
+  if(draftEntry){
+    // 一時保存あり → 内容を反省欄に表示
+    $$('hansei').value=draftEntry.text||'';
+    editingEntry=draftEntry;
     $$('draft-saved-banner').style.display='block';
     $$('delete-entry-btn').style.display='block';
     isDirty=false;
   } else {
-    // 一時保存なし → 通常の提出済みを確認
+    // 一時保存なし → 反省欄をクリア、提出済みがあればeditingEntryだけ設定
+    $$('hansei').value='';
+    $$('draft-saved-banner').style.display='none';
+    isDirty=false;
     var submitted=null;
     for(var j=0;j<allEntries.length;j++){
       var e2=allEntries[j];
@@ -780,14 +788,10 @@ function reloadDraftForSelected(){
       }
     }
     if(submitted){
-      // 提出済みがある場合はeditingEntryだけ設定（テキストは上書きしない）
       editingEntry=submitted;
-      $$('draft-saved-banner').style.display='none';
       $$('delete-entry-btn').style.display='block';
     } else {
-      // 新規入力
       editingEntry=null;
-      $$('draft-saved-banner').style.display='none';
       $$('delete-entry-btn').style.display='none';
     }
   }
