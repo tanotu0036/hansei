@@ -581,7 +581,7 @@ function renderEvList(){
     var main=item.querySelector('.list-item-main');
     var pressTimer=null, touchMoved=false;
     function startPress(){ pressTimer=setTimeout(function(){ pressTimer=null; openEditModal(idx); },600); }
-    function endPress(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer=null; openInput(ev); } }
+    function endPress(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer=null; alert('タップ検知: '+ev.name); openInput(ev); } }
     function cancelPress(){ if(pressTimer){ clearTimeout(pressTimer); pressTimer=null; } }
     main.addEventListener('mousedown',startPress);
     main.addEventListener('mouseup',endPress);
@@ -839,6 +839,45 @@ function getSelectedChips(){
   document.querySelectorAll('#cls-chips .cls-chip.selected').forEach(function(c){ sel.push(c.getAttribute('data-name')); });
   return sel;
 }
+function updateChipLock(draftEntry){
+  var addBtn=$$('add-member-sel-btn');
+  if(draftEntry){
+    var draftCls=draftEntry.cls?draftEntry.cls.split('・').map(function(c){return c.trim();}):[];
+    document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
+      var n=chip.getAttribute('data-name');
+      if(chip.style.display==='none') return;
+      if(draftCls.indexOf(n)<0){
+        chip.classList.add('chip-locked');
+        chip.style.opacity='0.35';
+        chip.style.cursor='not-allowed';
+      } else {
+        chip.classList.remove('chip-locked');
+        chip.style.opacity='';
+        chip.style.cursor='pointer';
+      }
+    });
+    if(addBtn) addBtn.style.display='';
+  } else {
+    document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
+      chip.classList.remove('chip-locked');
+      chip.style.opacity='';
+      chip.style.cursor='pointer';
+    });
+    if(addBtn) addBtn.style.display='none';
+  }
+}
+
+function unlockChips(){
+  document.querySelectorAll('#cls-chips .cls-chip').forEach(function(chip){
+    chip.classList.remove('chip-locked');
+    chip.style.opacity='';
+    chip.style.cursor='pointer';
+  });
+  var addBtn=$$('add-member-sel-btn');
+  if(addBtn) addBtn.style.display='none';
+  showToast('記入者を追加できます');
+}
+
 function selAllClass(){
   document.querySelectorAll('#cls-chips .cls-chip[data-type="class"]').forEach(function(c){
     if(c.style.display!=='none') c.classList.add('selected');
