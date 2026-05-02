@@ -984,12 +984,13 @@ function saveDraft(){
 function deleteEntry(){
   if(!editingEntry) return;
   if(!confirm('この反省を削除しますか？')) return;
-  api({action:'delete',rowNum:editingEntry.rowNum}).then(function(){
+  api({action:'delete',rowNum:editingEntry.rowNum}).then(function(res){
+    if(res && res.error){ alert('削除エラー: '+res.error); $$('input-err').textContent='削除エラー: '+res.error; return; }
     editingEntry=null; isDirty=false;
     $$('success-title').textContent='削除しました';
     $$('success-sub').textContent='反省を削除しました';
     showScreen('s-success');
-  }).catch(function(){ $$('input-err').textContent='削除に失敗しました'; });
+  }).catch(function(e){ alert('削除通信エラー: '+(e&&e.message||e)); $$('input-err').textContent='削除に失敗しました'; });
 }
 
 function successBack(){
